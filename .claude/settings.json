@@ -1,4 +1,5 @@
 {
+  "defaultAgentModel": "gpt-5.4",
   "hooks": {
     "Stop": [
       {
