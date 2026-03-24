@@ -9,7 +9,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { Fretboard } from '@moonwave99/fretboard.js'
 import { useSettingsStore } from '../stores/useSettingsStore'
 import { getNoteAtPosition, transposeGuitarToWritten, GUITAR_TUNING } from '../utils/guitar-logic'
-import { FretboardWrapper } from '../components/VirtualGuitar/FretboardWrapper'
+import { LazyFretboardWrapper } from '../components/LazyWrappers'
 
 interface ClickInfo {
   time: string
@@ -346,24 +346,25 @@ export const FretboardTestPage: React.FC = () => {
 
           {/* Popup-style container */}
           <div className="bg-white dark:bg-slate-900 rounded-lg p-2 border border-cyan-200 dark:border-slate-600">
-            <FretboardWrapper
-              onNoteClick={(note: string) => {
-                // Parse note to find position (simplified - just log the note)
-                const clickInfo: ClickInfo = {
-                  time: new Date().toLocaleTimeString(),
-                  string: 0, // FretboardWrapper doesn't expose position directly
-                  fret: 0,
-                  soundingNote: note,
-                  writtenNote: note,
-                }
-                console.log('🎸 POPUP GUITAR:', { writtenNote: note })
-                setLastClick(clickInfo)
-                setClickLog((prev) => [clickInfo, ...prev.slice(0, 19)])
-              }}
-              compact={true}
-              showLabels={true}
-              fretCount={7}
-            />
+            <React.Suspense fallback={<div className="h-32 flex items-center justify-center text-slate-400">Loading fretboard...</div>}>
+              <LazyFretboardWrapper
+                onNoteClick={(note: string) => {
+                  const clickInfo: ClickInfo = {
+                    time: new Date().toLocaleTimeString(),
+                    string: 0,
+                    fret: 0,
+                    soundingNote: note,
+                    writtenNote: note,
+                  }
+                  console.log('🎸 POPUP GUITAR:', { writtenNote: note })
+                  setLastClick(clickInfo)
+                  setClickLog((prev) => [clickInfo, ...prev.slice(0, 19)])
+                }}
+                compact={true}
+                showLabels={true}
+                fretCount={7}
+              />
+            </React.Suspense>
           </div>
 
           {/* Mini click map for popup guitar - same fret range */}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import Split from 'react-split'
-import { AbcEditor } from '../components/MusicStaff/AbcEditor'
+import { LazyAbcEditor } from '../components/LazyWrappers'
 import { AbcScore } from '../components/MusicStaff/AbcScore'
 import { useNotationStore } from '../stores/useNotationStore'
 import './AbcEditorPage.css'
@@ -158,7 +158,9 @@ export const AbcEditorPage: React.FC = () => {
       >
         {/* Editor Pane */}
         <div className="h-full overflow-hidden">
-          <AbcEditor value={text} onChange={handleEditorChange} darkMode={darkMode} height="100%" />
+          <React.Suspense fallback={<div className="h-full flex items-center justify-center text-slate-400">Loading editor...</div>}>
+            <LazyAbcEditor value={text} onChange={handleEditorChange} darkMode={darkMode} height="100%" />
+          </React.Suspense>
         </div>
 
         {/* Preview Pane */}

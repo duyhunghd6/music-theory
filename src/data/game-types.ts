@@ -17,7 +17,7 @@ export interface GameConfig {
   /** Difficulty level affecting game parameters */
   difficulty?: 'easy' | 'medium' | 'hard'
   /** Specific notes to use (for note-based games) */
-  notes?: string[]
+  notes: string[]
   /** Required score percentage to pass (default 60) */
   requiredScore?: number
   /** XP reward for completing the game */
@@ -32,13 +32,11 @@ export interface GameConfig {
  * Props passed to all game components.
  * Each game component must accept these standard props.
  */
-export interface GameComponentProps {
+export interface GameComponentProps extends GameConfig {
   /** ID of the submodule containing this game */
   submoduleId: string
-  /** Merged configuration (defaults + submodule overrides) */
-  config: GameConfig
   /** Callback when game is completed */
-  onComplete: (score: number, total: number) => void
+  onComplete?: (score: number, total: number) => void
 }
 
 /**
@@ -68,6 +66,7 @@ export const DEFAULT_GAME_CONFIG: GameConfig = {
   questionCount: 5,
   timerSeconds: null,
   difficulty: 'medium',
+  notes: [],
   requiredScore: 60,
   xpReward: 30,
   maxStars: 3,

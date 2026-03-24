@@ -1,18 +1,17 @@
 import React from 'react'
 import { useGameStore } from '../stores/useGameStore'
-import { GameOverlay } from '../features/game/components/GameOverlay'
-import { FeedbackOverlay } from '../components/GameLoop/FeedbackOverlay'
+import { FeedbackOverlay, GameOverlay } from '../features/game'
 import { ConfettiExplosion } from '../components/ui/ConfettiExplosion'
 import { AppLayout } from '../components/layout/AppLayout'
 import { MainHeader } from '../components/layout/MainHeader'
 import { CollapsiblePanel } from '../components/ui/CollapsiblePanel'
 import { requestPersistentStorage, getStorageEstimate } from '../services/storage-manager'
+import { LazyModuleContent } from '../components/LazyWrappers'
 
 const AbcGrandStaff = React.lazy(() => import('../components/MusicStaff/AbcGrandStaff'))
 const HorizontalSaoTrucVisualizer = React.lazy(
   () => import('../features/sao-truc/components/HorizontalSaoTrucVisualizer')
 )
-const ModuleContent = React.lazy(() => import('../components/modules/ModuleContent'))
 const StaffRangeVisualTest = React.lazy(
   () => import('../components/MusicStaff/StaffRangeVisualTest')
 )
@@ -103,7 +102,7 @@ export const HomePage: React.FC = () => {
             </div>
           }
         >
-          <ModuleContent />
+          <LazyModuleContent />
         </React.Suspense>
 
         {/* Staff Range Test - Piano & Guitar */}

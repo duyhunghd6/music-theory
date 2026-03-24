@@ -1,25 +1,26 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act, waitFor, cleanup } from '@testing-library/react'
+import { render, screen, waitFor, cleanup } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HomePage } from './HomePage'
 import { useAudioStore } from '../stores/useAudioStore'
-import { useNotationStore } from '../stores/useNotationStore'
+import { useGameStore } from '../stores/useGameStore'
 
-// Mock AbcScore component (replacing MusicStaff)
-vi.mock('../components/MusicStaff/AbcScore', () => ({
-  default: ({ notation }: { notation: string }) => (
-    <div data-testid="abc-score-mock">{notation}</div>
+vi.mock('../components/MusicStaff/AbcGrandStaff', () => ({
+  default: ({ showNoteNames }: { showNoteNames: boolean }) => (
+    <div data-testid="grand-staff-mock">show-note-names:{String(showNoteNames)}</div>
   ),
 }))
 
-// Mock Audio Engine
-vi.mock('../services/audio-engine', () => ({
-  audioEngine: {
-    initialize: vi.fn(),
-    startNote: vi.fn(),
-    stopNote: vi.fn(),
-    playNote: vi.fn(),
-  },
+vi.mock('../features/sao-truc/components/HorizontalSaoTrucVisualizer', () => ({
+  default: () => <div data-testid="flute-visualizer-mock">flute visualizer</div>,
+}))
+
+vi.mock('../components/LazyWrappers', () => ({
+  LazyModuleContent: () => <div data-testid="module-content-mock">module content</div>,
+}))
+
+vi.mock('../components/MusicStaff/StaffRangeVisualTest', () => ({
+  default: () => <div data-testid="staff-range-test-mock">staff range test</div>,
 }))
 
 // Mock Storage Manager
@@ -30,54 +31,47 @@ vi.mock('../services/storage-manager', () => ({
 
 describe('HomePage Integration', () => {
   beforeEach(() => {
-    // Reset audio store state
     useAudioStore.setState({
       activeNotes: [],
       recordedNotes: [],
       isPlaying: false,
     })
-    // Reset notation store state
-    useNotationStore.setState({
-      notes: '',
-      header: {
-        title: 'Untitled',
-        meter: '4/4',
-        unitLength: '1/4',
-        key: 'C',
-        tempo: 120,
-      },
-      history: [],
-      historyIndex: -1,
+
+    useGameStore.setState({
+      isPlaying: false,
+      score: 0,
+      streak: 0,
+      currentQuestion: null,
+      gameMode: 'normal',
+      difficulty: 'easy',
+      showFeedback: false,
+      feedbackType: null,
+      showCelebration: false,
+      celebrationType: null,
+      totalQuestions: 0,
+      correctAnswers: 0,
+      timeRemaining: null,
+      selectedAnswer: null,
     })
+
     cleanup()
   })
 
-  it('updates ABC notation when piano key is pressed', async () => {
+  it('renders the current home page learning panels', async () => {
     render(
       <MemoryRouter>
         <HomePage />
       </MemoryRouter>
     )
-    const c4Key = screen.getByRole('button', { name: /C4/i })
 
-    // Wait for Suspense to load the lazy component
-    await waitFor(() => screen.getByTestId('abc-score-mock'))
+    expect(screen.getByText('Grand Staff View')).toBeInTheDocument()
+    expect(screen.getByText('Flute')).toBeInTheDocument()
+    expect(screen.getByText('Staff Range Test (ABC)')).toBeInTheDocument()
 
-    // Initial state: no notes in store
-    expect(useNotationStore.getState().notes).toBe('')
-
-    // Press and release key (note is added on key release)
-    await act(async () => {
-      fireEvent.pointerDown(c4Key)
-    })
-    await act(async () => {
-      fireEvent.pointerUp(c4Key)
-    })
-
-    // Check store has the note (C4 becomes 'C' in ABC notation)
     await waitFor(() => {
-      const notes = useNotationStore.getState().notes
-      expect(notes).toContain('C')
+      expect(screen.getByTestId('grand-staff-mock')).toBeInTheDocument()
+      expect(screen.getByTestId('flute-visualizer-mock')).toBeInTheDocument()
+      expect(screen.getByTestId('module-content-mock')).toBeInTheDocument()
     })
   })
 })

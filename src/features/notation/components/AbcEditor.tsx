@@ -2,26 +2,16 @@ import React from 'react'
 import Editor from '@monaco-editor/react'
 
 interface AbcEditorProps {
-  /** ABC notation value */
   value: string
-  /** Callback when value changes */
   onChange: (value: string) => void
-  /** Dark mode styling */
   darkMode?: boolean
-  /** Height of the editor */
   height?: string
-  /** Additional CSS classes */
   className?: string
 }
 
-/**
- * ABC Monarch syntax highlighting tokens
- */
 const abcLanguage = {
   defaultToken: '',
   tokenPostfix: '.abc',
-
-  // ABC notation keywords
   keywords: [
     'X',
     'T',
@@ -47,49 +37,22 @@ const abcLanguage = {
     'W',
     'w',
   ],
-
-  // Note letters
   notes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'z', 'Z', 'x', 'X'],
-
   tokenizer: {
     root: [
-      // Header fields (X:, T:, M:, etc.)
       [/^[A-Za-z]:.*$/, 'keyword'],
-
-      // Comments
       [/%.*$/, 'comment'],
-
-      // Bar lines
       [/\|:?|\|\||\|]|:\|/, 'delimiter'],
-
-      // Accidentals
       [/[\^_=]/, 'operator'],
-
-      // Notes with octave markers
       [/[A-Ga-g][,']*\d*/, 'variable'],
-
-      // Rests
       [/[zZxX]\d*/, 'string'],
-
-      // Chords
       [/\[/, 'bracket', '@chord'],
-
-      // Decorations
       [/![^!]+!/, 'annotation'],
-
-      // Tuplets
       [/\(\d/, 'number'],
-
-      // Numbers (durations)
       [/\d+/, 'number'],
-
-      // Ties and slurs
       [/[-()]/, 'delimiter'],
-
-      // Whitespace
       [/\s+/, 'white'],
     ],
-
     chord: [
       [/[A-Ga-g][,']*\d*/, 'variable'],
       [/[\^_=]/, 'operator'],
@@ -99,14 +62,6 @@ const abcLanguage = {
   },
 }
 
-/**
- * AbcEditor - Monaco editor wrapper for ABC notation
- *
- * Features:
- * - Custom ABC syntax highlighting
- * - Dark/light mode support
- * - Word wrap enabled
- */
 export const AbcEditor: React.FC<AbcEditorProps> = ({
   value,
   onChange,
@@ -115,14 +70,12 @@ export const AbcEditor: React.FC<AbcEditorProps> = ({
   className = '',
 }) => {
   const handleEditorMount = (_editor: unknown, monaco: typeof import('monaco-editor')) => {
-    // Register ABC language
     monaco.languages.register({ id: 'abc' })
     monaco.languages.setMonarchTokensProvider(
       'abc',
       abcLanguage as Parameters<typeof monaco.languages.setMonarchTokensProvider>[1]
     )
 
-    // Define ABC theme colors
     monaco.editor.defineTheme('abc-light', {
       base: 'vs',
       inherit: true,

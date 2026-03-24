@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import abcjs from 'abcjs'
+import type { NoteTimingEvent } from 'abcjs'
 import 'abcjs/abcjs-audio.css'
 
 /**
@@ -26,7 +27,7 @@ class CursorControl {
     svg.appendChild(this.cursor)
   }
 
-  onEvent(ev: abcjs.synth.CursorEvent) {
+  onEvent(ev: NoteTimingEvent) {
     if (ev.measureStart && ev.left === null) return
 
     // Remove previous highlights
@@ -34,8 +35,8 @@ class CursorControl {
     lastSelection.forEach((el) => el.classList.remove('abcjs-highlight'))
 
     // Highlight current notes
-    ev.elements.forEach((noteGroup) => {
-      noteGroup.forEach((note) => {
+    ev.elements?.forEach((noteGroup: HTMLElement[]) => {
+      noteGroup.forEach((note: HTMLElement) => {
         note.classList.add('abcjs-highlight')
       })
     })

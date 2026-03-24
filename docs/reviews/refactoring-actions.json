@@ -1,0 +1,102 @@
+[
+  {
+    "action": "REMOVE_DEAD",
+    "path": "src/components/modules/Module12GameQuiz.tsx",
+    "detail": "Unreferenced legacy orchestrator; UniversalGameRouter documents it as replaced."
+  },
+  {
+    "action": "REMOVE_DEAD",
+    "path": "src/components/modules/Module13GameQuiz.tsx",
+    "detail": "Unreferenced legacy orchestrator; game-shell flow appears to have superseded it."
+  },
+  {
+    "action": "ADD_BARREL",
+    "path": "src/components/ui/index.ts",
+    "detail": "Re-export shared UI primitives currently imported directly from pages and layouts."
+  },
+  {
+    "action": "ADD_BARREL",
+    "path": "src/components/MusicStaff/index.ts",
+    "detail": "Create a public notation/staff surface before moving files into a dedicated feature."
+  },
+  {
+    "action": "ADD_BARREL",
+    "path": "src/components/layout/index.ts",
+    "detail": "Replace repeated deep relative imports from pages and App routes."
+  },
+  {
+    "action": "ADD_BARREL",
+    "path": "src/components/modules/index.ts",
+    "detail": "Provide one public module-content entry point while internal moves are in progress."
+  },
+  {
+    "action": "ADD_BARREL",
+    "path": "src/features/game/index.ts",
+    "detail": "Export feature-owned game overlay, constants, and orchestration APIs from one boundary."
+  },
+  {
+    "action": "MOVE_FILE",
+    "path": "src/components/GameLoop/FeedbackOverlay.tsx",
+    "detail": "Move into src/features/game/components because it is used alongside GameOverlay on HomePage and PracticePage."
+  },
+  {
+    "action": "MOVE_FILE",
+    "path": "src/components/VirtualGuitar/FretboardWrapper.tsx",
+    "detail": "Move into a guitar feature boundary with its fretboard.js dependency and note-mapping logic."
+  },
+  {
+    "action": "MOVE_FILE",
+    "path": "src/components/MusicStaff/AbcEditor.tsx",
+    "detail": "Move into a notation/editor feature boundary; it is route-scoped and owns Monaco integration."
+  },
+  {
+    "action": "MOVE_FILE",
+    "path": "src/components/modules/ModuleContent.tsx",
+    "detail": "Move under theory/course-content ownership because it embeds module topics and theory/harmony composition."
+  },
+  {
+    "action": "ADD_TYPE",
+    "path": "src/data/game-registry.ts",
+    "detail": "Replace LazyExoticComponent<ComponentType<any>> with a shared game component prop contract."
+  },
+  {
+    "action": "ADD_TYPE",
+    "path": "src/components/abc/AbcRenderer.tsx",
+    "detail": "Introduce typed abcjs event payloads instead of casting note events to any."
+  },
+  {
+    "action": "ADD_TYPE",
+    "path": "src/components/MusicStaff/AbcGrandStaff.tsx",
+    "detail": "Replace any-based refs/control objects with local interfaces."
+  },
+  {
+    "action": "ADD_TYPE",
+    "path": "src/pages/IPhonePlayerTestPage.tsx",
+    "detail": "Add narrow interfaces for navigator audioSession, webkitAudioContext, and abcjs synth context access."
+  },
+  {
+    "action": "LAZY_WRAP",
+    "path": "src/components/MusicStaff/AbcEditor.tsx",
+    "detail": "Split Monaco so the editor bundle only loads on the ABC editor route."
+  },
+  {
+    "action": "LAZY_WRAP",
+    "path": "src/components/MusicStaff/MusicStaff.tsx",
+    "detail": "Wrap VexFlow-backed rendering behind a lazy boundary for optional staff views."
+  },
+  {
+    "action": "LAZY_WRAP",
+    "path": "src/components/VirtualGuitar/FretboardWrapper.tsx",
+    "detail": "Split fretboard.js from the default route bundle and lazy load test/tooling surfaces."
+  },
+  {
+    "action": "REMOVE_DEAD",
+    "path": "src/App.css",
+    "detail": "App.css contains only starter-template selectors; remove or merge any surviving root layout rule into index.css."
+  },
+  {
+    "action": "REMOVE_DEAD",
+    "path": "src/services/browser-id.ts",
+    "detail": "Remove unused exports hasBrowserId and clearBrowserId after confirming no external runtime usage."
+  }
+]

@@ -81,11 +81,17 @@
   --shadow-paper: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
   /* Mobile-friendly touch targets and spacing */
-  --touch-target-min: 44px;
   --touch-target-recommended: 48px;
   --mobile-spacing-sm: 0.5rem;
   --mobile-spacing-md: 1rem;
   --mobile-spacing-lg: 1.5rem;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  text-align: left;
 }
 
 body {
@@ -278,16 +284,6 @@ textarea:focus-visible {
 }
 
 /* Touch target utilities */
-.touch-target {
-  min-height: 44px;
-  min-width: 44px;
-}
-
-.touch-target-sm {
-  min-height: 40px;
-  min-width: 40px;
-}
-
 .touch-target-lg {
   min-height: 48px;
   min-width: 48px;
@@ -386,19 +382,6 @@ textarea:focus-visible {
 
 /* Bilingual font support */
 body {
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

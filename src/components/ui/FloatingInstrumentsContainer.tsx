@@ -4,10 +4,10 @@ import { useAudioStore } from '../../stores/useAudioStore'
 import { FloatingInstrumentPanel } from './FloatingInstrumentPanel'
 import { FloatingInstrumentsToolbar } from './FloatingInstrumentsToolbar'
 import { detectChordFromNotes } from '../../utils/chord-detection'
+import { LazyFretboardWrapper } from '../LazyWrappers'
 
 // Lazy load instrument components
 const VirtualPiano = React.lazy(() => import('../VirtualPiano/VirtualPiano'))
-const FretboardWrapper = React.lazy(() => import('../VirtualGuitar/FretboardWrapper'))
 const HorizontalSaoTrucVisualizer = React.lazy(
   () => import('../../features/sao-truc/components/HorizontalSaoTrucVisualizer')
 )
@@ -35,7 +35,7 @@ const GuitarWithChordDetection: React.FC<{
   }, [activeNotes])
 
   return (
-    <FretboardWrapper
+    <LazyFretboardWrapper
       activeNotes={activeNotes}
       chordName={chordName || undefined}
       onNoteClick={onNoteClick}

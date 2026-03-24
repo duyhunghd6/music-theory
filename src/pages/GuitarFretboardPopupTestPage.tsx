@@ -18,10 +18,7 @@ import {
   GUITAR_TUNING,
 } from '../utils/guitar-logic'
 
-// Lazy load FretboardWrapper
-const FretboardWrapper = React.lazy(
-  () => import('../components/VirtualGuitar/FretboardWrapper')
-)
+import { LazyFretboardWrapper } from '../components/LazyWrappers'
 
 interface ClickLog {
   id: number
@@ -182,7 +179,7 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
           <h2 className="text-lg font-semibold mb-2">FretboardWrapper (same as popup)</h2>
           <div className="border-2 border-teal-500 rounded-lg p-3">
             <Suspense fallback={<LoadingFallback />}>
-              <FretboardWrapper
+              <LazyFretboardWrapper
                 activeNotes={activeNotes}
                 onNoteClick={handleNoteClick}
                 compact={true}

@@ -5,7 +5,7 @@
  * enabling submodules to reference games by ID and share games across modules.
  */
 import React from 'react'
-import type { GameConfig } from './game-types'
+import type { GameComponentProps, GameConfig } from './game-types'
 
 /**
  * Definition of a game type in the registry.
@@ -23,9 +23,8 @@ export interface GameDefinition {
   description: string
   /** Vietnamese description */
   descriptionVi: string
-  /** Lazily loaded component - uses any to support varied game prop interfaces */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: React.LazyExoticComponent<React.ComponentType<any>>
+  /** Lazily loaded component implementing the shared game prop contract */
+  component: React.LazyExoticComponent<React.ComponentType<GameComponentProps>>
   /** Default configuration for this game */
   defaultConfig: Partial<GameConfig>
 }
@@ -34,7 +33,7 @@ export interface GameDefinition {
  * Central registry of all available games.
  *
  * To add a new game:
- * 1. Create the game component implementing GameComponentProps
+ * 1. Create the game component accepting the router's shared props
  * 2. Add an entry here with a unique ID
  * 3. Reference the ID in submodule data files
  */

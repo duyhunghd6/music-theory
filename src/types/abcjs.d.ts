@@ -2,6 +2,36 @@
 // See: https://github.com/paulrosen/abcjs
 
 declare module 'abcjs' {
+  export interface AbcPitch {
+    pitch: number
+    name: string
+  }
+
+  export interface CursorMidiPitch {
+    pitch: number
+    durationInMeasures: number
+    volume: number
+    instrument: number
+  }
+
+  export interface AudioSessionLike {
+    type: string
+  }
+
+  export interface AbcJsNavigator extends Navigator {
+    audioSession?: AudioSessionLike
+  }
+
+  export interface AudioContextWindow extends Window {
+    webkitAudioContext?: typeof AudioContext
+  }
+
+  export interface SynthModule {
+    CreateSynth: typeof CreateSynth
+    SynthController: typeof SynthController
+    activeAudioContext?: () => AudioContext
+  }
+
   export interface RenderOptions {
     responsive?: 'resize' | string
     add_classes?: boolean
@@ -11,6 +41,11 @@ declare module 'abcjs' {
     paddingbottom?: number
     paddingleft?: number
     paddingright?: number
+    wrap?: {
+      minSpacing?: number
+      maxSpacing?: number
+      preferredMeasuresPerLine?: number
+    }
     clickListener?: (
       abcelem: AbcElem,
       tuneNumber: number,
@@ -24,7 +59,7 @@ declare module 'abcjs' {
     el_type: string
     startChar: number
     endChar: number
-    pitches?: { pitch: number; name: string }[]
+    pitches?: AbcPitch[]
   }
 
   export interface Analysis {
@@ -66,6 +101,15 @@ declare module 'abcjs' {
     options?: RenderOptions
   ): TuneObject[]
 
+  export interface NoteTimingEvent {
+    measureStart?: boolean
+    left?: number | null
+    top?: number | null
+    height?: number | null
+    elements?: HTMLElement[][]
+    midiPitches?: CursorMidiPitch[]
+  }
+
   export namespace synth {
     export class CreateSynth {
       init(options: { visualObj: TuneObject; audioContext?: AudioContext }): Promise<void>
@@ -100,22 +144,8 @@ declare module 'abcjs' {
 
     export interface CursorControl {
       onStart?: () => void
-      onEvent?: (event: CursorEvent) => void
+      onEvent?: (event: NoteTimingEvent) => void
       onFinished?: () => void
-    }
-
-    export interface CursorEvent {
-      measureStart?: boolean
-      left?: number | null
-      top?: number
-      height?: number
-      elements: HTMLElement[][]
-      midiPitches?: {
-        pitch: number
-        durationInMeasures: number
-        volume: number
-        instrument: number
-      }[]
     }
 
     export function getMidiFile(

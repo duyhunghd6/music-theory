@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useGameStore } from '../../stores/useGameStore'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useGameStore } from '../../../stores/useGameStore'
 
 export const FeedbackOverlay: React.FC = () => {
   const lastFeedback = useGameStore((state) => state.lastFeedback)
@@ -24,7 +24,6 @@ export const FeedbackOverlay: React.FC = () => {
 
       setFeedbacks((prev) => [...prev, { id, text, score: lastFeedback.scoreDelta, color }])
 
-      // Cleanup after animation
       setTimeout(() => {
         setFeedbacks((prev) => prev.filter((f) => f.id !== id))
       }, 1000)

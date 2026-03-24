@@ -48,26 +48,4 @@ export function getBrowserId(): string {
   }
 }
 
-/**
- * Check if a browser ID exists in localStorage
- */
-export function hasBrowserId(): boolean {
-  try {
-    return localStorage.getItem(BROWSER_ID_KEY) !== null
-  } catch {
-    return false
-  }
-}
-
-/**
- * Clear the browser ID (for testing or reset purposes)
- */
-export function clearBrowserId(): void {
-  try {
-    localStorage.removeItem(BROWSER_ID_KEY)
-  } catch {
-    // Ignore errors
-  }
-}
-
 export default getBrowserId

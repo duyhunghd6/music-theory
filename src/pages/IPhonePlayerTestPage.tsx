@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import abcjs from 'abcjs'
+import type { AbcJsNavigator, AudioContextWindow } from 'abcjs'
 import 'abcjs/abcjs-audio.css'
 
 /**
@@ -43,7 +44,18 @@ Q:1/4=80
 K:C
 [CEG] [CEG] [DFA] [DFA] | [EGB] [EGB] [FAc] [FAc] | [GBd] [GBd] [Ace] [Ace] | [Bdf] [Bdf] [ceg] [ceg] |]`
 
-type AudioState = 'not-initialized' | 'suspended' | 'running' | 'error'
+type AudioState =
+  | 'not-initialized'
+  | 'suspended'
+  | 'running'
+  | 'closed'
+  | 'interrupted'
+  | 'error'
+
+const getActiveAudioContext = (): AudioContext | undefined => {
+  const activeAudioContext = abcjs.synth.activeAudioContext
+  return typeof activeAudioContext === 'function' ? activeAudioContext() : undefined
+}
 
 export default function IPhonePlayerTestPage() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -95,8 +107,7 @@ export default function IPhonePlayerTestPage() {
     log(`Device: iOS=${isIOS}, Safari=${isSafari}, iOS Version=${iosMajorVersion}`)
 
     // Check audioSession API support (iOS 17+)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const audioSessionAPI = (navigator as any).audioSession
+    const audioSessionAPI = (navigator as AbcJsNavigator).audioSession
     if (audioSessionAPI) {
       setAudioSessionSupported(true)
       log('✅ navigator.audioSession API is supported')
@@ -183,8 +194,7 @@ export default function IPhonePlayerTestPage() {
         log('✅ Audio setup complete')
 
         // Check AudioContext state
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const ctx = (abcjs.synth as any).activeAudioContext
+        const ctx = getActiveAudioContext()
         if (ctx) {
           setAudioState(ctx.state as AudioState)
           log(`AudioContext state: ${ctx.state}`)
@@ -204,21 +214,19 @@ export default function IPhonePlayerTestPage() {
 
     try {
       // Get the active AudioContext from abcjs
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let ctx = (abcjs.synth as any).activeAudioContext
+      let ctx = getActiveAudioContext()
 
       // If no context exists, create one via abcjs
       if (!ctx && synthRef.current && visualObjRef.current) {
         log('No active AudioContext, initializing synth...')
         await synthRef.current.init({ visualObj: visualObjRef.current })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ctx = (abcjs.synth as any).activeAudioContext
+        ctx = getActiveAudioContext()
       }
 
       if (!ctx) {
         // Fallback: create raw AudioContext
         log('Creating fallback AudioContext...')
-        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext
+        const AudioContextClass = window.AudioContext || (window as AudioContextWindow).webkitAudioContext
         ctx = new AudioContextClass()
       }
 
@@ -237,8 +245,7 @@ export default function IPhonePlayerTestPage() {
 
   // Check current AudioContext state
   const checkAudioState = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ctx = (abcjs.synth as any).activeAudioContext
+    const ctx = getActiveAudioContext()
     if (ctx) {
       setAudioState(ctx.state as AudioState)
       log(`Current AudioContext state: ${ctx.state}`)

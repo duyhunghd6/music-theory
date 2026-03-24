@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useMemo, useCallback, useState } from 'react'
 import abcjs from 'abcjs'
+import type { CursorControl as AbcCursorControl, NoteTimingEvent } from 'abcjs'
 import 'abcjs/abcjs-audio.css'
 import { useAudioStore } from '../../stores/useAudioStore'
 import { useSettingsStore } from '../../stores/useSettingsStore'
@@ -29,7 +30,7 @@ const midiPitchToNoteName = (midiPitch: number): string => {
 /**
  * Cursor control for abcjs playback animation with instrument highlighting
  */
-class CursorControl {
+class CursorControl implements AbcCursorControl {
   private cursor: SVGLineElement | null = null
   private rootSelector: string
   private onNotePlay?: (notes: string[]) => void
@@ -61,7 +62,7 @@ class CursorControl {
     svg.appendChild(this.cursor)
   }
 
-  onEvent(ev: abcjs.synth.CursorEvent) {
+  onEvent(ev: NoteTimingEvent) {
     // Skip if this is a measure start event without position
     if (ev.measureStart === true && ev.left === null) return
 
@@ -76,7 +77,7 @@ class CursorControl {
     lastSelection.forEach((el) => el.classList.remove('abcjs-highlight'))
 
     // Highlight current notes on staff
-    ev.elements.forEach((noteGroup) => {
+    ev.elements?.forEach((noteGroup) => {
       noteGroup.forEach((note) => {
         note.classList.add('abcjs-highlight')
       })
@@ -537,18 +538,13 @@ ${abcNotes} |`
     const timer = setTimeout(() => {
       if (!synthControlRef.current || !cursorControlRef.current) return
 
-      synthControlRef.current.load(
-        `#${audioId}`,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        cursorControlRef.current as any,
-        {
-          displayLoop: true,
-          displayRestart: true,
-          displayPlay: true,
-          displayProgress: true,
-          displayWarp: true,
-        }
-      )
+      synthControlRef.current.load(`#${audioId}`, cursorControlRef.current, {
+        displayLoop: true,
+        displayRestart: true,
+        displayPlay: true,
+        displayProgress: true,
+        displayWarp: true,
+      })
       setControllerReady(true)
     }, 100)
 

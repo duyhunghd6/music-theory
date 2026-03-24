@@ -1,74 +1,72 @@
-# 🗺️ Product Roadmap 2026
+# Product Roadmap
 
-> **Status**: Verified & Synced (Jan 2026)
-> **Goal**: Complete interactive music theory platform with Modules 1-5.
+Last updated: 2026-03-24
+Status: synced to current implementation
 
----
+## Current focus
 
-## 🎯 Current Focus: Deep Verification & Interactive Mechanics
+The curriculum data for Modules 1-5 is implemented in `src/data/course-data/`, but lesson-level interactivity is not evenly wired across the course. The immediate focus is closing the gap between the strongest interactive path in Module 1 and the more theory/demo-heavy implementation in Modules 2-5.
 
-The Data Layer for Modules 1-5 is **Fully Implemented**. The current focus is ensuring the **Game Mechanics** (Rhythm Tap, Melody Composition, etc.) are correctly wired up to this data.
+## Current implementation snapshot
 
----
+### Completed foundation
 
-## ✅ Phase 1: Core Foundation & Data Layer (Completed)
+- [x] Data-driven curriculum for 5 modules and 30 submodules
+- [x] Shared lesson model via `src/data/course-data/types.ts`
+- [x] Progressive theory reveal with persisted section progress
+- [x] Local-first learner progress with optional Supabase sync
+- [x] Mixed notation stack using both `abcjs` and `vexflow`
+- [x] Shared game router and central game registry
 
-> **North Star**: A complete curriculum structure from Pitch to Harmony.
+### Verified current product state
 
-### 1.1 Content Architecture
+- [x] Module 1 has the strongest lesson-game integration through `games` arrays in course data.
+- [x] Modules 2-5 have implemented lesson data and theory content.
+- [x] Modules 2-5 include ABC demo and notation-oriented content.
+- [x] A dedicated rhythm test surface exists at `/test-games-m2`.
+- [x] Multiple test/debug routes are still present in the application router.
 
-- [x] **Module 1 (Pitch)**: 5 Submodules (`1.1` - `1.5`)
-- [x] **Module 2 (Rhythm)**: 6 Submodules (`2.1` - `2.6`)
-  - Note Values, Rests, Dotted Notes, Time Signatures, Compound Meter, Tempo.
-- [x] **Module 3 (Scales)**: Data structure implemented.
-- [x] **Module 4 (Chords)**: Data structure implemented.
-- [x] **Module 5 (Harmony)**: 6 Submodules (`5.1` - `5.6`)
-  - Progressions, Cadences, Contour, Structure, Dynamics, Modulation.
+### Incomplete or uneven areas
 
-### 1.2 Interactive Core
+- [ ] Module 2 lesson data is not yet wired with lesson-level `games` arrays.
+- [ ] Modules 3-5 are not yet wired with lesson-level `games` arrays.
+- [ ] Interactive completion is not yet at parity across all modules.
+- [ ] Older roadmap and architecture docs still overstate how complete non-Module-1 gameplay is.
 
-- [x] **Dual-Mode Audio**: Tone.js + ABCJS Synth.
-- [x] **Unified Visualizers**: `InstrumentPanel` (Piano, Guitar, Flute) with sync.
-- [x] **Journey Engine**: `JourneyMap`, `UniversalGameRouter` with "Interleaved Mastery" logic.
-- [x] **Practice Library**: `PracticePage` with dynamic loading (Butterworth/Sahaja).
+## Active workstreams
 
----
+### 1. Lesson-game parity
 
-## 🚧 Phase 2: Interactive Mechanics & Polish (In Progress)
+Goal: move more lessons onto the same registry-driven path already used by Module 1.
 
-> **North Star**: Turning static data into "Beautiful" Play.
+- [ ] Decide which Module 2 rhythm mechanics should become canonical lesson `games` configs.
+- [ ] Convert verified rhythm mechanics from test-only surfaces into lesson data where appropriate.
+- [ ] Define the minimum interactive target for Modules 3-5 so docs and implementation describe the same scope.
 
-### 2.1 Rhythm Mechanic Verification
+### 2. Documentation accuracy
 
-All Module 2 game components have been verified and tested on `/test-games-m2`.
+Goal: keep `docs/` aligned with current code rather than historical plans.
 
-- [x] **Rhythm Tap Engine**: Verified `rhythm-tap` game type works.
-  - Input: Spacebar/Click vs Tone.Transport time.
-  - Feedback: Visual accuracy indicator.
-- [x] **Beat Counter**: Verified `beat-counter` logic works.
+- [x] Sync architecture, tech stack, module overview, and decisions docs to the current app.
+- [ ] Continue pruning or updating older docs that still describe outdated architecture, counts, or routing assumptions.
+- [ ] Treat `src/data/course-data/` as the source of truth for module counts, ordering, and lesson capabilities.
 
-### 2.2 Advanced Visualizers
+### 3. Product hardening
 
-- [ ] **Popup Instruments**: Verify "Keyboard/Fretboard Popup" behavior mentioned in requirements.
-- [ ] **Dynamic Overlay**: Enhance `FeedbackOverlay` for multi-stage games.
+Goal: reduce ambiguity in currently shipped behavior.
 
-### 2.3 Mobile & PWA
+- [ ] Review production exposure of debug/test routes.
+- [ ] Resolve implementation inconsistencies such as `saoTruc` vs `flute` section naming.
+- [ ] Expand automated coverage around active lesson and game-routing flows.
 
-- [ ] **Touch Latency**: Verify iOS "Unlock" behavior (User Gesture).
-- [ ] **Layout**: Final check of `InstrumentPanel` on mobile viewport.
+## Near-term priorities
 
----
+1. Document Module 1 as the current reference implementation for lesson interactivity.
+2. Decide whether Module 2 rhythm work remains test-page-only or becomes course-data-driven lesson gameplay.
+3. Avoid claiming full interactive parity across Modules 1-5 until lesson data actually reflects it.
 
-## 🔮 Phase 3: Expansion (Q2 2026)
+## Notes
 
-- [ ] **Microphone Input**: Pitch detection for "Real Instrument" mode.
-- [ ] **User Accounts**: Sync IndexedDB to Supabase (Cloud Save).
-- [ ] **Social Sharing**: Share "Moment of Mastery" images.
-
----
-
-## 📉 Known Tech Debt
-
-- **Type Safety**: Strictly type the `GameConfig` interfaces for new game types.
-- **Bundle Size**: Lazy load heavy game components (`React.lazy`).
-- **Test Coverage**: specific unit tests for `rhythm-logic.ts`.
+- Current docs should describe the app as React 19 + React Router 7 + Vite 7.
+- Current docs should describe both `abcjs` and `vexflow` as active notation dependencies.
+- Current docs should describe Supabase sync as optional, not required infrastructure.

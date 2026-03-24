@@ -1,11 +1,10 @@
 import React from 'react'
-import { useModuleStore } from '../../stores/useModuleStore'
-import { CollapsiblePanel } from '../ui/CollapsiblePanel'
-import { TopicCard } from '../theory/TopicCard'
-import { TheoryPanel } from '../theory/TheoryPanel'
-import { HarmonicTimeline } from '../harmony/HarmonicTimeline'
+import { useModuleStore } from '../../../stores/useModuleStore'
+import { CollapsiblePanel } from '../../../components/ui/CollapsiblePanel'
+import { TopicCard } from '../../../components/theory/TopicCard'
+import { TheoryPanel } from '../../../components/theory/TheoryPanel'
+import { HarmonicTimeline } from '../../../components/harmony/HarmonicTimeline'
 
-// Module 1 topics
 const MODULE_1_TOPICS = [
   {
     title: 'Staff & Clefs',
@@ -22,7 +21,6 @@ const MODULE_1_TOPICS = [
   { title: 'Enharmonics', description: 'Same pitch, different names', completed: false },
 ]
 
-// Module 2 topics
 const MODULE_2_TOPICS = [
   { title: 'Note Values', description: 'Whole, half, quarter, eighth notes', completed: false },
   { title: 'Rests', description: 'Silence in music notation', completed: false },
@@ -35,16 +33,12 @@ interface ModuleContentProps {
   className?: string
 }
 
-/**
- * Renders content based on current module from store
- */
 export const ModuleContent: React.FC<ModuleContentProps> = ({ className }) => {
   const currentModuleId = useModuleStore((state) => state.currentModuleId)
   const [activeTopicIndex, setActiveTopicIndex] = React.useState(0)
 
   const topics = currentModuleId === 1 ? MODULE_1_TOPICS : MODULE_2_TOPICS
 
-  // Find first incomplete topic as active
   React.useEffect(() => {
     const firstIncomplete = topics.findIndex((t) => !t.completed)
     setActiveTopicIndex(firstIncomplete >= 0 ? firstIncomplete : 0)
@@ -52,7 +46,6 @@ export const ModuleContent: React.FC<ModuleContentProps> = ({ className }) => {
 
   return (
     <div className={`space-y-3 ${className}`}>
-      {/* Topic Progress */}
       <CollapsiblePanel
         title={`Module ${currentModuleId} Topics`}
         icon="format_list_numbered"
@@ -73,14 +66,12 @@ export const ModuleContent: React.FC<ModuleContentProps> = ({ className }) => {
         </div>
       </CollapsiblePanel>
 
-      {/* Theory Panel - show for modules 1, 3, 4 */}
       {[1, 3, 4].includes(currentModuleId) && (
         <CollapsiblePanel title="Theory Panel" icon="library_books" defaultOpen>
           <TheoryPanel />
         </CollapsiblePanel>
       )}
 
-      {/* Harmonic Timeline - show for modules 4 and 5 */}
       {[4, 5].includes(currentModuleId) && (
         <CollapsiblePanel title="Harmonic Timeline" icon="view_timeline" defaultOpen>
           <HarmonicTimeline />

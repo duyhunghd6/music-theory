@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import abcjs from 'abcjs'
+import type { AbcElem, AudioContextWindow, NoteTimingEvent } from 'abcjs'
 import { useSettingsStore } from '../../stores/useSettingsStore'
 import { useAudioStore } from '../../stores/useAudioStore'
 import { getNoteLabel } from '../../utils/note-labels'
@@ -246,10 +247,9 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
     (container: HTMLDivElement, abcContent: string) => {
       const result = abcjs.renderAbc(container, abcContent, {
         ...RENDER_OPTIONS,
-        clickListener: (abcelem: unknown) => {
-          const elem = abcelem as { pitches?: Array<{ name: string }> }
-          if (elem.pitches && elem.pitches.length > 0) {
-            const noteNames = elem.pitches.map((p) => p.name)
+        clickListener: (abcelem: AbcElem) => {
+          if (abcelem.pitches && abcelem.pitches.length > 0) {
+            const noteNames = abcelem.pitches.map((pitch) => pitch.name)
             handleNoteClick(noteNames)
           }
         },
@@ -321,8 +321,7 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
       synthRef.current = synth
 
       const AudioContextClass =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        window.AudioContext || (window as AudioContextWindow).webkitAudioContext
       const audioContext = new AudioContextClass()
       console.log('🔊 [AbcRenderer] AudioContext created, state:', audioContext.state)
 
@@ -349,7 +348,7 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
       console.log('✅ [AbcRenderer] Synth initialized and primed')
 
       const timingCallbacks = new abcjs.TimingCallbacks(visualObj, {
-        eventCallback: (ev) => {
+        eventCallback: (ev: NoteTimingEvent | null) => {
           if (!ev) {
             stopPlayback()
             return 'continue' as const
@@ -364,18 +363,16 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
             containerRef.current.querySelectorAll('.abcjs-note.highlight').forEach((el) => {
               el.classList.remove('highlight')
             })
-            ev.elements?.forEach((group) => {
-              group.forEach((el) => el.classList.add('highlight'))
+            ev.elements?.forEach((group: HTMLElement[]) => {
+              group.forEach((el: HTMLElement) => el.classList.add('highlight'))
             })
           }
 
           // Sync with virtual instruments (Piano, Guitar, Flute)
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const evWithMidi = ev as any
-          if (evWithMidi.midiPitches && evWithMidi.midiPitches.length > 0) {
-            const notes = evWithMidi.midiPitches
-              .map((p: { pitch: number }) => midiPitchToNoteName(p.pitch))
-              .filter((note: string) => note !== '')
+          if (ev.midiPitches && ev.midiPitches.length > 0) {
+            const notes = ev.midiPitches
+              .map((pitch: { pitch: number }) => midiPitchToNoteName(pitch.pitch))
+              .filter((note: string): note is string => note !== '')
             if (notes.length > 0) {
               console.log('🎵 [AbcRenderer] Playback event - highlighting notes:', notes)
               currentNotesRef.current = notes

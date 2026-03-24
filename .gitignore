@@ -33,3 +33,4 @@ test-results/
 e2e/
 
 .mcp.json
+playwright-report/
