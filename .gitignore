@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 
-.agent/skills
 coverage/lcov-report/data/
 
 # Reference materials (not needed for build)
