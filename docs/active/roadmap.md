@@ -23,8 +23,8 @@ The curriculum data for Modules 1-5 is implemented in `src/data/course-data/`, b
 - [x] Module 1 has the strongest lesson-game integration through `games` arrays in course data.
 - [x] Modules 2-5 have implemented lesson data and theory content.
 - [x] Modules 2-5 include ABC demo and notation-oriented content.
-- [x] A dedicated rhythm test surface exists at `/test-games-m2`.
-- [x] Multiple test/debug routes are still present in the application router.
+- [x] A dedicated rhythm test surface exists at `/test-games-m2`, but it is mounted only in development builds.
+- [x] Test/debug routes remain available for development, but shipped production builds gate them behind `import.meta.env.DEV`.
 
 ### Incomplete or uneven areas
 
@@ -45,18 +45,18 @@ Goal: move more lessons onto the same registry-driven path already used by Modul
 
 ### 2. Documentation accuracy
 
-Goal: keep `docs/` aligned with current code rather than historical plans.
+Goal: keep `docs/` aligned with current code and current QA evidence rather than historical plans.
 
 - [x] Sync architecture, tech stack, module overview, and decisions docs to the current app.
-- [ ] Continue pruning or updating older docs that still describe outdated architecture, counts, or routing assumptions.
+- [ ] Continue pruning or updating older docs that still describe outdated architecture, counts, routing assumptions, or stale readiness claims.
 - [ ] Treat `src/data/course-data/` as the source of truth for module counts, ordering, and lesson capabilities.
 
 ### 3. Product hardening
 
 Goal: reduce ambiguity in currently shipped behavior.
 
-- [ ] Review production exposure of debug/test routes.
-- [ ] Resolve implementation inconsistencies such as `saoTruc` vs `flute` section naming.
+- [x] Review production exposure of debug/test routes; shipped builds now gate them behind `import.meta.env.DEV`.
+- [x] Verify docs against the final canonical section naming used in code; `flute` is the current section key for the Vietnamese bamboo flute visualizer.
 - [ ] Expand automated coverage around active lesson and game-routing flows.
 
 ## Near-term priorities
@@ -64,6 +64,8 @@ Goal: reduce ambiguity in currently shipped behavior.
 1. Document Module 1 as the current reference implementation for lesson interactivity.
 2. Decide whether Module 2 rhythm work remains test-page-only or becomes course-data-driven lesson gameplay.
 3. Avoid claiming full interactive parity across Modules 1-5 until lesson data actually reflects it.
+4. Keep handover docs pinned to the latest passing verification commands rather than older failing QA snapshots.
+5. Preserve the exact handover validation commands/results that currently pass for Chromium and Mobile Chrome critical flows.
 
 ## Notes
 

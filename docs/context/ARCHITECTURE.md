@@ -13,7 +13,7 @@ The runtime entry point is `/Users/steve/duyhunghd6/music-theory/src/main.tsx`, 
 
 1. `src/main.tsx` mounts `App`.
 2. `src/App.tsx` initializes theme handling, bug-report interceptors, streak updates, and cloud progress bootstrap.
-3. Routes render profile/home, lesson pages, practice, editor/demo pages, and several test/debug pages.
+3. Routes render profile/home, lesson pages, practice, and editor/demo pages in shipped builds; test/debug pages are mounted only when `import.meta.env.DEV` is true.
 4. `src/pages/SubmodulePage.tsx` loads lesson data from `src/data/course-data/`, reveals theory progressively, unlocks ABC demos and game content, and writes progress back through Zustand stores.
 5. Floating instrument UI and bug-report UI stay mounted globally.
 
@@ -88,7 +88,7 @@ This is important because older docs describe VexFlow as the sole notation layer
 | Module | Name | Submodules | Current status |
 | --- | --- | ---: | --- |
 | 1 | Cơ bản | 5 | Most complete interactive module; theory, ABC demos, and registry-driven games are present |
-| 2 | Nhịp điệu | 6 | Theory content exists; dedicated rhythm/test surfaces exist; no module lesson `games` arrays found |
+| 2 | Nhịp điệu | 6 | Theory content exists; a dedicated rhythm test surface exists in development-only routing; no module lesson `games` arrays found |
 | 3 | Thang âm & Giai điệu | 6 | Theory + ABC-heavy content implemented; no lesson `games` arrays found |
 | 4 | Hòa âm | 7 | Theory + ABC-heavy content implemented; no lesson `games` arrays found |
 | 5 | Sáng tác | 6 | Theory + ABC-heavy content implemented; no lesson `games` arrays found |
@@ -97,8 +97,9 @@ This is important because older docs describe VexFlow as the sole notation layer
 
 - Router is `react-router-dom` with `BrowserRouter`, not a separate route manifest.
 - The home route currently renders `ProfilePage`, while `/compose` renders `HomePage`.
-- The app includes many permanent test/debug routes in production code paths, including `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2`.
-- `SubmodulePage.tsx` checks `hasSection('saoTruc')`, but the declared `SectionType` in `src/data/course-data/types.ts` contains `flute`, not `saoTruc`; this is a documentation-worthy inconsistency in the current implementation.
+- The app gates test/debug routes behind `import.meta.env.DEV`; `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2` are development-only and are not mounted in shipped production builds.
+- `src/App.tsx` now registers those debug/test surfaces as direct `<Route>` children inside `<Routes>`, matching React Router 7 requirements.
+- `SubmodulePage.tsx` and `src/data/course-data/types.ts` both use `flute` as the canonical section name for the Vietnamese bamboo flute visualizer; older docs describing a `saoTruc`/`flute` mismatch are stale.
 - Audio is currently produced by a Tone.js-based poly synth in `src/services/audio-engine.ts`; there is also separate sampler/scheduler/pitch-detection work in `src/services/` and `src/features/audio/`, but that is not the only active path.
 
 ## Main drift from older docs
@@ -106,5 +107,7 @@ This is important because older docs describe VexFlow as the sole notation layer
 1. The codebase is no longer organized around the old “5+1 tower” described in `docs/context/system-overview.md`.
 2. abcjs is a first-class notation/rendering path, not just VexFlow.
 3. Course scope is 30 submodules, not 26.
-4. Modules 2-5 are not wired with lesson-level `games` configs yet, despite roadmap text implying broader interactive completion.
-5. The current source tree contains more route pages, stores, services, and feature directories than the old docs list.
+4. Modules 2-5 are not wired with lesson-level `games` configs yet, despite older docs implying broader interactive completion.
+5. Earlier docs and QA snapshots became stale after later fixes; handover notes should follow the most recent passing verification evidence.
+6. Current handover verification is backed by passing `src/App.test.tsx`, `npm run build`, and targeted Playwright runs for Chromium and Mobile Chrome critical flows.
+7. The current source tree contains more route pages, stores, services, and feature directories than the old docs list.

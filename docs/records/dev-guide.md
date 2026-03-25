@@ -10,8 +10,9 @@
 
 ### Routing
 
-- **React Router v6** with lazy loading for performance
-- Routes: `/`, `/module/:id/:submoduleId`, `/practice`, `/profile`
+- **React Router 7** with lazy loading for performance
+- Shipped routes: `/`, `/compose`, `/module/:moduleId/:submoduleId`, `/practice`, `/demo`, `/abc-editor`
+- Debug/test routes such as `/test-ui` and `/test-games-m2` are mounted only when `import.meta.env.DEV` is true
 
 ### Audio
 
@@ -68,9 +69,11 @@ const AbcGrandStaff = React.lazy(() => import('../components/MusicStaff/AbcGrand
 SubmodulePage checks `submodule.sections` to show/hide UI:
 
 ```tsx
-const hasSection = (section: string) => submodule?.sections.includes(section as never)
+const hasSection = (section: SectionType) => submodule?.sections.includes(section) ?? false
 {hasSection('piano') && <VirtualPiano ... />}
 ```
+
+The current canonical section key for the Vietnamese bamboo flute visualizer is `flute`.
 
 ### ABC Override Pattern
 
@@ -89,7 +92,7 @@ For lesson-specific notation:
 
 1. **Formatting/Prettier Issues** - Many files have eslint formatting warnings (not blocking builds)
 2. **abcjs Types** - Some TypeScript workarounds for abcjs callback types
-3. **No Tests** - Unit tests not yet implemented
+3. **Verification Discipline** - Handover work should stay narrow-first and record the exact owned commands that passed, including `npm run test -- src/App.test.tsx`, `npm run build`, `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-responsive.spec.ts --project=chromium`, and `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
 4. **Bundle Size** - Main chunks exceed 500KB (could benefit from more code splitting)
 
 ---

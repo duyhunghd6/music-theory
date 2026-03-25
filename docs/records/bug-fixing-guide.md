@@ -9,6 +9,7 @@ Before fixing bugs in this codebase, review these lessons learned:
 ## Pre-Fix Verification
 
 - [ ] Run `npm run build` to verify current state compiles
+- [ ] Run the narrowest owned verification command first before broader reruns
 - [ ] Check if the bug is reproducible in dev (`npm run dev`)
 - [ ] Review related lint/TypeScript errors in IDE
 
@@ -82,7 +83,8 @@ const fn = useCallback(() => {
 2. **Check the line number** - Go directly to the source
 3. **View the interface/type** - Understand expected vs actual
 4. **Make minimal changes** - Fix one thing at a time
-5. **Verify with build** - Run `npm run build` after each fix
+5. **Verify with the narrowest owned command first** - use the smallest build/test command that proves the fix before broader reruns
+6. **Record the latest verification accurately** - keep docs and handoff notes aligned to the most recent owned commands and their outcomes, whether they pass or fail
 
 ---
 

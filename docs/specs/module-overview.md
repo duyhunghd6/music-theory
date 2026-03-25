@@ -12,7 +12,7 @@ The curriculum currently contains 5 modules and 30 submodules. All modules have 
 | Module | Name | Submodules | Implementation status | Interactive status |
 | --- | --- | ---: | --- | --- |
 | 1 | Cơ bản | 5 | Implemented in `src/data/course-data/module-1/` | Strongest lesson interactivity: ABC demos and registry-driven games are present |
-| 2 | Nhịp điệu | 6 | Implemented in `src/data/course-data/module-2/` | Theory content exists; dedicated Module 2 test page exists; no lesson-level `games` arrays found |
+| 2 | Nhịp điệu | 6 | Implemented in `src/data/course-data/module-2/` | Theory content exists; a development-only Module 2 test page exists; no lesson-level `games` arrays found |
 | 3 | Thang âm & Giai điệu | 6 | Implemented in `src/data/course-data/module-3/` | Theory and ABC demos present; no lesson-level `games` arrays found |
 | 4 | Hòa âm | 7 | Implemented in `src/data/course-data/module-4/` | Theory and ABC demos present; no lesson-level `games` arrays found |
 | 5 | Sáng tác | 6 | Implemented in `src/data/course-data/module-5/` | Theory and ABC demos present; no lesson-level `games` arrays found |
@@ -35,7 +35,7 @@ The curriculum currently contains 5 modules and 30 submodules. All modules have 
 - Focus: note values, rests, dotted notes, time signatures, compound meter, tempo/BPM
 - Current state:
   - Lesson data exists for all 6 submodules.
-  - A dedicated `/test-games-m2` page exists, indicating rhythm-specific implementation/testing work.
+  - A dedicated `/test-games-m2` page exists for development builds, indicating rhythm-specific implementation/testing work.
   - No `games` arrays were found in the lesson data files, so lesson-page game unlocking is not yet wired the same way as Module 1.
 - Status: content-complete, interactive lesson wiring incomplete.
 

@@ -45,3 +45,21 @@ The current app uses two notation paths rather than a single rendering library.
 **Why:** abcjs powers reusable renderers and lesson/game playback flows, while VexFlow remains in the music staff components.
 
 **How to apply:** Architecture docs, specs, and refactor plans must account for both libraries and should not describe VexFlow as the sole notation engine.
+
+---
+
+## 2026-03-25 — Gate debug/test routes to development-only builds
+The shipped router keeps product pages available in all builds but mounts test/debug routes only when `import.meta.env.DEV` is true.
+
+**Why:** `src/App.tsx` conditionally registers `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2` as direct `<Route>` children only in development, and the router fix was validated by `npm run test -- src/App.test.tsx` plus `npm run build`.
+
+**How to apply:** Do not document those routes as production-visible surfaces or as part of shipped navigation behavior, and use the passing router test/build evidence when summarizing the fix.
+
+---
+
+## 2026-03-25 — Use `flute` as the canonical section key for the bamboo flute visualizer
+The current lesson runtime and shared course-data type both use `flute` as the section key that enables the Vietnamese bamboo flute visualizer.
+
+**Why:** `src/pages/SubmodulePage.tsx` checks `hasSection('flute')`, and `src/data/course-data/types.ts` includes `flute` in `SectionType`.
+
+**How to apply:** Course data and docs should refer to `flute` as the runtime section key; `Sáo Trúc` can still be used as the user-facing label in UI copy.
