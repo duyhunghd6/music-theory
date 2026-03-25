@@ -19,6 +19,9 @@ const TestAbcNotationPage = lazy(() => import('./pages/TestAbcNotationPage'))
 
 const IPhonePlayerTestPage = lazy(() => import('./pages/IPhonePlayerTestPage'))
 const Module2GameTestPage = lazy(() => import('./pages/Module2GameTestPage'))
+
+const isDebugRouteEnabled = import.meta.env.DEV
+
 // Profile page is now eagerly loaded as home page
 
 // Lazy load floating instruments container
@@ -99,13 +102,14 @@ function App() {
             <Route path="/practice" element={<PracticePage />} />
             <Route path="/demo" element={<ComposePage />} />
             <Route path="/abc-editor" element={<AbcEditorPage />} />
-            <Route path="/test-ui" element={<TestUIPage />} />
-            <Route path="/test-fretboard" element={<FretboardTestPage />} />
-            <Route path="/test-guitar-popup" element={<GuitarFretboardPopupTestPage />} />
-            <Route path="/test-abc-notation" element={<TestAbcNotationPage />} />
-
-            <Route path="/test-iphone-player" element={<IPhonePlayerTestPage />} />
-            <Route path="/test-games-m2" element={<Module2GameTestPage />} />
+            {isDebugRouteEnabled && <Route path="/test-ui" element={<TestUIPage />} />}
+            {isDebugRouteEnabled && <Route path="/test-fretboard" element={<FretboardTestPage />} />}
+            {isDebugRouteEnabled && (
+              <Route path="/test-guitar-popup" element={<GuitarFretboardPopupTestPage />} />
+            )}
+            {isDebugRouteEnabled && <Route path="/test-abc-notation" element={<TestAbcNotationPage />} />}
+            {isDebugRouteEnabled && <Route path="/test-iphone-player" element={<IPhonePlayerTestPage />} />}
+            {isDebugRouteEnabled && <Route path="/test-games-m2" element={<Module2GameTestPage />} />}
           </Routes>
         </Suspense>
       </MainLayout>

@@ -6,6 +6,7 @@ import {
   getNextSubmodule,
   getPreviousSubmodule,
 } from '../data/course-data'
+import type { SectionType } from '../data/course-data'
 import { useProgressStore } from '../stores/useProgressStore'
 import { CollapsiblePanel } from '../components/ui/CollapsiblePanel'
 import { MainHeader } from '../components/layout/MainHeader'
@@ -95,7 +96,7 @@ export const SubmodulePage: React.FC = () => {
     }
   }
 
-  const hasSection = (section: string) => submodule?.sections.includes(section as never)
+  const hasSection = (section: SectionType) => submodule?.sections.includes(section) ?? false
 
   if (!submodule || !module) {
     return (
@@ -363,7 +364,7 @@ export const SubmodulePage: React.FC = () => {
             )}
 
             {/* Sáo Trúc Visualizer */}
-            {hasSection('saoTruc') && (
+            {hasSection('flute') && (
               <div className="mt-6">
                 <CollapsiblePanel
                   title="Sáo Trúc (Vietnamese Bamboo Flute)"

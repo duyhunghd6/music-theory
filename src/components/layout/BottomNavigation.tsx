@@ -53,6 +53,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
 
   return (
     <nav
+      data-testid="bottom-navigation"
       className={`
         fixed bottom-0 left-0 right-0 z-20
         bg-white dark:bg-slate-900
@@ -70,6 +71,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
           return (
             <button
               key={item.id}
+              data-testid={`bottom-nav-${item.id}`}
               onClick={() => handleTabClick(item)}
               className={`
                 flex-1 flex flex-col items-center justify-center gap-0.5

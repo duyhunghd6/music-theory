@@ -130,9 +130,10 @@ export const FloatingInstrumentPanel: React.FC<FloatingInstrumentPanelProps> = (
     return (
       <div
         ref={panelRef}
-        className="fixed bottom-0 left-0 right-0 z-[1050] 
-                   bg-white/98 dark:bg-slate-900/98 
-                   backdrop-blur-md border-t-2 border-[#30e8e8] 
+        data-testid={`floating-instrument-${type}`}
+        className="fixed bottom-0 left-0 right-0 z-[1050]
+                   bg-white/98 dark:bg-slate-900/98
+                   backdrop-blur-md border-t-2 border-[#30e8e8]
                    shadow-top-xl transition-transform duration-300"
         style={{
           height: `${mobileHeight}px`,
@@ -170,6 +171,7 @@ export const FloatingInstrumentPanel: React.FC<FloatingInstrumentPanelProps> = (
   return (
     <div
       ref={panelRef}
+      data-testid={`floating-instrument-${type}`}
       style={{
         position: 'fixed',
         left: state.position.x,

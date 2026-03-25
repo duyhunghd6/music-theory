@@ -84,6 +84,7 @@ export const FloatingInstrumentsToolbar: React.FC = () => {
   if (isMobile) {
     return (
       <div
+        data-testid="floating-instruments-toolbar"
         className="fixed right-4 z-[1100] flex flex-col-reverse gap-2 transition-all duration-300"
         style={{ bottom: `${toolbarBottom}px` }}
       >
@@ -118,6 +119,7 @@ export const FloatingInstrumentsToolbar: React.FC = () => {
               return (
                 <button
                   key={type}
+                  data-testid={`floating-toolbar-${type}-button`}
                   onClick={(e) => {
                     e.stopPropagation()
                     toggleInstrument(type)
@@ -216,6 +218,7 @@ export const FloatingInstrumentsToolbar: React.FC = () => {
 
         {/* Main Toggle Button */}
         <button
+          data-testid="floating-toolbar-toggle"
           onClick={() => setIsExpanded(!isExpanded)}
           className={`
             flex items-center justify-center
