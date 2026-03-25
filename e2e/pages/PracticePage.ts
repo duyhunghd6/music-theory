@@ -1,83 +1,66 @@
-import { Page } from '@playwright/test'
+import { expect, Page } from '@playwright/test'
 
 /**
  * Page Object Model for Practice page
- * Encapsulates all interactions with the practice/free-play mode
+ * Encapsulates interactions with the shipped practice library flow.
  */
 export class PracticePage {
   constructor(private page: Page) {}
 
-  /**
-   * Navigate to practice page
-   */
   async navigate() {
     await this.page.goto('/practice')
     await this.page.waitForLoadState('networkidle')
   }
 
-  /**
-   * Toggle virtual piano visibility
-   */
-  async togglePiano() {
-    await this.page.locator('[data-testid="toggle-piano"]').click()
+  async expectLibraryVisible() {
+    await expect(this.page.getByRole('heading', { name: 'Thư Viện Bản Nhạc' })).toBeVisible()
+    await expect(this.page.getByText('Chọn bài để luyện tập đọc nhạc trên khuông nhạc')).toBeVisible()
   }
 
-  /**
-   * Check if virtual piano is visible
-   */
-  async isPianoVisible() {
-    return await this.page.locator('[data-testid="virtual-piano"]').isVisible()
+  async getCategoryCount() {
+    return this.page.locator('button').filter({ hasText: /bài$/ }).count()
   }
 
-  /**
-   * Play a piano key
-   */
-  async playPianoKey(note: string) {
-    await this.page.locator(`[data-testid="piano-key-${note}"]`).click()
+  async openFirstCurriculumCategory() {
+    await this.page.locator('button').filter({ hasText: 'Khuông Nhạc & Nốt' }).click()
   }
 
-  /**
-   * Toggle virtual guitar visibility
-   */
-  async toggleGuitar() {
-    await this.page.locator('[data-testid="toggle-guitar"]').click()
+  async expectSheetSelectorVisible() {
+    const modal = this.page.locator('.fixed.inset-0.z-50').last()
+    await expect(modal.locator('h2', { hasText: 'Khuông Nhạc & Nốt' })).toBeVisible()
   }
 
-  /**
-   * Check if virtual guitar is visible
-   */
-  async isGuitarVisible() {
-    return await this.page.locator('[data-testid="virtual-guitar"]').isVisible()
+  async selectFirstCurriculumSheet() {
+    const modal = this.page.locator('.fixed.inset-0.z-50').last()
+    const sheetButtons = modal.locator('.flex-1.overflow-y-auto button')
+    await expect(sheetButtons.first()).toBeVisible()
+    await sheetButtons.first().click()
+    await expect(this.page.getByText('Đang phát')).toBeVisible()
   }
 
-  /**
-   * Play a guitar note
-   */
-  async playGuitarNote(string: number, fret: number) {
-    await this.page.locator(`[data-testid="guitar-string-${string}-fret-${fret}"]`).click()
+  async expectNowPlayingVisible() {
+    await expect(this.page.getByText('Đang phát')).toBeVisible()
   }
 
-  /**
-   * Check if a piano key is highlighted
-   */
-  async isPianoKeyHighlighted(note: string) {
-    const key = this.page.locator(`[data-testid="piano-key-${note}"]`)
-    const classes = await key.getAttribute('class')
-    return classes?.includes('highlighted') || classes?.includes('active')
+  async clearSelectedSheet() {
+    await this.page.getByTitle('Đóng bài hát').click()
   }
 
-  /**
-   * Set BPM (tempo)
-   */
-  async setBPM(bpm: number) {
-    await this.page.locator('[data-testid="bpm-input"]').fill(bpm.toString())
+  async expectGrandStaffVisible() {
+    await expect(this.page.getByText('Grand Staff View')).toBeVisible()
+    await expect(this.page.getByRole('img', { name: /Sheet Music for/i })).toBeVisible()
   }
 
-  /**
-   * Get current BPM value
-   */
-  async getBPM() {
-    const value = await this.page.locator('[data-testid="bpm-input"]').inputValue()
-    return parseInt(value, 10)
+  async toggleNoteNames() {
+    await this.page.getByRole('checkbox').click()
+  }
+
+  async expectFluteVisible() {
+    await expect(this.page.getByText('Flute')).toBeVisible()
+    await expect(this.page.getByText(/Ready|Do|Re|Mi|Fa|Sol|La|Si|C|D|E|F|G/).first()).toBeVisible()
+  }
+
+  async switchToTenHoleFlute() {
+    await this.page.getByRole('button', { name: '10h' }).click()
   }
 }

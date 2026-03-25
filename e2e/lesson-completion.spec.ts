@@ -3,68 +3,43 @@ import { LessonPage } from './pages/LessonPage'
 
 test.describe('Lesson Completion Flow', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear any existing progress
-    await page.goto('/')
-    await page.evaluate(() => localStorage.clear())
+    const lesson = new LessonPage(page)
+    await lesson.resetProgress()
   })
 
-  test('user can complete a lesson by answering quizzes', async ({ page }) => {
+  test('user can reveal gated lesson content by answering quizzes', async ({ page }) => {
     const lesson = new LessonPage(page)
 
-    // Navigate to first lesson
     await lesson.navigateToLesson(1, '1.1')
 
-    // Verify lesson loaded
     const title = await lesson.getLessonTitle()
     expect(title).toBeTruthy()
-
-    // First section should be visible
     expect(await lesson.isSectionVisible(0)).toBe(true)
-
-    // Second section should be hidden (gated by quiz)
     expect(await lesson.isSectionVisible(1)).toBe(false)
 
-    // Answer first quiz to unlock next section
-    // Note: Actual quiz answer depends on lesson content
-    await lesson.answerQuiz('C')
-
-    // Wait for section to reveal
-    await page.waitForTimeout(500)
-
-    // Second section should now be visible
-    expect(await lesson.isSectionVisible(1)).toBe(true)
-
-    // Complete all quizzes by using bypass button for testing
-    await lesson.clickBypassButton()
-
-    // Wait for all content to reveal
-    await page.waitForTimeout(1000)
-
-    // Lesson should be marked as completed
-    expect(await lesson.isCompleted()).toBe(true)
+    await lesson.answerFirstQuizOption()
+    await expect(page.locator('[data-testid="theory-section-1"]')).toBeVisible()
   })
 
-  test('progress persists after page reload', async ({ page }) => {
+  test('completed lesson progress persists after page reload', async ({ page }) => {
     const lesson = new LessonPage(page)
 
-    // Complete a lesson
     await lesson.navigateToLesson(1, '1.1')
     await lesson.clickBypassButton()
-    await page.waitForTimeout(500)
+    await lesson.waitForTheoryCompletion()
+    await lesson.completeLesson()
 
-    // Verify completion
-    expect(await lesson.isCompleted()).toBe(true)
+    await expect(page).toHaveURL(/\/module\/1\/1\.2$/)
+    expect(await lesson.isCompleted('1.1')).toBe(true)
+    expect(await lesson.getLessonTitle()).toBeTruthy()
 
-    // Reload the page
     await page.reload()
     await page.waitForLoadState('networkidle')
 
-    // Completion status should persist
-    expect(await lesson.isCompleted()).toBe(true)
-
-    // All content should remain visible
-    expect(await lesson.isSectionVisible(0)).toBe(true)
-    expect(await lesson.isSectionVisible(1)).toBe(true)
+    await expect(page).toHaveURL(/\/module\/1\/1\.2$/)
+    expect(await lesson.isCompleted('1.1')).toBe(true)
+    expect(await lesson.getLessonTitle()).toBeTruthy()
+    await expect(page.locator('[data-testid="theory-section-0"]')).toBeVisible()
   })
 
   test('progress dots navigation works', async ({ page }) => {
@@ -72,23 +47,13 @@ test.describe('Lesson Completion Flow', () => {
 
     await lesson.navigateToLesson(1, '1.1')
 
-    // Check if progress dots are present
     const dotCount = await lesson.getProgressDotCount()
 
     if (dotCount > 1) {
-      // Unlock all sections first
       await lesson.clickBypassButton()
-      await page.waitForTimeout(500)
-
-      // Click on second dot
+      await lesson.waitForTheoryCompletion()
       await lesson.clickProgressDot(1)
-
-      // Page should scroll to second section
-      await page.waitForTimeout(300)
-
-      // Second section should be in viewport
-      const section = page.locator('[data-testid="theory-section-1"]')
-      expect(await section.isVisible()).toBe(true)
+      await expect(page.locator('[data-testid="theory-section-1"]')).toBeVisible()
     }
   })
 })

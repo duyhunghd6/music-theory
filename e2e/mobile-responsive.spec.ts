@@ -8,53 +8,35 @@ import { test, expect } from '@playwright/test'
 test.describe('Mobile Navigation - iPhone SE (375x667)', () => {
   test.use({ viewport: { width: 375, height: 667 } })
 
-  test('should show hamburger menu button on mobile', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/')
-
-    // Mobile menu button should be visible
-    const menuButton = page.locator('[data-testid="mobile-menu-button"]')
-    await expect(menuButton).toBeVisible()
-
-    // Desktop sidebar should be hidden
-    const sidebar = page.locator('[data-testid="sidebar"]')
-    await expect(sidebar).not.toBeVisible()
+    await page.waitForLoadState('networkidle')
   })
 
-  test('drawer opens and closes correctly', async ({ page }) => {
-    await page.goto('/')
-
-    // Click hamburger to open drawer
-    await page.locator('[data-testid="mobile-menu-button"]').click()
-
-    // Drawer should be visible
-    const drawer = page.locator('[data-testid="mobile-drawer"]')
-    await expect(drawer).toBeVisible()
-
-    // Click backdrop to close
-    const backdrop = page.locator('[data-testid="mobile-drawer-backdrop"]')
-    await backdrop.click({ position: { x: 10, y: 10 } })
-
-    // Drawer should close
-    await expect(drawer).not.toBeVisible()
+  test('shows the lesson navigation trigger on lesson pages', async ({ page }) => {
+    await page.goto('/module/1/1.1')
+    await expect(page.getByTitle('Open module navigation')).toBeVisible()
   })
 
-  test('drawer auto-closes after navigation', async ({ page }) => {
-    await page.goto('/')
+  test('lesson navigation menu opens and closes correctly', async ({ page }) => {
+    await page.goto('/module/1/1.1')
+    await page.getByTitle('Open module navigation').click()
 
-    // Open drawer
-    await page.locator('[data-testid="mobile-menu-button"]').click()
-    const drawer = page.locator('[data-testid="mobile-drawer"]')
-    await expect(drawer).toBeVisible()
+    await expect(page.getByText('Cơ bản', { exact: true })).toBeVisible()
+    await page.mouse.click(360, 560)
 
-    // Navigate to a module
-    const firstModule = page.locator('[data-testid^="nav-module-"]').first()
-    await firstModule.click()
+    await expect(page.getByText('Cơ bản', { exact: true })).toHaveCount(0)
+  })
 
-    // Wait for navigation
-    await page.waitForTimeout(500)
+  test('lesson navigation menu closes after lesson navigation', async ({ page }) => {
+    await page.goto('/module/1/1.1')
+    await page.getByTitle('Open module navigation').click()
 
-    // Drawer should auto-close
-    await expect(drawer).not.toBeVisible()
+    await page.getByText('Nhịp điệu', { exact: true }).click()
+    await page.getByText('Giá trị nốt nhạc', { exact: true }).click()
+
+    await expect(page).toHaveURL(/\/module\/2\/2\.1$/)
+    await expect(page.getByText('Cơ bản', { exact: true })).toHaveCount(0)
   })
 
   test('no horizontal scrollbars on content', async ({ page }) => {
@@ -71,14 +53,14 @@ test.describe('Mobile Navigation - iPhone SE (375x667)', () => {
     expect(bodyScrollWidth).toBeLessThanOrEqual(bodyClientWidth + 1) // +1 for rounding
   })
 
-  test('header height is condensed on mobile', async ({ page }) => {
+  test('root page uses the compact mobile header', async ({ page }) => {
     await page.goto('/')
 
-    const header = page.locator('[data-testid="main-header"]')
+    const header = page.locator('header').first()
     const headerHeight = await header.evaluate((el) => el.getBoundingClientRect().height)
 
-    // Mobile header should be 56px (not 72px desktop)
-    expect(headerHeight).toBeLessThanOrEqual(56)
+    expect(headerHeight).toBeLessThanOrEqual(40)
+    await expect(page.getByTestId('bottom-navigation')).toBeVisible()
   })
 })
 
@@ -234,15 +216,14 @@ test.describe('ABC Notation Rendering', () => {
     }
   })
 
-  test('horizontal scroll container exists for ABC notation', async ({ page }) => {
+  test('ABC notation uses a horizontal scroll container on mobile', async ({ page }) => {
     await page.goto('/module/1/1.1')
     await page.waitForLoadState('networkidle')
 
     const abcRenderer = page.locator('.abc-renderer').first()
 
     if ((await abcRenderer.count()) > 0) {
-      // Check for horizontal scroll container
-      const scrollContainer = abcRenderer.locator('..')
+      const scrollContainer = abcRenderer.locator('div.overflow-x-auto').first()
       const hasOverflowAuto = await scrollContainer.evaluate((el) => {
         const style = window.getComputedStyle(el)
         return style.overflowX === 'auto' || style.overflowX === 'scroll'

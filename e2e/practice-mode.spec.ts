@@ -3,59 +3,49 @@ import { PracticePage } from './pages/PracticePage'
 
 test.describe('Practice Mode', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to practice page before each test
     const practice = new PracticePage(page)
     await practice.navigate()
   })
 
-  test('virtual piano is visible and can be played', async ({ page }) => {
+  test('practice page shows the shipped music library', async ({ page }) => {
     const practice = new PracticePage(page)
 
-    // Piano should be visible by default (no toggle needed)
-    expect(await practice.isPianoVisible()).toBe(true)
-
-    // Play a key (C4)
-    await practice.playPianoKey('C4')
-
-    // Wait for any visual feedback
-    await page.waitForTimeout(200)
+    await practice.expectLibraryVisible()
+    expect(await practice.getCategoryCount()).toBeGreaterThan(0)
   })
 
-  test('virtual guitar is visible and can be played', async ({ page }) => {
+  test('user can open a curriculum category and select a sheet', async ({ page }) => {
     const practice = new PracticePage(page)
 
-    // Guitar should be visible by default (no toggle needed)
-    expect(await practice.isGuitarVisible()).toBe(true)
-
-    // Play a note on guitar
-    await practice.playGuitarNote(1, 0)
-
-    await page.waitForTimeout(200)
+    await practice.openFirstCurriculumCategory()
+    await practice.expectSheetSelectorVisible()
+    await practice.selectFirstCurriculumSheet()
+    await practice.expectNowPlayingVisible()
   })
 
-  test('BPM display shows tempo value', async ({ page }) => {
+  test('selected sheet renders in the grand staff view', async ({ page }) => {
     const practice = new PracticePage(page)
 
-    // BPM display should show a value (read-only)
-    const bpm = await practice.getBPM()
-
-    // Verify BPM is a reasonable value
-    expect(bpm).toBeGreaterThan(40)
-    expect(bpm).toBeLessThan(200)
+    await practice.openFirstCurriculumCategory()
+    await practice.selectFirstCurriculumSheet()
+    await practice.expectGrandStaffVisible()
   })
 
-  test('piano and guitar work together', async ({ page }) => {
+  test('flute panel remains available in practice mode', async ({ page }) => {
     const practice = new PracticePage(page)
 
-    // Both instruments should be visible
-    expect(await practice.isPianoVisible()).toBe(true)
-    expect(await practice.isGuitarVisible()).toBe(true)
+    await practice.expectFluteVisible()
+    await practice.switchToTenHoleFlute()
+    await expect(page.getByRole('button', { name: '10h' })).toBeVisible()
+  })
 
-    // Play on both instruments
-    await practice.playPianoKey('C4')
-    await page.waitForTimeout(100)
-    await practice.playGuitarNote(1, 0)
+  test('selected sheet can be cleared from now playing banner', async ({ page }) => {
+    const practice = new PracticePage(page)
 
-    await page.waitForTimeout(200)
+    await practice.openFirstCurriculumCategory()
+    await practice.selectFirstCurriculumSheet()
+    await practice.expectNowPlayingVisible()
+    await practice.clearSelectedSheet()
+    await expect(page.getByText('Đang phát')).toHaveCount(0)
   })
 })
