@@ -21,6 +21,7 @@ export const NowPlayingBanner: React.FC<NowPlayingBannerProps> = ({
 
   return (
     <div
+      data-testid="practice-now-playing-banner"
       className={`
       relative overflow-hidden rounded-xl p-3 
       bg-gradient-to-r ${categoryColor}

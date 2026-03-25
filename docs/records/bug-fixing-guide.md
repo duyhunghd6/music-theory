@@ -85,6 +85,7 @@ const fn = useCallback(() => {
 4. **Make minimal changes** - Fix one thing at a time
 5. **Verify with the narrowest owned command first** - use the smallest build/test command that proves the fix before broader reruns
 6. **Record the latest verification accurately** - keep docs and handoff notes aligned to the most recent owned commands and their outcomes, whether they pass or fail
+7. **Keep shipped-route proof separate from debug tooling** - for iOS audio issues, verify the shipped `/practice?sheet=raga-bupali` flow first and do not treat `/test-iphone-player` as production proof
 
 ---
 
@@ -112,6 +113,15 @@ npm run build
 
 # Dev server
 npm run dev
+
+# Narrow shipped practice check
+npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium
+
+# Mobile Chrome targeted rerun for handover-critical mobile flows
+npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts
+
+# Full practice-spec cross-browser rerun when QA needs final confirmation
+npm run test:e2e -- e2e/practice-mode.spec.ts
 
 # Fix auto-fixable lint issues
 npm run lint:fix

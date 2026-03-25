@@ -103,7 +103,7 @@ export const SheetSelectorModal: React.FC<SheetSelectorModalProps> = ({
   )
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div data-testid="practice-sheet-selector-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
@@ -158,6 +158,7 @@ export const SheetSelectorModal: React.FC<SheetSelectorModalProps> = ({
               {filteredButterworth?.map((entry) => (
                 <button
                   key={entry.filename}
+                  data-testid={`practice-sheet-option-${entry.filename.split('/').pop()?.replace('.abc', '') || entry.filename}`}
                   onClick={() => handleButterworthClick(entry)}
                   disabled={loadingSheet === entry.filename}
                   className="w-full p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-left flex items-center gap-3"
@@ -189,6 +190,7 @@ export const SheetSelectorModal: React.FC<SheetSelectorModalProps> = ({
               {filteredSheets.map((sheet) => (
                 <button
                   key={sheet.id}
+                  data-testid={`practice-sheet-option-${sheet.id}`}
                   onClick={() => handleSheetClick(sheet)}
                   className="w-full p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-left flex items-center gap-3"
                 >

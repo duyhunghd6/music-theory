@@ -63,3 +63,12 @@ The current lesson runtime and shared course-data type both use `flute` as the s
 **Why:** `src/pages/SubmodulePage.tsx` checks `hasSection('flute')`, and `src/data/course-data/types.ts` includes `flute` in `SectionType`.
 
 **How to apply:** Course data and docs should refer to `flute` as the runtime section key; `Sáo Trúc` can still be used as the user-facing label in UI copy.
+
+---
+
+## 2026-03-25 — Verify iOS practice audio on the shipped `/practice` route with narrow-first automation plus real-device confirmation
+The verified iOS audio workflow centers on the shipped `/practice?sheet=raga-bupali` route, not the DEV-only iPhone test page, and keeps automation narrow before any broader reruns.
+
+**Why:** `src/pages/PracticePage.tsx` resolves `raga-bupali` through the shipped lazy-sheet path, `src/services/audio-engine.ts` and `src/stores/useAudioStore.ts` own the Tone-based instrument playback path, `src/components/abc/AbcRenderer.tsx` owns abcjs playback via an `AudioContext`/`webkitAudioContext`, and QA finished with passing targeted Chromium/Mobile Chrome runs plus a final all-project `e2e/practice-mode.spec.ts` rerun.
+
+**How to apply:** Document iOS audio fixes against shipped `/practice` behavior, keep `IPhonePlayerTestPage` framed as DEV-only diagnostic tooling, list the exact targeted Playwright commands QA used, and still require explicit real iOS Safari confirmation for sprint exit.

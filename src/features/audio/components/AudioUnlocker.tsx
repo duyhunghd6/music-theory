@@ -2,11 +2,20 @@ import React from 'react'
 import { useAudioStore } from '../../../stores/useAudioStore'
 import { AUDIO_STRINGS } from '../constants'
 
-const AudioUnlocker: React.FC = () => {
+interface AudioUnlockerProps {
+  onUnlock?: () => Promise<void> | void
+}
+
+const AudioUnlocker: React.FC<AudioUnlockerProps> = ({ onUnlock }) => {
   const isReady = useAudioStore((state) => state.isReady)
   const initializeAudio = useAudioStore((state) => state.initializeAudio)
 
   if (isReady) return null
+
+  const handleUnlock = async () => {
+    await onUnlock?.()
+    await initializeAudio()
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -15,7 +24,7 @@ const AudioUnlocker: React.FC = () => {
         <p className="text-stoneGrey mb-8">{AUDIO_STRINGS.UNLOCK.DESCRIPTION}</p>
 
         <button
-          onClick={() => initializeAudio()}
+          onClick={handleUnlock}
           className="w-full py-4 px-6 bg-bambooGreen hover:bg-brightLeaf text-white rounded-xl font-bold text-lg transition-colors shadow-md active:scale-95"
           aria-label="Start Music Theory"
         >

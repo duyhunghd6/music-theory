@@ -301,3 +301,171 @@ Expected outcome check:
 ```text
 Current docs match final code state and current QA truth for the rerun scope.
 ```
+
+# QA Report — Sprint 1 — Round 4
+
+## Summary
+- Total cases run: 2
+- PASSED: 2
+- FAILED: 0
+
+## Results
+
+### TC-001: Final application build succeeds — PASSED
+Command: `npm run build`
+Output snippet:
+```text
+> tsc -b && vite build
+vite v7.3.1 building client environment for production...
+✓ 2075 modules transformed.
+```
+
+### TC-004: Practice mode flow passes — PASSED
+Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
+Output snippet:
+```text
+Running 20 tests using 4 workers
+20 passed (37.5s)
+Projects covered: chromium, Mobile Chrome - iPhone SE, Mobile Safari - iPhone 12, Mobile Safari - iPad
+```
+
+# QA Report — iOS Practice Audio Investigation Sprint — Round 1
+
+## Summary
+- Total cases run: 10
+- PASSED: 9
+- FAILED: 1
+
+## Results
+
+### TC-T2-002: Changed unlock UI/hook path passes targeted Vitest coverage when used by the fix — PASSED
+Owner bucket: T2
+Command: `npm run test -- --run src/features/audio/components/AudioUnlocker.test.tsx`
+Output snippet:
+```text
+Test Files  1 passed (1)
+Tests       4 passed (4)
+
+✓ src/features/audio/components/AudioUnlocker.test.tsx (4 tests)
+```
+
+### TC-T1-001: `/practice?sheet=raga-bupali` loads through the shipped URL-driven flow — PASSED
+Owner bucket: T1
+Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
+Output snippet:
+```text
+Running 28 tests using 4 workers
+27 passed, 1 skipped
+Included passing assertions for `practice route loads raga-bupali from the shipped sheet query param`.
+```
+
+### TC-T1-002: Selected-sheet state is visible in shipped UI on the practice page — PASSED
+Owner bucket: T1
+Command: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
+Output snippet:
+```text
+Running 7 tests using 4 workers
+7 passed (18.7s)
+Included passing selected-sheet visibility assertions in shipped practice UI.
+```
+
+### TC-T1-003: Mobile practice flow is reachable with stable selectors/page objects — PASSED
+Owner bucket: T1
+Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+Output snippet:
+```text
+Running 7 tests using 4 workers
+7 passed (14.2s)
+Mobile practice flow reached successfully on the mobile project.
+```
+
+### TC-T1-004: Playwright covers the user actions and visible state immediately before audio playback — PASSED
+Owner bucket: T1
+Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+Output snippet:
+```text
+[Mobile Chrome - iPhone SE] › Practice Mode › mobile playback flow reaches the visible pre-audio state for raga-bupali
+✓ passed
+```
+
+### TC-T1-005: Shared mobile instrument surface does not regress when the fix touches shared audio/instrument UI — PASSED
+Owner bucket: T1
+Command: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
+Output snippet:
+```text
+Running 40 tests using 4 workers
+40 passed (48.0s)
+```
+
+### TC-T2-003: The shipped practice route satisfies the final audio initialization path, not only a debug page — PASSED
+Owner bucket: T2
+Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+Output snippet:
+```text
+Running 7 tests using 4 workers
+7 passed (14.2s)
+Validation evidence comes from the shipped `/practice?sheet=raga-bupali` route, not a debug-only page.
+```
+
+### TC-T2-004: `raga-bupali` loads through the real shipped lazy-sheet path before playback is attempted — PASSED
+Owner bucket: T2
+Command: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
+Output snippet:
+```text
+[chromium] › Practice Mode › practice route loads raga-bupali from the shipped sheet query param
+✓ passed
+```
+
+### TC-T3-001: Docs describe current shipped `/practice` behavior, not an outdated or debug-only flow — PASSED
+Owner bucket: T3
+Command: `grep -RIn "/practice\|IPhonePlayerTestPage\|test-iphone-player\|raga-bupali" docs/context docs/records`
+Output snippet:
+```text
+docs/context/ARCHITECTURE.md:100-105
+docs/records/decisions.md:69-74
+docs/records/bug-fixing-guide.md:88
+docs/records/dev-guide.md:22,98
+```
+
+### TC-T3-002: Docs record the final audio unlock/playback policy that matches the shipped fix — PASSED
+Owner bucket: T3
+Command: `grep -RIn "audio unlock\|Tone.start\|AudioContext\|abcjs\|useAudioStore\|audio-engine" docs/context docs/records`
+Output snippet:
+```text
+docs/context/ARCHITECTURE.md:104
+docs/records/decisions.md:72
+docs/records/dev-guide.md:19-21
+```
+
+### TC-T3-003: Docs include the exact narrow-first verification commands and real-device expectation — PASSED
+Owner bucket: T3
+Command: `grep -RIn "npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts\|npm run test:e2e -- e2e/practice-mode.spec.ts\|Mobile Chrome - iPhone SE\|real iOS device\|raga-bupali" docs/records docs/report docs/tests`
+Output snippet:
+```text
+docs/tests/test-plan.md:171-175
+docs/report/architecture-decisions.md:167-179
+docs/records/dev-guide.md:98
+```
+
+### TC-T3-004: Final docs reflect only verified QA evidence and final behavior — PASSED
+Owner bucket: T3
+Command: `grep -RIn "PASS\|FAIL\|real-device\|practice-mode.spec.ts\|qa-report" docs/report docs/records docs/context`
+Output snippet:
+```text
+docs/report/qa-report.md
+docs/report/architecture-decisions.md:179,252
+```
+
+### TC-T2-005: Real iOS device can reproduce and then confirm the fix on the exact shipped URL — FAILED
+Owner bucket: QA environment/setup
+Command: manual on real iOS Safari: open `http://localhost:5504/practice?sheet=raga-bupali`
+Observed error:
+```text
+No real iOS device/Safari session was available in this QA environment, so the required manual shipped-URL verification could not be executed.
+```
+Minimal repro path:
+1. Use this QA environment only.
+2. Attempt to perform the required manual real-device Safari verification from the test plan.
+3. Observe there is no attached/accessible real iOS device session for running the shipped URL check.
+Occurs on shipped `/practice` or only debug/test surface: Not verified on either surface in this environment.
+Blocks sprint exit: Yes

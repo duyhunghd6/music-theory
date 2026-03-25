@@ -100,7 +100,9 @@ This is important because older docs describe VexFlow as the sole notation layer
 - The app gates test/debug routes behind `import.meta.env.DEV`; `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2` are development-only and are not mounted in shipped production builds.
 - `src/App.tsx` now registers those debug/test surfaces as direct `<Route>` children inside `<Routes>`, matching React Router 7 requirements.
 - `SubmodulePage.tsx` and `src/data/course-data/types.ts` both use `flute` as the canonical section name for the Vietnamese bamboo flute visualizer; older docs describing a `saoTruc`/`flute` mismatch are stale.
-- Audio is currently produced by a Tone.js-based poly synth in `src/services/audio-engine.ts`; there is also separate sampler/scheduler/pitch-detection work in `src/services/` and `src/features/audio/`, but that is not the only active path.
+- The shipped `/practice` page supports direct URL-driven sheet loading via `?sheet=...`; `raga-bupali` resolves through the Sahaja Yoga lazy-sheet path before the page renders the selected sheet state and playback surface.
+- Audio is currently split across two active shipped playback paths: `src/services/audio-engine.ts` uses Tone.js and calls `Tone.start()` through `useAudioStore` for instrument/note playback, while `src/components/abc/AbcRenderer.tsx` creates an `AudioContext`/`webkitAudioContext`, resumes it when suspended, and initializes abcjs synth playback for notation playback.
+- `src/pages/IPhonePlayerTestPage.tsx` remains a DEV-only diagnostics surface; current docs should treat it as reference material for iOS constraints, not as the shipped fix surface.
 
 ## Main drift from older docs
 

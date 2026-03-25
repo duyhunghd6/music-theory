@@ -1,150 +1,207 @@
-# Sprint Test Plan — Handover Hardening Sprint 1
+# Test Plan — iOS Practice Audio Investigation Sprint
 
-Status: derived from `docs/active/handover-hardening-sprint-1/dod.md` and `docs/report/architecture-decisions.md` on 2026-03-25
+Status: derived from `docs/report/architecture-decisions.md` on 2026-03-25
 Owner: QA1
+Target URL: `http://localhost:5504/practice?sheet=raga-bupali`
 
-## Test strategy
+## Execution order
 
-This sprint uses a narrow-first verification strategy focused on handover-critical behavior:
+Run cases in this narrow-first order:
 
-1. build health,
-2. relevant unit/component coverage for T2-owned production fixes,
-3. targeted Playwright coverage for the critical flows defined in the backlog/DoD,
-4. broader reruns only if a failing area needs confirmation after a fix.
+1. T2 targeted unit/component coverage
+2. T1 targeted Playwright coverage for the shipped practice path
+3. T1 targeted mobile regression only if the touched fix area overlaps shared instrument/audio surfaces
+4. T2 real-device iOS repro and fix confirmation on the exact shipped URL
+5. T3 docs sync verification after code and QA results are final
 
-## Pass/fail rule
+## Binary result rule
 
-Each case is binary:
-- **PASS**: the command completes successfully and the observed behavior matches the acceptance target.
-- **FAIL**: the command exits non-zero, a required assertion fails, or observed behavior contradicts the acceptance target.
+- **PASS**: every command in the case exits 0, and every required UI/manual observation in the case matches the pass criteria.
+- **FAIL**: any command exits non-zero, any required assertion fails, or any required UI/manual observation does not match the pass criteria.
 
-## Test cases
+## T1 — Targeted E2E coverage for iOS practice audio
 
-### TC-001 — Final application build succeeds
-- Scope: global DoD, T2
-- Command: `npm run build`
-- Pass criteria:
-  - command exits with status 0
-  - TypeScript build succeeds
-  - Vite production build succeeds
-- Fail criteria:
-  - any compile, type, or bundle error occurs
-
-### TC-002 — T2-owned unit/component coverage passes for touched production files
-- Scope: T2
-- Command: run only the relevant Vitest files adjacent to changed Dev2-owned production code
-- Suggested command shape:
-  - `npm run test -- <relevant test file globs>`
-- Minimum required checks:
-  - any updated tests covering router policy changes in `src/App.tsx`
-  - any updated tests covering the lesson/runtime contract fix around `src/pages/SubmodulePage.tsx` and related types/data
-- Pass criteria:
-  - all relevant targeted Vitest tests pass
-  - no failing assertion remains in touched T2-owned areas
-- Fail criteria:
-  - any targeted unit/component test fails
-  - no relevant test exists for a changed T2-owned production behavior that required new coverage
-
-### TC-003 — Lesson completion flow passes
-- Scope: T1 handover-critical E2E
-- Command: `npm run test:e2e -- e2e/lesson-completion.spec.ts`
-- Pass criteria:
-  - targeted Playwright run exits with status 0
-  - lesson completion/persistence assertions pass
-- Fail criteria:
+### TC-T1-001: `/practice?sheet=raga-bupali` loads through the shipped URL-driven flow
+- **Type**: integration
+- **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts`
+- **Pass criteria**:
+  - command exits 0
+  - the spec includes passing assertions for loading the shipped `/practice` route with a selected sheet
+  - the selected sheet resolves without fallback/error UI
+- **Fail criteria**:
   - command exits non-zero
-  - any assertion in the targeted spec fails
+  - any assertion for shipped practice-route loading fails
+  - the run does not cover a selected-sheet practice flow
 
-### TC-004 — Practice mode flow passes
-- Scope: T1 handover-critical E2E
-- Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
-- Pass criteria:
-  - targeted Playwright run exits with status 0
-  - practice-page instrument interaction assertions pass
-- Fail criteria:
+### TC-T1-002: Selected-sheet state is visible in shipped UI on the practice page
+- **Type**: integration
+- **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
+- **Pass criteria**:
+  - command exits 0
+  - the spec contains passing assertions for visible selected-sheet UI on the practice page, covering the Now Playing / score / practice panel state for the chosen sheet
+- **Fail criteria**:
   - command exits non-zero
-  - any assertion in the targeted spec fails
+  - any selected-sheet visibility assertion fails
+  - the covered flow does not prove the chosen sheet is visible in shipped UI
 
-### TC-005 — Mobile responsive/navigation flow passes
-- Scope: T1 handover-critical E2E
-- Command: `npm run test:e2e -- e2e/mobile-responsive.spec.ts`
-- Pass criteria:
-  - targeted Playwright run exits with status 0
-  - mobile navigation/responsive assertions pass for the intended covered flows
-- Fail criteria:
+### TC-T1-003: Mobile practice flow is reachable with stable selectors/page objects
+- **Type**: integration
+- **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+- **Pass criteria**:
+  - command exits 0
+  - mobile-targeted practice flow assertions pass
+  - the spec reaches the practice interaction path through stable selectors/page objects rather than brittle decorative-only targeting
+- **Fail criteria**:
   - command exits non-zero
-  - any assertion in the targeted spec fails
+  - any mobile practice assertion fails
+  - the spec cannot reach the intended flow on the mobile project
 
-### TC-006 — Mobile floating instruments flow passes
-- Scope: T1 handover-critical E2E
-- Command: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
-- Pass criteria:
-  - targeted Playwright run exits with status 0
-  - floating-instrument interaction/layout assertions pass for the intended covered flows
-- Fail criteria:
+### TC-T1-004: Playwright covers the user actions and visible state immediately before audio playback
+- **Type**: integration
+- **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+- **Pass criteria**:
+  - command exits 0
+  - the spec reaches the shipped practice page for `raga-bupali`
+  - the spec performs the playback-entry user action and verifies the visible state that precedes the real-device audio symptom
+- **Fail criteria**:
   - command exits non-zero
-  - any assertion in the targeted spec fails
+  - the pre-playback user action is not covered
+  - visible pre-playback state is missing or failing
 
-### TC-007 — Final router policy matches final shipped code and docs
-- Scope: T2, T3
-- Verification method:
-  - inspect final `src/App.tsx`
-  - inspect final updated docs that describe routing/handover behavior
-- Pass criteria:
-  - the final route policy in code is intentional and documented consistently
-  - docs do not contradict the shipped router state
-- Fail criteria:
-  - docs claim a route policy that the code does not implement
-  - shipped debug/test route behavior is ambiguous or undocumented after T2/T3
+### TC-T1-005: Shared mobile instrument surface does not regress when the fix touches shared audio/instrument UI
+- **Type**: smoke
+- **Command**: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
+- **Pass criteria**:
+  - command exits 0
+  - all assertions pass
+  - run is executed when the fix touches `src/components/ui/FloatingInstrumentsContainer.tsx`, `src/pages/PracticePage.tsx`, or another shared instrument/audio surface
+- **Fail criteria**:
+  - command exits non-zero when this rerun is required
+  - any assertion fails
+  - required shared-surface regression coverage is skipped
 
-### TC-008 — Final section naming contract is consistent
-- Scope: T2, T3
-- Verification method:
-  - inspect final `src/pages/SubmodulePage.tsx`
-  - inspect final `src/data/course-data/types.ts`
-  - inspect any touched course-data files and final synced docs
-- Pass criteria:
-  - the canonical flute section name is consistent across runtime checks, type definitions, relevant data, and docs
-- Fail criteria:
-  - runtime/type/data/docs still disagree on the canonical section name
+## T2 — iOS audio runtime investigation and fix
 
-### TC-009 — Final docs match final code/test truth
-- Scope: T3, global DoD
-- Verification method:
-  - inspect final updated docs in `docs/context/`, `docs/specs/`, `docs/records/`, and `docs/active/`
-  - compare against final code changes and QA outcomes
-- Pass criteria:
-  - updated docs accurately reflect final router behavior, final bug-fix outcomes, and final verification workflow
-  - no updated doc makes a contradicted claim about current shipped behavior
-- Fail criteria:
-  - any updated doc contradicts final code or QA evidence
+### TC-T2-001: Changed `useAudioStore` / audio-engine path passes targeted Vitest coverage
+- **Type**: unit
+- **Command**: `npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts`
+- **Pass criteria**:
+  - command exits 0
+  - all assertions pass
+  - the run covers the shipped store/engine path when either file is changed
+- **Fail criteria**:
+  - command exits non-zero
+  - any assertion fails
+  - either changed shipped store/engine file lacks targeted executed coverage
 
-## Execution order for QA2
+### TC-T2-002: Changed unlock UI/hook path passes targeted Vitest coverage when used by the fix
+- **Type**: component
+- **Command**: `npm run test -- --run src/features/audio/components/AudioUnlocker.test.tsx`
+- **Pass criteria**:
+  - command exits 0
+  - all assertions pass
+  - the run is executed if the final fix touches `src/features/audio/components/AudioUnlocker.tsx` or routes users through that shipped unlock surface
+- **Fail criteria**:
+  - command exits non-zero when this coverage is required
+  - any assertion fails
+  - required shipped unlock-surface coverage is skipped
 
-Run the cases in this order:
+### TC-T2-003: The shipped practice route satisfies the final audio initialization path, not only a debug page
+- **Type**: smoke
+- **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
+- **Pass criteria**:
+  - command exits 0
+  - the practice-page playback-entry flow passes on the shipped route
+  - no QA evidence relies only on `/test-iphone-player` or another debug-only surface
+- **Fail criteria**:
+  - command exits non-zero
+  - the practice-page playback-entry flow fails
+  - the validation evidence depends only on a debug/test route
 
-1. TC-001
-2. TC-002
-3. TC-003
-4. TC-004
-5. TC-005
-6. TC-006
-7. TC-007
-8. TC-008
-9. TC-009
+### TC-T2-004: `raga-bupali` loads through the real shipped lazy-sheet path before playback is attempted
+- **Type**: smoke
+- **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
+- **Pass criteria**:
+  - command exits 0
+  - the run proves the selected `raga-bupali` sheet is loaded from the shipped `/practice?sheet=` path before playback-entry interaction
+- **Fail criteria**:
+  - command exits non-zero
+  - `raga-bupali`-targeted practice loading is not covered or fails
 
-## Failure reporting format for QA2
+### TC-T2-005: Real iOS device can reproduce and then confirm the fix on the exact shipped URL
+- **Type**: smoke
+- **Command**: manual on real iOS Safari: open `http://localhost:5504/practice?sheet=raga-bupali`
+- **Pass criteria**:
+  - before the fix, QA can reproduce the reported user-level symptom on the shipped URL, or records that reproduction is no longer possible with exact observed behavior
+  - after the fix, the same real iOS device can load the page, perform the playback-entry user gesture, and confirm audio works on the shipped URL
+  - QA records exact device/browser details and user-visible outcome
+- **Fail criteria**:
+  - QA cannot verify the shipped URL on a real iOS device
+  - the post-fix real-device run still fails to produce working audio after the required user gesture
+  - the report lacks device/browser details or exact user-visible outcome
+
+## T3 — Docs sync after verified fix
+
+### TC-T3-001: Docs describe current shipped `/practice` behavior, not an outdated or debug-only flow
+- **Type**: smoke
+- **Command**: `grep -RIn "/practice\|IPhonePlayerTestPage\|test-iphone-player\|raga-bupali" docs/context docs/records`
+- **Pass criteria**:
+  - command exits 0
+  - updated docs clearly distinguish shipped `/practice` behavior from DEV-only iPhone test tooling
+  - no doc presents the debug page as the production fix surface
+- **Fail criteria**:
+  - command exits non-zero
+  - docs omit the shipped practice route where required
+  - any doc treats the debug page as the shipped solution
+
+### TC-T3-002: Docs record the final audio unlock/playback policy that matches the shipped fix
+- **Type**: smoke
+- **Command**: `grep -RIn "audio unlock\|Tone.start\|AudioContext\|abcjs\|useAudioStore\|audio-engine" docs/context docs/records`
+- **Pass criteria**:
+  - command exits 0
+  - updated docs describe the final verified shipped audio path used by the fix
+  - docs do not describe a contradictory unlock/playback policy
+- **Fail criteria**:
+  - command exits non-zero
+  - the described audio policy conflicts with final code or QA evidence
+  - docs describe only debug learnings without tying them back to the shipped fix
+
+### TC-T3-003: Docs include the exact narrow-first verification commands and real-device expectation
+- **Type**: smoke
+- **Command**: `grep -RIn "npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts\|npm run test:e2e -- e2e/practice-mode.spec.ts\|Mobile Chrome - iPhone SE\|real iOS device\|raga-bupali" docs/records docs/report docs/tests`
+- **Pass criteria**:
+  - command exits 0
+  - docs include the exact targeted command set or a stricter equivalent actually used by QA
+  - docs state that real-device iOS confirmation is required for sprint exit
+- **Fail criteria**:
+  - command exits non-zero
+  - docs omit the exact narrow-first verification path
+  - docs imply simulator/desktop-only evidence is sufficient
+
+### TC-T3-004: Final docs reflect only verified QA evidence and final behavior
+- **Type**: smoke
+- **Command**: `grep -RIn "PASS\|FAIL\|real-device\|practice-mode.spec.ts\|qa-report" docs/report docs/records docs/context`
+- **Pass criteria**:
+  - command exits 0
+  - doc claims align with final QA evidence
+  - no updated doc states behavior that QA or final code disproves
+- **Fail criteria**:
+  - command exits non-zero
+  - any updated doc contradicts final code or QA results
+  - docs claim verification that the QA report does not support
+
+## Failure recording requirement for QA2
 
 For every failing case, record all of the following in `docs/report/qa-report.md`:
+
 - test case ID
-- owner bucket: T1, T2, or T3
-- exact command run, if applicable
-- observed error
-- minimal repro steps
-- whether the failure blocks handover
+- exact command or exact manual device step
+- owner bucket: T1, T2, or QA environment/setup
+- observed user-level symptom
+- minimal repro path
+- whether the issue occurs on shipped `/practice` or only on a debug/test surface
+- whether the issue blocks sprint exit
 
-## Re-run policy
+## Re-run rule
 
-If QA2 finds failures:
-- re-run only the listed failing cases after the responsible dev fixes them
-- do not rerun unrelated cases unless a fix could reasonably affect the same surface
+If QA2 finds a failure, re-run only the failed case after the responsible owner updates it, plus `TC-T1-005` only when the fix touches a shared instrument/audio surface that could regress mobile behavior.

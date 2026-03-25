@@ -1,10 +1,13 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
+import abcjs from 'abcjs'
+import type { AbcJsNavigator } from 'abcjs'
 import { useSearchParams } from 'react-router-dom'
 import { AppLayout } from '../components/layout/AppLayout'
 import { SimpleHeader } from '../components/layout/SimpleHeader'
 import { useGameStore } from '../stores/useGameStore'
 import { CollapsiblePanel } from '../components/ui/CollapsiblePanel'
 import { FeedbackOverlay, GameOverlay } from '../features/game'
+import AudioUnlocker from '../features/audio/components/AudioUnlocker'
 import { ConfettiExplosion } from '../components/ui/ConfettiExplosion'
 import { MusicCategoryCard, SheetSelectorModal, NowPlayingBanner } from '../components/practice'
 import PRACTICE_CATEGORIES, {
@@ -24,6 +27,24 @@ const AbcGrandStaff = React.lazy(() => import('../components/MusicStaff/AbcGrand
 const HorizontalSaoTrucVisualizer = React.lazy(
   () => import('../features/sao-truc/components/HorizontalSaoTrucVisualizer')
 )
+
+const unlockPracticeAudio = async () => {
+  const audioSession = (navigator as AbcJsNavigator).audioSession
+  if (audioSession) {
+    try {
+      audioSession.type = 'playback'
+    } catch (error) {
+      console.warn('[PracticePage] Failed to set audioSession.type to playback', error)
+    }
+  }
+
+  const activeAudioContext = abcjs.synth.activeAudioContext
+  const context = typeof activeAudioContext === 'function' ? activeAudioContext() : undefined
+
+  if (context && context.state === 'suspended') {
+    await context.resume()
+  }
+}
 
 /**
  * PracticePage - Music Library with dynamic sheet loading
@@ -188,15 +209,19 @@ export const PracticePage: React.FC = () => {
 
   return (
     <AppLayout>
+      <AudioUnlocker onUnlock={unlockPracticeAudio} />
       <SimpleHeader />
 
       <GameOverlay />
       <FeedbackOverlay />
       <ConfettiExplosion run={showConfetti} onComplete={() => setShowConfetti(false)} />
 
-      <div className="flex-1 py-4 md:p-4 space-y-4">
+      <div data-testid="practice-page" className="flex-1 py-4 md:p-4 space-y-4">
         {/* Music Library Section */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-100 dark:border-slate-700">
+        <div
+          data-testid="practice-library"
+          className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-100 dark:border-slate-700"
+        >
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -269,8 +294,9 @@ export const PracticePage: React.FC = () => {
         )}
 
         {/* Grand Staff */}
-        <CollapsiblePanel
-          title="Grand Staff View"
+        <div data-testid="practice-grand-staff-panel">
+          <CollapsiblePanel
+            title="Grand Staff View"
           icon="music_note"
           defaultOpen
           headerExtra={
@@ -295,9 +321,11 @@ export const PracticePage: React.FC = () => {
             <AbcGrandStaff showNoteNames={showNoteNames} overrideAbc={selectedSheet?.abc} />
           </React.Suspense>
         </CollapsiblePanel>
+        </div>
 
         {/* Flute */}
-        <CollapsiblePanel title="Flute" icon="graphic_eq" defaultOpen>
+        <div data-testid="practice-flute-panel">
+          <CollapsiblePanel title="Flute" icon="graphic_eq" defaultOpen>
           <React.Suspense
             fallback={
               <div className="w-full h-16 flex items-center justify-center text-slate-400">
@@ -308,6 +336,7 @@ export const PracticePage: React.FC = () => {
             <HorizontalSaoTrucVisualizer />
           </React.Suspense>
         </CollapsiblePanel>
+        </div>
       </div>
 
       {/* Sheet Selector Modal */}

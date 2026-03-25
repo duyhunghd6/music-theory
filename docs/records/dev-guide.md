@@ -16,8 +16,10 @@
 
 ### Audio
 
-- **Tone.js** for interactive instrument playback
-- **abcjs** for staff rendering and synchronized playback
+- **Tone.js** drives the shipped instrument/note playback path through `useAudioStore` and `src/services/audio-engine.ts`
+- **abcjs** drives notation rendering and playback through `src/components/abc/AbcRenderer.tsx`
+- The current shipped audio behavior depends on a user gesture unlocking playback entry: Tone-based playback calls `Tone.start()`, while abcjs playback creates and resumes an `AudioContext`/`webkitAudioContext` before synth playback
+- `src/pages/IPhonePlayerTestPage.tsx` is DEV-only diagnostic tooling for iOS Safari constraints and should not be documented as the production fix surface
 
 ---
 
@@ -92,8 +94,9 @@ For lesson-specific notation:
 
 1. **Formatting/Prettier Issues** - Many files have eslint formatting warnings (not blocking builds)
 2. **abcjs Types** - Some TypeScript workarounds for abcjs callback types
-3. **Verification Discipline** - Handover work should stay narrow-first and record the exact owned commands that passed, including `npm run test -- src/App.test.tsx`, `npm run build`, `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-responsive.spec.ts --project=chromium`, and `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
-4. **Bundle Size** - Main chunks exceed 500KB (could benefit from more code splitting)
+3. **Verification Discipline** - Handover work should stay narrow-first and record the exact owned commands that passed, including `npm run test -- src/App.test.tsx`, `npm run build`, `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts --project=chromium`, `npm run test:e2e -- e2e/mobile-responsive.spec.ts --project=chromium`, `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`, and the final all-project rerun `npm run test:e2e -- e2e/practice-mode.spec.ts` when QA needs cross-browser confirmation for the shipped practice flow.
+4. **Real-device exit criteria** - For iOS audio issues on shipped `/practice`, simulator/desktop automation is not enough by itself; keep the real iOS Safari check on `http://localhost:5504/practice?sheet=raga-bupali` as required sprint-exit evidence.
+5. **Bundle Size** - Main chunks exceed 500KB (could benefit from more code splitting)
 
 ---
 
