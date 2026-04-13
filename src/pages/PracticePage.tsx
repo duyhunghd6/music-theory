@@ -1,13 +1,10 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
-import abcjs from 'abcjs'
-import type { AbcJsNavigator } from 'abcjs'
 import { useSearchParams } from 'react-router-dom'
 import { AppLayout } from '../components/layout/AppLayout'
 import { SimpleHeader } from '../components/layout/SimpleHeader'
 import { useGameStore } from '../stores/useGameStore'
 import { CollapsiblePanel } from '../components/ui/CollapsiblePanel'
 import { FeedbackOverlay, GameOverlay } from '../features/game'
-import AudioUnlocker from '../features/audio/components/AudioUnlocker'
 import { ConfettiExplosion } from '../components/ui/ConfettiExplosion'
 import { MusicCategoryCard, SheetSelectorModal, NowPlayingBanner } from '../components/practice'
 import PRACTICE_CATEGORIES, {
@@ -27,24 +24,6 @@ const AbcGrandStaff = React.lazy(() => import('../components/MusicStaff/AbcGrand
 const HorizontalSaoTrucVisualizer = React.lazy(
   () => import('../features/sao-truc/components/HorizontalSaoTrucVisualizer')
 )
-
-const unlockPracticeAudio = async () => {
-  const audioSession = (navigator as AbcJsNavigator).audioSession
-  if (audioSession) {
-    try {
-      audioSession.type = 'playback'
-    } catch (error) {
-      console.warn('[PracticePage] Failed to set audioSession.type to playback', error)
-    }
-  }
-
-  const activeAudioContext = abcjs.synth.activeAudioContext
-  const context = typeof activeAudioContext === 'function' ? activeAudioContext() : undefined
-
-  if (context && context.state === 'suspended') {
-    await context.resume()
-  }
-}
 
 /**
  * PracticePage - Music Library with dynamic sheet loading
@@ -209,7 +188,6 @@ export const PracticePage: React.FC = () => {
 
   return (
     <AppLayout>
-      <AudioUnlocker onUnlock={unlockPracticeAudio} />
       <SimpleHeader />
 
       <GameOverlay />

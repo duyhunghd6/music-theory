@@ -3,3 +3,12 @@ node_modules
 playwright-report
 test-results
 dist
+logs
+reference
+.agents
+coverage
+e2e
+tests
+docs
+.vscode
+.claude
