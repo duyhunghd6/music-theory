@@ -5,14 +5,14 @@ L: 1/8
 Q: 1/4=120
 K: Em
 % Line 1
-E E (E B,) E E (E B,) | E F G (F2 G2) F | E E (E B,) E E (E B,) | E F G (F2 G2) F |
+"Em" E E (EB,) E E (EB,) | "D" E F G (F2G2) F | "Em" E E (EB,) E E (EB,) | "D" E F G (F2G2) F |
 w: Ha-ri Bol Ha-ri Bol | Ha-ri Ha-ri Bol | Ha-ri Bol Ha-ri Bol | Ha-ri Ha-ri Bol
 % Line 2
-E E2 F (G B) A G | (F E) D F E4 | E E2 F (G B) A G | (F E) D F E4 |
+"Em" E E2 F (GB) A G | "D" (FE) D F E4 | "Em" E E2 F (GB) A G | "D" (FE) D F "Em" E4 |
 w: Mu-kun-da Ma-dha-va | Go-vin-da Bol | Mu-kun-da Ma-dha-va | Go-vin-da Bol
 % Line 3
-B B B (B d) c B | (A G) A B A4 | B B2 B (B d) c B | (A G) A B A2 B2 |
+"G" B B B (Bd) c B | "D" (AG) A B A4 | "G" B B2 B (Bd) c B | "D" (AG) A B A2 "B7" B2 |
 w: Ke-sha-va Ma-dha-va | Go-vin-da Bol | Ke-sha-va Ma-dha-va | Go-vin-da Bol _
 % Line 4
-E E2 F (G B) A G | (F E) D F E4 | E E2 F (G B) A G | (F E) D F E4 ||
+"Em" E E2 F (GB) A G | "D" (FE) D F E4 | "Em" E E2 F (GB) A G | "D" (FE) D F "Em" E4 ||
 w: Mu-kun-da Ma-dha-va | Go-vin-da Bol | Mu-kun-da Ma-dha-va | Go-vin-da Bol
