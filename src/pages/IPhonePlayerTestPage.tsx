@@ -44,13 +44,7 @@ Q:1/4=80
 K:C
 [CEG] [CEG] [DFA] [DFA] | [EGB] [EGB] [FAc] [FAc] | [GBd] [GBd] [Ace] [Ace] | [Bdf] [Bdf] [ceg] [ceg] |]`
 
-type AudioState =
-  | 'not-initialized'
-  | 'suspended'
-  | 'running'
-  | 'closed'
-  | 'interrupted'
-  | 'error'
+type AudioState = 'not-initialized' | 'suspended' | 'running' | 'closed' | 'interrupted' | 'error'
 
 const getActiveAudioContext = (): AudioContext | undefined => {
   const activeAudioContext = abcjs.synth.activeAudioContext
@@ -226,7 +220,8 @@ export default function IPhonePlayerTestPage() {
       if (!ctx) {
         // Fallback: create raw AudioContext
         log('Creating fallback AudioContext...')
-        const AudioContextClass = window.AudioContext || (window as AudioContextWindow).webkitAudioContext
+        const AudioContextClass =
+          window.AudioContext || (window as AudioContextWindow).webkitAudioContext
         ctx = new AudioContextClass()
       }
 
@@ -365,8 +360,8 @@ export default function IPhonePlayerTestPage() {
 
           {deviceInfo.isIOS && !audioSessionSupported && (
             <div className="mt-3 p-3 bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded-lg text-orange-700 dark:text-orange-300 text-sm">
-              <strong>📵 Mute Switch Warning:</strong> Your device mute switch must be OFF for
-              audio to play. iOS 17+ supports ignoring the mute switch via audioSession API.
+              <strong>📵 Mute Switch Warning:</strong> Your device mute switch must be OFF for audio
+              to play. iOS 17+ supports ignoring the mute switch via audioSession API.
             </div>
           )}
         </div>

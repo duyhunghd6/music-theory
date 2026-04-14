@@ -51,7 +51,9 @@ const SidebarContent: React.FC<{
   setCurrentPosition: (moduleId: number, submoduleId: string) => void
   completedSubmodules: string[]
   getModuleProgress: (moduleId: number) => number
-  getSectionProgress: (submoduleId: string) => { visibleCount: number; totalSections: number } | undefined
+  getSectionProgress: (
+    submoduleId: string
+  ) => { visibleCount: number; totalSections: number } | undefined
   startGame: () => void
   stopGame: () => void
   isPlaying: boolean
@@ -333,7 +335,10 @@ const SidebarContent: React.FC<{
                                     {(() => {
                                       const sectionProg = getSectionProgress(submodule.id)
                                       const progressPercent = sectionProg
-                                        ? Math.round((sectionProg.visibleCount / sectionProg.totalSections) * 100)
+                                        ? Math.round(
+                                            (sectionProg.visibleCount / sectionProg.totalSections) *
+                                              100
+                                          )
                                         : 0
 
                                       return (

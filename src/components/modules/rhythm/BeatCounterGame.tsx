@@ -104,7 +104,7 @@ const MEASURES: MeasureExample[] = [
   },
   {
     id: 'complex-4',
-    abc: "L:1/4\nM:4/4\nC3/2 D/ E z|",
+    abc: 'L:1/4\nM:4/4\nC3/2 D/ E z|',
     totalBeats: 4,
     breakdown: '1.5 + 0.5 + 1 + 1 = 4',
     description: 'Dotted quarter pattern',
@@ -156,9 +156,7 @@ const BeatCounterGame: React.FC<BeatCounterGameProps> = ({
 
   // Generate questions
   const questions = useMemo(() => {
-    const availableMeasures = MEASURES.filter((m) =>
-      currentLevelConfig.measures.includes(m.id)
-    )
+    const availableMeasures = MEASURES.filter((m) => currentLevelConfig.measures.includes(m.id))
     return [...availableMeasures].sort(() => Math.random() - 0.5)
   }, [currentLevel, currentLevelConfig.measures])
 
@@ -243,9 +241,7 @@ const BeatCounterGame: React.FC<BeatCounterGameProps> = ({
         <p className="text-lg font-medium text-slate-800 dark:text-white mb-2">
           How many beats are in this measure?
         </p>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
-          Count all notes and rests
-        </p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Count all notes and rests</p>
       </div>
 
       {/* ABC Notation Display */}
@@ -259,9 +255,7 @@ const BeatCounterGame: React.FC<BeatCounterGameProps> = ({
         >
           <InlineAbcNotation abc={currentQuestion.abc} />
         </Suspense>
-        <p className="text-xs text-center text-slate-400 mt-2">
-          {currentQuestion.description}
-        </p>
+        <p className="text-xs text-center text-slate-400 mt-2">{currentQuestion.description}</p>
       </div>
 
       {/* Answer Options */}
@@ -309,9 +303,7 @@ const BeatCounterGame: React.FC<BeatCounterGameProps> = ({
             </div>
           ) : (
             <div>
-              <p className="font-bold text-lg">
-                ❌ Answer: {currentQuestion.totalBeats} beats
-              </p>
+              <p className="font-bold text-lg">❌ Answer: {currentQuestion.totalBeats} beats</p>
               <p className="font-mono text-sm mt-1">{currentQuestion.breakdown}</p>
             </div>
           )}

@@ -15,7 +15,13 @@ vi.mock('react-router-dom', () => ({
 
 vi.mock('../data/course-data', () => ({
   findSubmodule: () => mockedSubmodule.value,
-  findModule: () => ({ id: 1, name: 'Module 1', subtitle: 'Intro', icon: 'music_note', submodules: [] }),
+  findModule: () => ({
+    id: 1,
+    name: 'Module 1',
+    subtitle: 'Intro',
+    icon: 'music_note',
+    submodules: [],
+  }),
   getNextSubmodule: () => undefined,
   getPreviousSubmodule: () => undefined,
 }))

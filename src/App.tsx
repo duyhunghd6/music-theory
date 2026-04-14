@@ -103,13 +103,21 @@ function App() {
             <Route path="/demo" element={<ComposePage />} />
             <Route path="/abc-editor" element={<AbcEditorPage />} />
             {isDebugRouteEnabled && <Route path="/test-ui" element={<TestUIPage />} />}
-            {isDebugRouteEnabled && <Route path="/test-fretboard" element={<FretboardTestPage />} />}
+            {isDebugRouteEnabled && (
+              <Route path="/test-fretboard" element={<FretboardTestPage />} />
+            )}
             {isDebugRouteEnabled && (
               <Route path="/test-guitar-popup" element={<GuitarFretboardPopupTestPage />} />
             )}
-            {isDebugRouteEnabled && <Route path="/test-abc-notation" element={<TestAbcNotationPage />} />}
-            {isDebugRouteEnabled && <Route path="/test-iphone-player" element={<IPhonePlayerTestPage />} />}
-            {isDebugRouteEnabled && <Route path="/test-games-m2" element={<Module2GameTestPage />} />}
+            {isDebugRouteEnabled && (
+              <Route path="/test-abc-notation" element={<TestAbcNotationPage />} />
+            )}
+            {isDebugRouteEnabled && (
+              <Route path="/test-iphone-player" element={<IPhonePlayerTestPage />} />
+            )}
+            {isDebugRouteEnabled && (
+              <Route path="/test-games-m2" element={<Module2GameTestPage />} />
+            )}
           </Routes>
         </Suspense>
       </MainLayout>

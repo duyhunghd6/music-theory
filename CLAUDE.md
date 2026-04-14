@@ -30,7 +30,7 @@ If docs in `./docs/` conflict, prefer the file explicitly marked synced/verified
 - Both `abcjs` and `vexflow` are active notation/rendering paths; audio uses Tone.js plus supporting services in `src/services/` and `src/features/audio/`.
 - Progress is local-first in `src/stores/useProgressStore.ts`, with optional Supabase sync when environment variables are configured.
 - Module 1 has the deepest lesson-game wiring; Modules 2-5 are currently more theory/notation-heavy with less lesson-level game wiring.
-- Test stack: Vitest + Testing Library for unit/component tests, Playwright for E2E.
+- Test stack: Vitest + Testing Library for unit/component tests, Playwright for E2E (must run headless, do not spawn multiple browsers).
 
 ## Repo structure to expect
 

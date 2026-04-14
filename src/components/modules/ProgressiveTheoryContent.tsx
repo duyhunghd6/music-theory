@@ -348,7 +348,7 @@ export const ProgressiveTheoryContent: React.FC<ProgressiveTheoryContentProps> =
         }
       }, 400)
     }
-    
+
     // Check if all quizzes completed (all sections revealed)
     if (nextVisibleCount >= sections.length) {
       // All sections revealed - trigger completion to open games

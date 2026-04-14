@@ -175,7 +175,9 @@ export const FretboardWrapper: React.FC<FretboardWrapperProps> = ({
       if (showLabels) {
         fretboard.style({
           text: (position: { string: number; fret: number; note?: string }) => {
-            const pos = positions.find((p) => p.string === position.string && p.fret === position.fret)
+            const pos = positions.find(
+              (p) => p.string === position.string && p.fret === position.fret
+            )
             return pos?.note || ''
           },
           fontSize: compact ? 10 : 12,
@@ -203,7 +205,17 @@ export const FretboardWrapper: React.FC<FretboardWrapperProps> = ({
         fretboardRef.current.removeEventListeners()
       }
     }
-  }, [config, chord, chordVoicing, positions, showLabels, showFingers, isDark, compact, handleClick])
+  }, [
+    config,
+    chord,
+    chordVoicing,
+    positions,
+    showLabels,
+    showFingers,
+    isDark,
+    compact,
+    handleClick,
+  ])
 
   return (
     <div

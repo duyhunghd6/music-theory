@@ -89,10 +89,7 @@ const LEVELS = [
  * Proof-of-concept for Module 2.2
  * Mechanic: Show rest symbol → Select correct name/value
  */
-const RestIdGame: React.FC<RestIdGameProps> = ({
-  submoduleId: _submoduleId,
-  onComplete,
-}) => {
+const RestIdGame: React.FC<RestIdGameProps> = ({ submoduleId: _submoduleId, onComplete }) => {
   const [currentLevel, setCurrentLevel] = useState(0)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
@@ -104,9 +101,7 @@ const RestIdGame: React.FC<RestIdGameProps> = ({
 
   // Generate questions for current level
   const questions = useMemo(() => {
-    const availableRests = REST_VALUES.filter((r) =>
-      currentLevelConfig.rests.includes(r.id)
-    )
+    const availableRests = REST_VALUES.filter((r) => currentLevelConfig.rests.includes(r.id))
     const result: RestValue[] = []
     for (let i = 0; i < totalQuestions; i++) {
       const randomRest = availableRests[Math.floor(Math.random() * availableRests.length)]
@@ -119,9 +114,7 @@ const RestIdGame: React.FC<RestIdGameProps> = ({
 
   // Get shuffled options
   const options = useMemo(() => {
-    const availableRests = REST_VALUES.filter((r) =>
-      currentLevelConfig.rests.includes(r.id)
-    )
+    const availableRests = REST_VALUES.filter((r) => currentLevelConfig.rests.includes(r.id))
     return [...availableRests].sort(() => Math.random() - 0.5)
   }, [currentLevelConfig.rests, questionIndex])
 
@@ -247,9 +240,7 @@ const RestIdGame: React.FC<RestIdGameProps> = ({
                   </Suspense>
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-800 dark:text-white">
-                    {rest.name}
-                  </p>
+                  <p className="font-semibold text-slate-800 dark:text-white">{rest.name}</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
                     {rest.nameVi} • {rest.beats} beats
                   </p>

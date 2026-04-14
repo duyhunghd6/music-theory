@@ -133,13 +133,10 @@ const DottedValueCalcGame: React.FC<DottedValueCalcGameProps> = ({
 
   // Generate questions for current level
   const questions = useMemo(() => {
-    const availableNotes = DOTTED_NOTES.filter((n) =>
-      currentLevelConfig.notes.includes(n.id)
-    )
+    const availableNotes = DOTTED_NOTES.filter((n) => currentLevelConfig.notes.includes(n.id))
     const result: DottedNote[] = []
     for (let i = 0; i < totalQuestions; i++) {
-      const randomNote =
-        availableNotes[Math.floor(Math.random() * availableNotes.length)]
+      const randomNote = availableNotes[Math.floor(Math.random() * availableNotes.length)]
       result.push(randomNote)
     }
     return result
@@ -251,9 +248,7 @@ const DottedValueCalcGame: React.FC<DottedValueCalcGameProps> = ({
           <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
             {currentQuestion.baseName}
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            {currentQuestion.baseNameVi}
-          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{currentQuestion.baseNameVi}</p>
         </div>
 
         {/* Formula Hint */}
@@ -291,12 +286,8 @@ const DottedValueCalcGame: React.FC<DottedValueCalcGameProps> = ({
                       : 'border-slate-200 dark:border-slate-600 hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-700'
               }`}
             >
-              <span className="text-2xl font-bold text-slate-800 dark:text-white">
-                {value}
-              </span>
-              <span className="text-sm text-slate-500 dark:text-slate-400 ml-1">
-                beats
-              </span>
+              <span className="text-2xl font-bold text-slate-800 dark:text-white">{value}</span>
+              <span className="text-sm text-slate-500 dark:text-slate-400 ml-1">beats</span>
             </button>
           )
         })}
@@ -318,9 +309,7 @@ const DottedValueCalcGame: React.FC<DottedValueCalcGameProps> = ({
             </div>
           ) : (
             <div>
-              <p className="font-bold">
-                ❌ The answer was: {currentQuestion.totalBeats} beats
-              </p>
+              <p className="font-bold">❌ The answer was: {currentQuestion.totalBeats} beats</p>
               <p className="text-sm mt-1 font-mono">{currentQuestion.formula}</p>
             </div>
           )}

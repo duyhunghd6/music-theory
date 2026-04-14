@@ -61,8 +61,14 @@ test.describe('Practice Mode', () => {
     await practice.expectGrandStaffVisible()
   })
 
-  test('mobile playback flow reaches the visible pre-audio state for raga-bupali', async ({ page, browserName }) => {
-    test.skip(browserName !== 'chromium', 'This targeted pre-playback check is covered on the mobile chromium project only.')
+  test('mobile playback flow reaches the visible pre-audio state for raga-bupali', async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(
+      browserName !== 'chromium',
+      'This targeted pre-playback check is covered on the mobile chromium project only.'
+    )
 
     const practice = new PracticePage(page)
 

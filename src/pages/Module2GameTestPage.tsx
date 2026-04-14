@@ -2,28 +2,14 @@ import React, { useState, Suspense, lazy } from 'react'
 import { AppLayout } from '../components/layout/AppLayout'
 
 // Lazy load game components for proof-of-concept
-const NoteValueIdGame = lazy(
-  () => import('../components/modules/rhythm/NoteValueIdGame')
-)
+const NoteValueIdGame = lazy(() => import('../components/modules/rhythm/NoteValueIdGame'))
 const RestIdGame = lazy(() => import('../components/modules/rhythm/RestIdGame'))
-const DottedValueCalcGame = lazy(
-  () => import('../components/modules/rhythm/DottedValueCalcGame')
-)
-const TempoTermGame = lazy(
-  () => import('../components/modules/rhythm/TempoTermGame')
-)
-const BeatStrengthGame = lazy(
-  () => import('../components/modules/rhythm/BeatStrengthGame')
-)
-const TieOrSlurGame = lazy(
-  () => import('../components/modules/rhythm/TieOrSlurGame')
-)
-const BeatCounterGame = lazy(
-  () => import('../components/modules/rhythm/BeatCounterGame')
-)
-const RhythmTapGame = lazy(
-  () => import('../components/modules/rhythm/RhythmTapGame')
-)
+const DottedValueCalcGame = lazy(() => import('../components/modules/rhythm/DottedValueCalcGame'))
+const TempoTermGame = lazy(() => import('../components/modules/rhythm/TempoTermGame'))
+const BeatStrengthGame = lazy(() => import('../components/modules/rhythm/BeatStrengthGame'))
+const TieOrSlurGame = lazy(() => import('../components/modules/rhythm/TieOrSlurGame'))
+const BeatCounterGame = lazy(() => import('../components/modules/rhythm/BeatCounterGame'))
+const RhythmTapGame = lazy(() => import('../components/modules/rhythm/RhythmTapGame'))
 
 /**
  * Game category for navigation
@@ -183,9 +169,7 @@ const Module2GameTestPage: React.FC = () => {
       <Suspense fallback={LoadingFallback}>
         {selectedGame === 'note-value-id' && <NoteValueIdGame {...gameProps} />}
         {selectedGame === 'rest-id' && <RestIdGame {...gameProps} />}
-        {selectedGame === 'dotted-value-calc' && (
-          <DottedValueCalcGame {...gameProps} />
-        )}
+        {selectedGame === 'dotted-value-calc' && <DottedValueCalcGame {...gameProps} />}
         {selectedGame === 'tempo-term' && <TempoTermGame {...gameProps} />}
         {selectedGame === 'beat-strength' && <BeatStrengthGame {...gameProps} />}
         {selectedGame === 'tie-or-slur' && <TieOrSlurGame {...gameProps} />}
@@ -209,8 +193,7 @@ const Module2GameTestPage: React.FC = () => {
             🎵 Module 2 Game Test Page
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Proof-of-concept testing for Rhythm & Meter games. Test on mobile
-            before integration.
+            Proof-of-concept testing for Rhythm & Meter games. Test on mobile before integration.
           </p>
         </div>
 
@@ -287,8 +270,7 @@ const Module2GameTestPage: React.FC = () => {
                   {selectedGameInfo?.name}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {selectedGameInfo?.nameVi} • Submodule{' '}
-                  {selectedGameInfo?.submodule}
+                  {selectedGameInfo?.nameVi} • Submodule {selectedGameInfo?.submodule}
                 </p>
               </div>
               <button
@@ -339,8 +321,7 @@ const Module2GameTestPage: React.FC = () => {
 
         {/* Footer */}
         <div className="text-center text-xs text-slate-400 dark:text-slate-500 py-4">
-          💡 Test each game on desktop and mobile (iPhone) before approving for
-          integration.
+          💡 Test each game on desktop and mobile (iPhone) before approving for integration.
         </div>
       </div>
     </AppLayout>

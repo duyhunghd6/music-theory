@@ -133,7 +133,8 @@ export default function TestAbcNotationPage() {
         {/* With Wrap Option */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-3">
-            ⚠️ WITH <code className="bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded">wrap</code> option (overrides source line breaks)
+            ⚠️ WITH <code className="bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded">wrap</code>{' '}
+            option (overrides source line breaks)
           </h2>
           <div className="bg-white dark:bg-slate-800 rounded-lg p-4 overflow-x-auto">
             <div ref={containerRef} />
@@ -143,7 +144,9 @@ export default function TestAbcNotationPage() {
         {/* Without Wrap Option - CORRECT */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-3">
-            ✅ WITHOUT <code className="bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded">wrap</code> option (respects ABC source line breaks)
+            ✅ WITHOUT{' '}
+            <code className="bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded">wrap</code> option
+            (respects ABC source line breaks)
           </h2>
           <div className="bg-white dark:bg-slate-800 rounded-lg p-4 overflow-x-auto">
             <div ref={noWrapContainerRef} />

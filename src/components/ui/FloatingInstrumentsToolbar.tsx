@@ -358,7 +358,9 @@ export const FloatingInstrumentsToolbar: React.FC = () => {
                   : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-600'
               }
             `}
-            title={notationSystem === 'solfege' ? 'Vietnamese Notation (Active)' : 'Switch to VN Mode'}
+            title={
+              notationSystem === 'solfege' ? 'Vietnamese Notation (Active)' : 'Switch to VN Mode'
+            }
             style={{ animationDelay: `${(instrumentConfig.length + 3) * 50}ms` }}
           >
             <span className="text-xs font-bold">VN</span>
@@ -377,7 +379,11 @@ export const FloatingInstrumentsToolbar: React.FC = () => {
             style={{ animationDelay: `${(instrumentConfig.length + 4) * 50}ms` }}
           >
             <span className="material-symbols-outlined text-xl">
-              {theme === 'system' ? 'brightness_auto' : theme === 'dark' ? 'dark_mode' : 'light_mode'}
+              {theme === 'system'
+                ? 'brightness_auto'
+                : theme === 'dark'
+                  ? 'dark_mode'
+                  : 'light_mode'}
             </span>
 
             {/* Tooltip */}

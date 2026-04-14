@@ -74,7 +74,12 @@ const NOTE_VALUES: NoteValue[] = [
 const LEVELS = [
   { id: 1, name: 'Level 1', noteCount: 2, notes: ['whole', 'half'] },
   { id: 2, name: 'Level 2', noteCount: 4, notes: ['whole', 'half', 'quarter', 'eighth'] },
-  { id: 3, name: 'Level 3', noteCount: 5, notes: ['whole', 'half', 'quarter', 'eighth', 'sixteenth'] },
+  {
+    id: 3,
+    name: 'Level 3',
+    noteCount: 5,
+    notes: ['whole', 'half', 'quarter', 'eighth', 'sixteenth'],
+  },
 ]
 
 /**
@@ -234,12 +239,8 @@ const NoteValueIdGame: React.FC<NoteValueIdGameProps> = ({
                   </Suspense>
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-800 dark:text-white">
-                    {note.name}
-                  </p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {note.nameVi}
-                  </p>
+                  <p className="font-semibold text-slate-800 dark:text-white">{note.name}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{note.nameVi}</p>
                 </div>
               </div>
             </button>

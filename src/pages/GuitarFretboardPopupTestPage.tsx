@@ -109,13 +109,16 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
   }, [])
 
   // Remove specific note
-  const handleRemoveNote = useCallback((noteToRemove: string) => {
-    setActiveNotes((prev) => {
-      const newNotes = prev.filter((n) => n !== noteToRemove)
-      updateHighlightedInfo(newNotes)
-      return newNotes
-    })
-  }, [updateHighlightedInfo])
+  const handleRemoveNote = useCallback(
+    (noteToRemove: string) => {
+      setActiveNotes((prev) => {
+        const newNotes = prev.filter((n) => n !== noteToRemove)
+        updateHighlightedInfo(newNotes)
+        return newNotes
+      })
+    },
+    [updateHighlightedInfo]
+  )
 
   // Manual test click positions
   const testPositions = [
@@ -127,20 +130,25 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
   ]
 
   // Manually trigger a position to verify mapping
-  const handleTestPosition = useCallback((stringIndex: number, fret: number) => {
-    const soundingNote = getNoteAtPosition(stringIndex, fret)
-    const writtenNote = transposeGuitarToWritten(soundingNote) || 'Unknown'
+  const handleTestPosition = useCallback(
+    (stringIndex: number, fret: number) => {
+      const soundingNote = getNoteAtPosition(stringIndex, fret)
+      const writtenNote = transposeGuitarToWritten(soundingNote) || 'Unknown'
 
-    console.log(`🧪 TEST: String ${stringIndex + 1}, Fret ${fret}`)
-    console.log(`   Sounding: ${soundingNote}, Written: ${writtenNote}`)
+      console.log(`🧪 TEST: String ${stringIndex + 1}, Fret ${fret}`)
+      console.log(`   Sounding: ${soundingNote}, Written: ${writtenNote}`)
 
-    if (writtenNote !== 'Unknown') {
-      handleNoteClick(writtenNote)
-    }
-  }, [handleNoteClick])
+      if (writtenNote !== 'Unknown') {
+        handleNoteClick(writtenNote)
+      }
+    },
+    [handleNoteClick]
+  )
 
   return (
-    <div className={`min-h-screen p-4 ${isDark ? 'bg-slate-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
+    <div
+      className={`min-h-screen p-4 ${isDark ? 'bg-slate-900 text-white' : 'bg-gray-100 text-gray-900'}`}
+    >
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -201,9 +209,7 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
                 key={`${string}-${fret}`}
                 onClick={() => handleTestPosition(string - 1, fret)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isDark
-                    ? 'bg-slate-700 hover:bg-slate-600'
-                    : 'bg-gray-200 hover:bg-gray-300'
+                  isDark ? 'bg-slate-700 hover:bg-slate-600' : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
                 S{string} F{fret} → {expected}
@@ -216,7 +222,9 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
         <div className={`p-4 rounded-lg ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
           <h2 className="text-lg font-semibold mb-3">🎯 Active Notes (Highlighted)</h2>
           {activeNotes.length === 0 ? (
-            <p className={isDark ? 'text-slate-400' : 'text-gray-500'}>No notes active. Click the fretboard!</p>
+            <p className={isDark ? 'text-slate-400' : 'text-gray-500'}>
+              No notes active. Click the fretboard!
+            </p>
           ) : (
             <div className="space-y-2">
               {highlightedInfo.map(({ note, positions }) => (
@@ -262,7 +270,13 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className={isDark ? 'text-slate-400 border-b border-slate-600' : 'text-gray-500 border-b border-gray-300'}>
+                  <tr
+                    className={
+                      isDark
+                        ? 'text-slate-400 border-b border-slate-600'
+                        : 'text-gray-500 border-b border-gray-300'
+                    }
+                  >
                     <th className="text-left p-2">#</th>
                     <th className="text-left p-2">Time</th>
                     <th className="text-left p-2">String (1-idx)</th>
@@ -303,7 +317,10 @@ export const GuitarFretboardPopupTestPage: React.FC = () => {
                 <tr>
                   <th className="p-1 text-center">String</th>
                   {Array.from({ length: 8 }, (_, i) => (
-                    <th key={i} className={`p-1 text-center ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                    <th
+                      key={i}
+                      className={`p-1 text-center ${isDark ? 'text-slate-400' : 'text-gray-500'}`}
+                    >
                       F{i}
                     </th>
                   ))}

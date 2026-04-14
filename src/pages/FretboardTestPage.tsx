@@ -311,10 +311,7 @@ export const FretboardTestPage: React.FC = () => {
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
               Each cell shows the note at that position. Click any cell to test position detection.
             </p>
-            <ClickMapGrid
-              onCellClick={handleClickMapClick}
-              lastClick={lastClick}
-            />
+            <ClickMapGrid onCellClick={handleClickMapClick} lastClick={lastClick} />
           </div>
         )}
 
@@ -340,13 +337,20 @@ export const FretboardTestPage: React.FC = () => {
             Popup Guitar Test (FretboardWrapper)
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-            This simulates the floating popup guitar. Click anywhere on the fretboard to test position detection.
-            The same click map logic applies - positions update in "Last Click Details" above.
+            This simulates the floating popup guitar. Click anywhere on the fretboard to test
+            position detection. The same click map logic applies - positions update in "Last Click
+            Details" above.
           </p>
 
           {/* Popup-style container */}
           <div className="bg-white dark:bg-slate-900 rounded-lg p-2 border border-cyan-200 dark:border-slate-600">
-            <React.Suspense fallback={<div className="h-32 flex items-center justify-center text-slate-400">Loading fretboard...</div>}>
+            <React.Suspense
+              fallback={
+                <div className="h-32 flex items-center justify-center text-slate-400">
+                  Loading fretboard...
+                </div>
+              }
+            >
               <LazyFretboardWrapper
                 onNoteClick={(note: string) => {
                   const clickInfo: ClickInfo = {
@@ -372,12 +376,10 @@ export const FretboardTestPage: React.FC = () => {
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">
               🗺️ Popup Guitar Click Map (7 frets, compact view)
             </h3>
-            <ClickMapGrid
-              onCellClick={handleClickMapClick}
-              lastClick={lastClick}
-            />
+            <ClickMapGrid onCellClick={handleClickMapClick} lastClick={lastClick} />
             <p className="text-xs text-slate-400 mt-1">
-              Note: Popup guitar uses fretboard.js which has 7 frets by default. Click map shows all 13 for reference.
+              Note: Popup guitar uses fretboard.js which has 7 frets by default. Click map shows all
+              13 for reference.
             </p>
           </div>
         </div>

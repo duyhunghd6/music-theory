@@ -28,6 +28,76 @@ const midiPitchToNoteName = (midiPitch: number): string => {
 }
 
 /**
+ * Parse key signature string to map of accidentals
+ */
+const getKeySignatureAccidentals = (keySignature: string): Record<string, string> => {
+  const key = keySignature.trim().replace(/ /g, '')
+  const sharps = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
+  const flats = ['B', 'E', 'A', 'D', 'G', 'C', 'F']
+
+  const keyMap: Record<string, number> = {
+    C: 0,
+    G: 1,
+    D: 2,
+    A: 3,
+    E: 4,
+    B: 5,
+    'F#': 6,
+    'C#': 7,
+    F: -1,
+    Bb: -2,
+    Eb: -3,
+    Ab: -4,
+    Db: -5,
+    Gb: -6,
+    Cb: -7,
+    Am: 0,
+    Em: 1,
+    Bm: 2,
+    'F#m': 3,
+    'C#m': 4,
+    'G#m': 5,
+    'D#m': 6,
+    'A#m': 7,
+    Dm: -1,
+    Gm: -2,
+    Cm: -3,
+    Fm: -4,
+    Bbm: -5,
+    Ebm: -6,
+    Abm: -7,
+  }
+
+  const accs: Record<string, string> = {}
+
+  let numAccidentals = 0
+
+  if (keyMap[key] !== undefined) {
+    numAccidentals = keyMap[key]
+  } else {
+    // If exact match not found, try finding prefix
+    for (const k of Object.keys(keyMap)) {
+      if (key.startsWith(k)) {
+        numAccidentals = keyMap[k]
+        break
+      }
+    }
+  }
+
+  if (numAccidentals > 0) {
+    for (let i = 0; i < numAccidentals; i++) {
+      accs[sharps[i]] = '#'
+    }
+  } else if (numAccidentals < 0) {
+    for (let i = 0; i < Math.abs(numAccidentals); i++) {
+      accs[flats[i]] = 'b'
+    }
+  }
+
+  return accs
+}
+
+/**
  * Cursor control for abcjs playback animation with instrument highlighting
  */
 class CursorControl implements AbcCursorControl {
@@ -286,6 +356,14 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
     (abc: string): string => {
       if (!showNoteNames) return abc
 
+      // Parse global key signature
+      let globalKey = 'C'
+      const keyMatch = abc.match(/^K:\s*([A-Ga-g][#b]?(?:m|min|maj|mix|dor|lyd|phr|loc)?)/m)
+      if (keyMatch) {
+        globalKey = keyMatch[1]
+      }
+      const keyAccidentals = getKeySignatureAccidentals(globalKey)
+
       // Split into header and body (lines starting with letters vs music content)
       const lines = abc.split('\n')
       const processedLines = lines.map((line) => {
@@ -294,11 +372,20 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
           return line
         }
 
-        // Process music content - match ABC notes
-        // ABC note pattern: optional accidental (^ _ =), note letter (A-Ga-g), optional octave modifiers (, ')
+        // Process music content
+        let measureAccidentals: Record<string, string> = {}
+
+        // Match quoted strings, barlines, or notes
         return line.replace(
-          /(\^{1,2}|_{1,2}|=)?([A-Ga-g])([,']*)/g,
-          (match, accidental = '', letter) => {
+          /("[^"]*")|(\|:?|:?\||\[\||\|\])|(\^{1,2}|_{1,2}|=)?([A-Ga-g])([,']*)/g,
+          (match, quoted, barline, accidental = '', letter) => {
+            if (quoted) return match
+            if (barline) {
+              measureAccidentals = {}
+              return match
+            }
+            if (!letter) return match
+
             // Skip if it's a rest
             if (letter.toLowerCase() === 'z' || letter.toLowerCase() === 'x') {
               return match
@@ -307,10 +394,22 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
             // Convert ABC note to standard format for label lookup
             const upperLetter = letter.toUpperCase()
             let accidentalDisplay = ''
-            if (accidental === '^') accidentalDisplay = '#'
-            else if (accidental === '^^') accidentalDisplay = '##'
-            else if (accidental === '_') accidentalDisplay = 'b'
-            else if (accidental === '__') accidentalDisplay = 'bb'
+
+            if (accidental) {
+              if (accidental === '^') accidentalDisplay = '#'
+              else if (accidental === '^^') accidentalDisplay = '##'
+              else if (accidental === '_') accidentalDisplay = 'b'
+              else if (accidental === '__') accidentalDisplay = 'bb'
+              else if (accidental === '=') accidentalDisplay = ''
+
+              measureAccidentals[upperLetter] = accidentalDisplay
+            } else {
+              if (measureAccidentals[upperLetter] !== undefined) {
+                accidentalDisplay = measureAccidentals[upperLetter]
+              } else if (keyAccidentals[upperLetter]) {
+                accidentalDisplay = keyAccidentals[upperLetter]
+              }
+            }
 
             const latinName = upperLetter + accidentalDisplay
             const displayName = getNoteLabel(latinName, notationSystem)

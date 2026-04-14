@@ -44,7 +44,9 @@ vi.mock('../components/practice', () => ({
     <button onClick={onClick}>MusicCategoryCard</button>
   ),
   SheetSelectorModal: () => null,
-  NowPlayingBanner: ({ sheet }: { sheet: { title: string } }) => <div>Now Playing: {sheet.title}</div>,
+  NowPlayingBanner: ({ sheet }: { sheet: { title: string } }) => (
+    <div>Now Playing: {sheet.title}</div>
+  ),
 }))
 
 vi.mock('../stores/useGameStore', () => ({

@@ -275,45 +275,45 @@ export const PracticePage: React.FC = () => {
         <div data-testid="practice-grand-staff-panel">
           <CollapsiblePanel
             title="Grand Staff View"
-          icon="music_note"
-          defaultOpen
-          headerExtra={
-            <label className="flex items-center gap-1 cursor-pointer text-xs text-slate-400 hover:text-slate-200">
-              <input
-                type="checkbox"
-                checked={showNoteNames}
-                onChange={(e) => setShowNoteNames(e.target.checked)}
-                className="w-3 h-3 accent-[#30e8e8]"
-              />
-              <span>Notes</span>
-            </label>
-          }
-        >
-          <React.Suspense
-            fallback={
-              <div className="w-full h-[150px] flex items-center justify-center text-slate-400">
-                Loading staff...
-              </div>
+            icon="music_note"
+            defaultOpen
+            headerExtra={
+              <label className="flex items-center gap-1 cursor-pointer text-xs text-slate-400 hover:text-slate-200">
+                <input
+                  type="checkbox"
+                  checked={showNoteNames}
+                  onChange={(e) => setShowNoteNames(e.target.checked)}
+                  className="w-3 h-3 accent-[#30e8e8]"
+                />
+                <span>Notes</span>
+              </label>
             }
           >
-            <AbcGrandStaff showNoteNames={showNoteNames} overrideAbc={selectedSheet?.abc} />
-          </React.Suspense>
-        </CollapsiblePanel>
+            <React.Suspense
+              fallback={
+                <div className="w-full h-[150px] flex items-center justify-center text-slate-400">
+                  Loading staff...
+                </div>
+              }
+            >
+              <AbcGrandStaff showNoteNames={showNoteNames} overrideAbc={selectedSheet?.abc} />
+            </React.Suspense>
+          </CollapsiblePanel>
         </div>
 
         {/* Flute */}
         <div data-testid="practice-flute-panel">
           <CollapsiblePanel title="Flute" icon="graphic_eq" defaultOpen>
-          <React.Suspense
-            fallback={
-              <div className="w-full h-16 flex items-center justify-center text-slate-400">
-                Loading...
-              </div>
-            }
-          >
-            <HorizontalSaoTrucVisualizer />
-          </React.Suspense>
-        </CollapsiblePanel>
+            <React.Suspense
+              fallback={
+                <div className="w-full h-16 flex items-center justify-center text-slate-400">
+                  Loading...
+                </div>
+              }
+            >
+              <HorizontalSaoTrucVisualizer />
+            </React.Suspense>
+          </CollapsiblePanel>
         </div>
       </div>
 
@@ -323,8 +323,20 @@ export const PracticePage: React.FC = () => {
         onClose={() => setModalOpen(false)}
         category={selectedCategory}
         onSelectSheet={handleSelectSheet}
-        butterworthEntries={isButterworthModal ? butterworthEntries : isSahajaYogaModal ? sahajaYogaEntries : undefined}
-        onLoadButterworth={isButterworthModal ? butterworthCategory.loadSheet : isSahajaYogaModal ? sahajaYogaCategory.loadSheet : undefined}
+        butterworthEntries={
+          isButterworthModal
+            ? butterworthEntries
+            : isSahajaYogaModal
+              ? sahajaYogaEntries
+              : undefined
+        }
+        onLoadButterworth={
+          isButterworthModal
+            ? butterworthCategory.loadSheet
+            : isSahajaYogaModal
+              ? sahajaYogaCategory.loadSheet
+              : undefined
+        }
       />
     </AppLayout>
   )

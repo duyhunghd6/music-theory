@@ -114,10 +114,7 @@ const LEVELS = [
  * Proof-of-concept for Module 2.6
  * Mechanic: Given BPM → Choose Italian term
  */
-const TempoTermGame: React.FC<TempoTermGameProps> = ({
-  submoduleId: _submoduleId,
-  onComplete,
-}) => {
+const TempoTermGame: React.FC<TempoTermGameProps> = ({ submoduleId: _submoduleId, onComplete }) => {
   const [currentLevel, setCurrentLevel] = useState(0)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
@@ -129,18 +126,14 @@ const TempoTermGame: React.FC<TempoTermGameProps> = ({
 
   // Generate questions with random BPM values
   const questions = useMemo(() => {
-    const availableTerms = TEMPO_TERMS.filter((t) =>
-      currentLevelConfig.terms.includes(t.id)
-    )
+    const availableTerms = TEMPO_TERMS.filter((t) => currentLevelConfig.terms.includes(t.id))
     const result: { term: TempoTerm; bpm: number }[] = []
 
     for (let i = 0; i < totalQuestions; i++) {
-      const randomTerm =
-        availableTerms[Math.floor(Math.random() * availableTerms.length)]
+      const randomTerm = availableTerms[Math.floor(Math.random() * availableTerms.length)]
       // Random BPM within the term's range
       const bpm =
-        Math.floor(Math.random() * (randomTerm.bpmMax - randomTerm.bpmMin)) +
-        randomTerm.bpmMin
+        Math.floor(Math.random() * (randomTerm.bpmMax - randomTerm.bpmMin)) + randomTerm.bpmMin
       result.push({ term: randomTerm, bpm })
     }
 
@@ -151,9 +144,7 @@ const TempoTermGame: React.FC<TempoTermGameProps> = ({
 
   // Get shuffled options
   const options = useMemo(() => {
-    const availableTerms = TEMPO_TERMS.filter((t) =>
-      currentLevelConfig.terms.includes(t.id)
-    )
+    const availableTerms = TEMPO_TERMS.filter((t) => currentLevelConfig.terms.includes(t.id))
     return [...availableTerms].sort(() => Math.random() - 0.5)
   }, [currentLevelConfig.terms, questionIndex])
 
@@ -238,13 +229,9 @@ const TempoTermGame: React.FC<TempoTermGameProps> = ({
 
         {/* BPM Display */}
         <div className="bg-gradient-to-br from-primary/20 to-primary/10 dark:from-primary/30 dark:to-primary/10 rounded-2xl p-8 inline-block">
-          <div className="text-6xl font-bold text-primary mb-2">
-            {currentQuestion.bpm}
-          </div>
+          <div className="text-6xl font-bold text-primary mb-2">{currentQuestion.bpm}</div>
           <div className="text-lg text-slate-600 dark:text-slate-400">BPM</div>
-          <div className="text-sm text-slate-500 dark:text-slate-500 mt-2">
-            (Beats Per Minute)
-          </div>
+          <div className="text-sm text-slate-500 dark:text-slate-500 mt-2">(Beats Per Minute)</div>
         </div>
       </div>
 
@@ -274,12 +261,8 @@ const TempoTermGame: React.FC<TempoTermGameProps> = ({
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{term.emoji}</span>
                 <div className="flex-1">
-                  <p className="font-semibold text-slate-800 dark:text-white">
-                    {term.name}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {term.nameVi}
-                  </p>
+                  <p className="font-semibold text-slate-800 dark:text-white">{term.name}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{term.nameVi}</p>
                 </div>
               </div>
             </button>
@@ -298,17 +281,15 @@ const TempoTermGame: React.FC<TempoTermGameProps> = ({
         >
           {selectedAnswer === currentQuestion.term.id ? (
             <div>
-              <p className="font-bold">
-                ✅ Correct! {currentQuestion.term.emoji}
-              </p>
+              <p className="font-bold">✅ Correct! {currentQuestion.term.emoji}</p>
               <p className="text-sm mt-1">
                 {currentQuestion.bpm} BPM is {currentQuestion.term.character}
               </p>
             </div>
           ) : (
             <p className="font-bold">
-              ❌ The answer was: {currentQuestion.term.name} (
-              {currentQuestion.term.bpmMin}-{currentQuestion.term.bpmMax} BPM)
+              ❌ The answer was: {currentQuestion.term.name} ({currentQuestion.term.bpmMin}-
+              {currentQuestion.term.bpmMax} BPM)
             </p>
           )}
         </div>

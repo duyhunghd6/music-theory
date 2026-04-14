@@ -93,13 +93,10 @@ const BeatStrengthGame: React.FC<BeatStrengthGameProps> = ({
 
   // Generate questions
   const questions = useMemo(() => {
-    const availableSigs = TIME_SIGNATURES.filter((s) =>
-      currentLevelConfig.sigs.includes(s.id)
-    )
+    const availableSigs = TIME_SIGNATURES.filter((s) => currentLevelConfig.sigs.includes(s.id))
     const result: TimeSignature[] = []
     for (let i = 0; i < totalQuestions; i++) {
-      const randomSig =
-        availableSigs[Math.floor(Math.random() * availableSigs.length)]
+      const randomSig = availableSigs[Math.floor(Math.random() * availableSigs.length)]
       result.push(randomSig)
     }
     return result
@@ -153,13 +150,8 @@ const BeatStrengthGame: React.FC<BeatStrengthGameProps> = ({
           const wrongTaps = prev.filter(
             (tapped, i) => currentQuestion.beatPattern[i] !== 'strong' && tapped
           ).length
-          const strongBeatCount = currentQuestion.beatPattern.filter(
-            (b) => b === 'strong'
-          ).length
-          const questScore = Math.max(
-            0,
-            strongBeatsCorrect - wrongTaps * 0.5
-          ) / strongBeatCount
+          const strongBeatCount = currentQuestion.beatPattern.filter((b) => b === 'strong').length
+          const questScore = Math.max(0, strongBeatsCorrect - wrongTaps * 0.5) / strongBeatCount
 
           if (questScore >= 0.5) {
             setScore((s) => s + 1)
@@ -265,7 +257,9 @@ const BeatStrengthGame: React.FC<BeatStrengthGameProps> = ({
 
       {/* Instructions */}
       <div className="text-center text-sm text-slate-600 dark:text-slate-400">
-        <p>🎯 Tap only on the <strong>STRONG</strong> beats!</p>
+        <p>
+          🎯 Tap only on the <strong>STRONG</strong> beats!
+        </p>
         <p className="text-xs mt-1">{currentQuestion.description}</p>
       </div>
 
@@ -282,9 +276,7 @@ const BeatStrengthGame: React.FC<BeatStrengthGameProps> = ({
               onClick={() => handleTap(index)}
               disabled={!isPlaying}
               className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-2xl font-bold transition-all ${
-                isActive
-                  ? 'scale-110 ring-4 ring-primary ring-opacity-50'
-                  : ''
+                isActive ? 'scale-110 ring-4 ring-primary ring-opacity-50' : ''
               } ${
                 wasTapped && isStrong
                   ? 'bg-emerald-500 text-white'
@@ -344,7 +336,8 @@ const BeatStrengthGame: React.FC<BeatStrengthGameProps> = ({
       {showResult && (
         <div className="bg-slate-100 dark:bg-slate-700 rounded-lg p-4 text-center">
           <p className="font-medium">
-            Pattern: {currentQuestion.beatPattern.map((b, i) => (
+            Pattern:{' '}
+            {currentQuestion.beatPattern.map((b, i) => (
               <span
                 key={i}
                 className={`mx-1 ${b === 'strong' ? 'text-primary font-bold' : 'text-slate-400'}`}

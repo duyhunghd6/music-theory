@@ -134,9 +134,11 @@ export const JourneyMap: React.FC<JourneyMapProps> = ({ className = '' }) => {
                           {(() => {
                             const sectionProg = getSectionProgress(sub.id)
                             const progressPercent = sectionProg
-                              ? Math.round((sectionProg.visibleCount / sectionProg.totalSections) * 100)
+                              ? Math.round(
+                                  (sectionProg.visibleCount / sectionProg.totalSections) * 100
+                                )
                               : 0
-                            
+
                             return (
                               <ProgressRing
                                 progress={done ? 100 : progressPercent}

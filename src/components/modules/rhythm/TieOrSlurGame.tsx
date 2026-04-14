@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useMemo, Suspense, lazy } from 'react'
 
 // Lazy load ABC renderer
-const InlineAbcNotation = lazy(
-  () => import('../InlineAbcNotation')
-)
+const InlineAbcNotation = lazy(() => import('../InlineAbcNotation'))
 
 interface TieOrSlurGameProps {
   submoduleId: string
@@ -46,7 +44,7 @@ const EXAMPLES: Example[] = [
   },
   {
     id: 'tie-4',
-    abc: "L:1/4\nc2-|c2|",
+    abc: 'L:1/4\nc2-|c2|',
     answer: 'tie',
     explanation: 'Tie across barline - still same pitch!',
     explanationVi: 'Dây liên qua vạch nhịp - vẫn cùng cao độ!',
@@ -97,16 +95,11 @@ const LEVELS = [
  * Proof-of-concept for Module 2.3
  * Mechanic: Visual discrimination - same pitch = tie, different = slur
  */
-const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({
-  submoduleId: _submoduleId,
-  onComplete,
-}) => {
+const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({ submoduleId: _submoduleId, onComplete }) => {
   const [currentLevel, setCurrentLevel] = useState(0)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<'tie' | 'slur' | null>(
-    null
-  )
+  const [selectedAnswer, setSelectedAnswer] = useState<'tie' | 'slur' | null>(null)
   const [showFeedback, setShowFeedback] = useState(false)
 
   const totalQuestions = 5
@@ -229,12 +222,8 @@ const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({
           }`}
         >
           <div className="text-4xl mb-2">🔗</div>
-          <div className="font-bold text-lg text-slate-800 dark:text-white">
-            TIE
-          </div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
-            Dây liên
-          </div>
+          <div className="font-bold text-lg text-slate-800 dark:text-white">TIE</div>
+          <div className="text-sm text-slate-500 dark:text-slate-400">Dây liên</div>
           <div className="text-xs text-slate-400 mt-2">Same pitch</div>
         </button>
 
@@ -252,12 +241,8 @@ const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({
           }`}
         >
           <div className="text-4xl mb-2">🎵</div>
-          <div className="font-bold text-lg text-slate-800 dark:text-white">
-            SLUR
-          </div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
-            Luyến
-          </div>
+          <div className="font-bold text-lg text-slate-800 dark:text-white">SLUR</div>
+          <div className="text-sm text-slate-500 dark:text-slate-400">Luyến</div>
           <div className="text-xs text-slate-400 mt-2">Different pitches</div>
         </button>
       </div>
@@ -275,15 +260,11 @@ const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({
             <div className="text-center">
               <p className="font-bold text-lg">✅ Correct!</p>
               <p className="text-sm mt-1">{currentQuestion.explanation}</p>
-              <p className="text-xs mt-1 opacity-80">
-                {currentQuestion.explanationVi}
-              </p>
+              <p className="text-xs mt-1 opacity-80">{currentQuestion.explanationVi}</p>
             </div>
           ) : (
             <div className="text-center">
-              <p className="font-bold text-lg">
-                ❌ It's a {currentQuestion.answer.toUpperCase()}
-              </p>
+              <p className="font-bold text-lg">❌ It's a {currentQuestion.answer.toUpperCase()}</p>
               <p className="text-sm mt-1">{currentQuestion.explanation}</p>
             </div>
           )}
@@ -293,8 +274,8 @@ const TieOrSlurGame: React.FC<TieOrSlurGameProps> = ({
       {/* Key Insight */}
       <div className="bg-amber-50 dark:bg-amber-900/30 rounded-lg p-4 text-center">
         <p className="text-sm text-amber-800 dark:text-amber-200">
-          💡 <strong>Key:</strong> Same pitch = TIE (hold note longer), Different
-          pitches = SLUR (play smoothly)
+          💡 <strong>Key:</strong> Same pitch = TIE (hold note longer), Different pitches = SLUR
+          (play smoothly)
         </p>
       </div>
     </div>

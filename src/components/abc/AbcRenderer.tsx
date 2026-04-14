@@ -45,10 +45,63 @@ const abcPlaybackManager = {
 }
 
 /**
+ * Map standard ABC key signatures to their effective accidentals.
+ */
+function getKeyAccidentals(keySig: string): Record<string, string> {
+  // Normalize string for lookup (handle 'm' vs 'Min', etc if needed, but standard is 'm')
+  const baseKey = keySig
+    .replace(/(Min|Maj|Mix|Dor|Phr|Lyd|Loc)$/i, (match) => {
+      if (match.toLowerCase() === 'min') return 'm'
+      return ''
+    })
+    .trim()
+
+  const map: Record<string, Record<string, string>> = {
+    // Majors
+    C: {},
+    G: { F: '#' },
+    D: { F: '#', C: '#' },
+    A: { F: '#', C: '#', G: '#' },
+    E: { F: '#', C: '#', G: '#', D: '#' },
+    B: { F: '#', C: '#', G: '#', D: '#', A: '#' },
+    'F#': { F: '#', C: '#', G: '#', D: '#', A: '#', E: '#' },
+    'C#': { F: '#', C: '#', G: '#', D: '#', A: '#', E: '#', B: '#' },
+
+    F: { B: 'b' },
+    Bb: { B: 'b', E: 'b' },
+    Eb: { B: 'b', E: 'b', A: 'b' },
+    Ab: { B: 'b', E: 'b', A: 'b', D: 'b' },
+    Db: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b' },
+    Gb: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b', C: 'b' },
+    Cb: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b', C: 'b', F: 'b' },
+
+    // Minors
+    Am: {},
+    Em: { F: '#' },
+    Bm: { F: '#', C: '#' },
+    'F#m': { F: '#', C: '#', G: '#' },
+    'C#m': { F: '#', C: '#', G: '#', D: '#' },
+    'G#m': { F: '#', C: '#', G: '#', D: '#', A: '#' },
+    'D#m': { F: '#', C: '#', G: '#', D: '#', A: '#', E: '#' },
+    'A#m': { F: '#', C: '#', G: '#', D: '#', A: '#', E: '#', B: '#' },
+
+    Dm: { B: 'b' },
+    Gm: { B: 'b', E: 'b' },
+    Cm: { B: 'b', E: 'b', A: 'b' },
+    Fm: { B: 'b', E: 'b', A: 'b', D: 'b' },
+    Bbm: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b' },
+    Ebm: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b', C: 'b' },
+    Abm: { B: 'b', E: 'b', A: 'b', D: 'b', G: 'b', C: 'b', F: 'b' },
+  }
+
+  return map[baseKey] || {}
+}
+
+/**
  * Map ABC notation to standard note names
  * Handles accidentals: ^ = sharp, ^^ = double sharp, _ = flat, __ = double flat
  */
-function abcToNoteName(abcPitch: string): string {
+function abcToNoteName(abcPitch: string, keyAccidentals: Record<string, string> = {}): string {
   const baseNotes: Record<string, string> = {
     C: 'C4',
     D: 'D4',
@@ -86,6 +139,15 @@ function abcToNoteName(abcPitch: string): string {
   } else if (abcPitch.startsWith('=')) {
     // Natural sign - no accidental
     cleanPitch = abcPitch.slice(1)
+  } else {
+    // Apply key signature accidental if no explicit accidental is present
+    const baseLetter = cleanPitch.charAt(0).toUpperCase()
+    if (keyAccidentals[baseLetter]) {
+      accidental = keyAccidentals[baseLetter]
+      if (accidental === '##' || accidental === 'bb') {
+        // Rare in basic keys, but supported
+      }
+    }
   }
 
   // Remove octave markers for lookup
@@ -126,7 +188,11 @@ function abcToNoteName(abcPitch: string): string {
 /**
  * Inject note name annotations into ABC notation
  */
-function injectNoteAnnotations(abc: string, notationSystem: 'latin' | 'solfege'): string {
+function injectNoteAnnotations(
+  abc: string,
+  notationSystem: 'latin' | 'solfege',
+  keyAccidentals: Record<string, string> = {}
+): string {
   const lines = abc.split('\n')
   const processedLines = lines.map((line) => {
     // Skip header lines AND lyrics lines (w:)
@@ -145,6 +211,9 @@ function injectNoteAnnotations(abc: string, notationSystem: 'latin' | 'solfege')
         else if (accidental === '^^') accidentalDisplay = '##'
         else if (accidental === '_') accidentalDisplay = 'b'
         else if (accidental === '__') accidentalDisplay = 'bb'
+        else if (accidental === '=') accidentalDisplay = ''
+        else if (keyAccidentals[upperLetter]) accidentalDisplay = keyAccidentals[upperLetter]
+
         const latinName = upperLetter + accidentalDisplay
         const displayName = getNoteLabel(latinName, notationSystem)
         return `"^${displayName}"${match}`
@@ -188,6 +257,15 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
   const isMobile = useIsMobile()
   const isTablet = useIsTablet()
 
+  // Extract key signature accidentals from the ABC string
+  const keyAccidentals = useMemo(() => {
+    const keyMatch = abc.match(/^K:\s*([A-Ga-g][#b]?(?:m|Min|Maj|Mix|Dor|Phr|Lyd|Loc)?)/m)
+    if (keyMatch && keyMatch[1]) {
+      return getKeyAccidentals(keyMatch[1])
+    }
+    return {}
+  }, [abc])
+
   // Calculate responsive staffwidth based on viewport
   const staffWidth = useMemo(
     () => getResponsiveStaffWidth(isMobile, isTablet),
@@ -219,10 +297,10 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
   // Generate ABC with or without note annotations
   const processedAbc = useMemo(() => {
     if (showNotes) {
-      return injectNoteAnnotations(abc, notationSystem)
+      return injectNoteAnnotations(abc, notationSystem, keyAccidentals)
     }
     return abc
-  }, [abc, showNotes, notationSystem])
+  }, [abc, showNotes, notationSystem, keyAccidentals])
 
   // Handle note click - supports chords (multiple notes)
   // Uses playNoteWithRelease for both audio auto-release and visual feedback
@@ -230,7 +308,7 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
     (abcNotes: string | string[]) => {
       console.log('🎹 [AbcRenderer] handleNoteClick() - Note clicked!', abcNotes)
       const notes = Array.isArray(abcNotes) ? abcNotes : [abcNotes]
-      const playableNotes = notes.map((n) => abcToNoteName(n))
+      const playableNotes = notes.map((n) => abcToNoteName(n, keyAccidentals))
 
       console.log('🎹 [AbcRenderer] Playing notes:', playableNotes)
       // Play all notes simultaneously with auto-release (audio + visual)
@@ -238,7 +316,7 @@ export const AbcRenderer: React.FC<AbcRendererProps> = ({
         playNoteWithRelease(note)
       })
     },
-    [playNoteWithRelease]
+    [playNoteWithRelease, keyAccidentals]
   )
 
   // Unified render function with clickListener

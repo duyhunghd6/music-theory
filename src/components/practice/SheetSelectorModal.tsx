@@ -71,7 +71,9 @@ export const SheetSelectorModal: React.FC<SheetSelectorModalProps> = ({
         const sheet: PracticeSheet = {
           id: cleanId,
           title: entry.title,
-          description: hasKey ? `Key: ${entry.key} - Traditional folk song` : 'Traditional Indian raga',
+          description: hasKey
+            ? `Key: ${entry.key} - Traditional folk song`
+            : 'Traditional Indian raga',
           abc,
           difficulty: 'intermediate',
           source: hasKey ? 'butterworth' : 'curriculum',
@@ -103,7 +105,10 @@ export const SheetSelectorModal: React.FC<SheetSelectorModalProps> = ({
   )
 
   return (
-    <div data-testid="practice-sheet-selector-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div
+      data-testid="practice-sheet-selector-modal"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 

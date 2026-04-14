@@ -55,7 +55,9 @@ vi.mock('./pages/Module2GameTestPage', () => ({
 }))
 
 vi.mock('./components/layout/MainLayout', () => ({
-  MainLayout: ({ children }: { children: ReactNode }) => <div data-testid="main-layout">{children}</div>,
+  MainLayout: ({ children }: { children: ReactNode }) => (
+    <div data-testid="main-layout">{children}</div>
+  ),
 }))
 
 vi.mock('./components/ui/FloatingInstrumentsContainer', () => ({
@@ -67,11 +69,14 @@ vi.mock('./components/ui/BugReportModal', () => ({
 }))
 
 vi.mock('./stores/useSettingsStore', () => ({
-  useSettingsStore: (selector: (state: { theme: string }) => string) => selector({ theme: 'light' }),
+  useSettingsStore: (selector: (state: { theme: string }) => string) =>
+    selector({ theme: 'light' }),
 }))
 
 vi.mock('./stores/useProgressStore', () => ({
-  useProgressStore: (selector: (state: { updateStreak: () => void; initFromCloud: () => Promise<void> }) => unknown) =>
+  useProgressStore: (
+    selector: (state: { updateStreak: () => void; initFromCloud: () => Promise<void> }) => unknown
+  ) =>
     selector({
       updateStreak: vi.fn(),
       initFromCloud: vi.fn().mockResolvedValue(undefined),
@@ -88,7 +93,9 @@ vi.mock('react-router-dom', async () => {
 
   return {
     ...actual,
-    BrowserRouter: ({ children }: { children: ReactNode }) => <div data-testid="browser-router">{children}</div>,
+    BrowserRouter: ({ children }: { children: ReactNode }) => (
+      <div data-testid="browser-router">{children}</div>
+    ),
     Routes: ({ children }: { children: ReactNode }) => <>{children}</>,
     Route: ({ path, element }: { path: string; element: ReactNode }) => {
       mockedRoutes.routes.push(path)

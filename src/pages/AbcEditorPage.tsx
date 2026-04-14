@@ -158,8 +158,19 @@ export const AbcEditorPage: React.FC = () => {
       >
         {/* Editor Pane */}
         <div className="h-full overflow-hidden">
-          <React.Suspense fallback={<div className="h-full flex items-center justify-center text-slate-400">Loading editor...</div>}>
-            <LazyAbcEditor value={text} onChange={handleEditorChange} darkMode={darkMode} height="100%" />
+          <React.Suspense
+            fallback={
+              <div className="h-full flex items-center justify-center text-slate-400">
+                Loading editor...
+              </div>
+            }
+          >
+            <LazyAbcEditor
+              value={text}
+              onChange={handleEditorChange}
+              darkMode={darkMode}
+              height="100%"
+            />
           </React.Suspense>
         </div>
 

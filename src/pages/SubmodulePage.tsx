@@ -54,9 +54,9 @@ export const SubmodulePage: React.FC = () => {
   const nextSubmodule = submoduleId ? getNextSubmodule(submoduleId) : undefined
   const prevSubmodule = submoduleId ? getPreviousSubmodule(submoduleId) : undefined
   const isCompleted = submoduleId ? completedSubmodules.includes(submoduleId) : false
-  
+
   // Get section progress for current submodule
-  const sectionProgress = useProgressStore((state) => 
+  const sectionProgress = useProgressStore((state) =>
     submoduleId ? state.getSectionProgress(submoduleId) : undefined
   )
 
@@ -68,11 +68,14 @@ export const SubmodulePage: React.FC = () => {
     // Always reset first when submodule changes
     setTheoryComplete(false)
     setSessionBypass(false) // Also reset session bypass on navigation
-    
+
     // Check if this submodule is completed OR has 100% section progress
     const isFullyCompleted = submoduleId && completedSubmodules.includes(submoduleId)
-    const hasFullProgress = sectionProgress && sectionProgress.visibleCount >= sectionProgress.totalSections && sectionProgress.totalSections > 0
-    
+    const hasFullProgress =
+      sectionProgress &&
+      sectionProgress.visibleCount >= sectionProgress.totalSections &&
+      sectionProgress.totalSections > 0
+
     if (isFullyCompleted || hasFullProgress) {
       setTheoryComplete(true)
     }
@@ -272,30 +275,32 @@ export const SubmodulePage: React.FC = () => {
                   )}
 
                 {/* Games Section - NEW: Uses UniversalGameRouter with games config */}
-                {(theoryComplete || sessionBypass) && submodule.games && submodule.games.length > 0 && (
-                  <div className="mt-6" style={{ animation: 'fadeIn 0.5s ease-out' }}>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="material-symbols-outlined text-[#30e8e8]">
-                        sports_esports
-                      </span>
-                      <span className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">
-                        Thực Hành
-                      </span>
-                      <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">
-                        🎮 Game!
-                      </span>
+                {(theoryComplete || sessionBypass) &&
+                  submodule.games &&
+                  submodule.games.length > 0 && (
+                    <div className="mt-6" style={{ animation: 'fadeIn 0.5s ease-out' }}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="material-symbols-outlined text-[#30e8e8]">
+                          sports_esports
+                        </span>
+                        <span className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">
+                          Thực Hành
+                        </span>
+                        <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">
+                          🎮 Game!
+                        </span>
+                      </div>
+                      <React.Suspense
+                        fallback={
+                          <div className="w-full h-32 flex items-center justify-center text-slate-400">
+                            Loading games...
+                          </div>
+                        }
+                      >
+                        <UniversalGameRouter submoduleId={submodule.id} games={submodule.games} />
+                      </React.Suspense>
                     </div>
-                    <React.Suspense
-                      fallback={
-                        <div className="w-full h-32 flex items-center justify-center text-slate-400">
-                          Loading games...
-                        </div>
-                      }
-                    >
-                      <UniversalGameRouter submoduleId={submodule.id} games={submodule.games} />
-                    </React.Suspense>
-                  </div>
-                )}
+                  )}
 
                 {/* Legacy Exercises Section - for backward compatibility */}
                 {(theoryComplete || sessionBypass) &&

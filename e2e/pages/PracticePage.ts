@@ -15,7 +15,9 @@ export class PracticePage {
   }
 
   async dismissAudioUnlockerIfVisible() {
-    const unlockButton = this.page.getByRole('button', { name: /Start Music Theory|Tap to Start Music Theory/i })
+    const unlockButton = this.page.getByRole('button', {
+      name: /Start Music Theory|Tap to Start Music Theory/i,
+    })
     if (await unlockButton.isVisible()) {
       await unlockButton.click()
       await this.page.waitForLoadState('networkidle')
@@ -25,7 +27,9 @@ export class PracticePage {
   async expectLibraryVisible() {
     await expect(this.page.getByTestId('practice-library')).toBeVisible()
     await expect(this.page.getByRole('heading', { name: 'Thư Viện Bản Nhạc' })).toBeVisible()
-    await expect(this.page.getByText('Chọn bài để luyện tập đọc nhạc trên khuông nhạc')).toBeVisible()
+    await expect(
+      this.page.getByText('Chọn bài để luyện tập đọc nhạc trên khuông nhạc')
+    ).toBeVisible()
   }
 
   async getCategoryCount() {
@@ -80,7 +84,9 @@ export class PracticePage {
   }
 
   async expectPlaybackAttemptStarted() {
-    await expect(this.page.locator('.abcjs-inline-audio .abcjs-midi-start')).toHaveClass(/abcjs-pushed/)
+    await expect(this.page.locator('.abcjs-inline-audio .abcjs-midi-start')).toHaveClass(
+      /abcjs-pushed/
+    )
   }
 
   async expectPlaybackClockVisible() {

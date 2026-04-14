@@ -17,7 +17,9 @@ const INSTRUMENT_LABELS = {
 
 const toolbarToggle = (page: Page): Locator =>
   page
-    .locator('[data-testid="floating-toolbar-toggle"], button[title="Mở menu công cụ"], button[title="Đóng menu"]')
+    .locator(
+      '[data-testid="floating-toolbar-toggle"], button[title="Mở menu công cụ"], button[title="Đóng menu"]'
+    )
     .first()
 
 const instrumentButton = (page: Page, instrument: 'piano' | 'guitar' | 'flute'): Locator =>
@@ -33,7 +35,9 @@ const instrumentPanel = (page: Page, instrument: 'piano' | 'guitar' | 'flute'): 
   page.getByTestId(`floating-instrument-${instrument}`)
 
 const getToolbarBottom = async (page: Page): Promise<number> =>
-  toolbarContainer(page).evaluate((element) => Number.parseFloat(window.getComputedStyle(element).bottom))
+  toolbarContainer(page).evaluate((element) =>
+    Number.parseFloat(window.getComputedStyle(element).bottom)
+  )
 
 const openToolbar = async (page: Page) => {
   await toolbarToggle(page).click()
