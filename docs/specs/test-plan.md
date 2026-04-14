@@ -6,6 +6,8 @@ Target URL: `http://localhost:5504/practice?sheet=raga-bupali`
 
 ## Execution order
 
+This file is the current test execution source of truth for this workstream. Pair it with `docs/context/tech-stack.md` for available scripts, `docs/records/dev-guide.md` for workflow guidance, and `docs/reviews/qa-report.md` for the latest executed evidence.
+
 Run cases in this narrow-first order:
 
 1. T2 targeted unit/component coverage

@@ -144,12 +144,12 @@ Observed error:
 ```text
 Code gates debug/test routes behind `const isDebugRouteEnabled = import.meta.env.DEV` and `<OptionalRoute ... enabled={isDebugRouteEnabled}>` in src/App.tsx.
 Docs still describe these routes as permanently present in shipped/production router behavior, e.g.:
-- docs/context/ARCHITECTURE.md:100
+- docs/context/architecture.md:100
 - docs/active/roadmap.md:26-27
 ```
 Repro steps:
 1. Read `src/App.tsx` and observe debug/test routes are conditionally mounted only when `import.meta.env.DEV` is true.
-2. Read `docs/context/ARCHITECTURE.md:98-101` and `docs/active/roadmap.md:26-27`.
+2. Read `docs/context/architecture.md:98-101` and `docs/active/roadmap.md:26-27`.
 3. Observe docs still claim the routes are present in the application router without reflecting the final gated policy.
 Blocks handover: Yes
 
@@ -176,12 +176,12 @@ Observed error:
 ```text
 Docs contradict final shipped router behavior and still describe unresolved implementation state as current truth.
 Examples:
-- docs/context/ARCHITECTURE.md:100 says test/debug routes are in production code paths.
+- docs/context/architecture.md:100 says test/debug routes are in production code paths.
 - docs/active/roadmap.md:26-27 says `/test-games-m2` exists and multiple test/debug routes are still present in the application router.
 - QA Round 1 shows critical E2E flows failing, so docs claiming stable current handover behavior are not aligned with QA evidence.
 ```
 Repro steps:
-1. Compare `src/App.tsx` route gating against `docs/context/ARCHITECTURE.md` and `docs/active/roadmap.md`.
+1. Compare `src/App.tsx` route gating against `docs/context/architecture.md` and `docs/active/roadmap.md`.
 2. Compare current QA failures in TC-003 through TC-006 against docs that imply current router/test workflow readiness.
 3. Observe the docs are not fully synchronized to final code and QA truth.
 Blocks handover: Yes
@@ -272,7 +272,7 @@ Tests       6 passed (6)
 Verification method: direct inspection of code and docs
 Verified evidence:
 - `src/App.tsx:23,105-112` gates debug/test routes behind `import.meta.env.DEV`
-- `docs/context/ARCHITECTURE.md:16,100-101` matches the dev-only routing policy
+- `docs/context/architecture.md:16,100-101` matches the dev-only routing policy
 - `docs/active/roadmap.md:26-27,58-59` matches the dev-only routing policy
 Expected outcome check:
 ```text
@@ -284,7 +284,7 @@ Verification method: direct inspection of code and docs
 Verified evidence:
 - `src/pages/SubmodulePage.tsx:367` checks `hasSection('flute')`
 - `src/data/course-data/types.ts:11` includes `flute`
-- synced docs reflect `flute` as canonical in `docs/context/ARCHITECTURE.md:102`, `docs/active/roadmap.md:59`, and `docs/records/decisions.md:60-65`
+- synced docs reflect `flute` as canonical in `docs/context/architecture.md:102`, `docs/active/roadmap.md:59`, and `docs/records/decisions.md:60-65`
 Expected outcome check:
 ```text
 Runtime, shared types, and synced docs all use `flute` as the canonical section key.
@@ -294,7 +294,7 @@ Runtime, shared types, and synced docs all use `flute` as the canonical section 
 Verification method: direct inspection of current docs against current code and QA evidence
 Verified evidence:
 - Round 1 router contradictions are no longer true; docs now describe debug/test routes as development-only
-- `docs/context/ARCHITECTURE.md:100-102` matches current code in `src/App.tsx`
+- `docs/context/architecture.md:100-102` matches current code in `src/App.tsx`
 - `docs/active/roadmap.md:48-60` reflects current verification truth and canonical `flute` naming
 - Round 2 QA evidence shows the previously failing targeted E2E cases now pass
 Expected outcome check:
@@ -421,18 +421,20 @@ Owner bucket: T3
 Command: `grep -RIn "/practice\|IPhonePlayerTestPage\|test-iphone-player\|raga-bupali" docs/context docs/records`
 Output snippet:
 ```text
-docs/context/ARCHITECTURE.md:100-105
+docs/context/architecture.md:100-105
 docs/records/decisions.md:69-74
 docs/records/bug-fixing-guide.md:88
 docs/records/dev-guide.md:22,98
 ```
+
+This file is the latest recorded QA evidence source for the current testing work. Pair it with `docs/specs/test-plan.md` for expected cases and `docs/context/tech-stack.md` / `docs/records/dev-guide.md` for tooling and workflow context.
 
 ### TC-T3-002: Docs record the final audio unlock/playback policy that matches the shipped fix — PASSED
 Owner bucket: T3
 Command: `grep -RIn "audio unlock\|Tone.start\|AudioContext\|abcjs\|useAudioStore\|audio-engine" docs/context docs/records`
 Output snippet:
 ```text
-docs/context/ARCHITECTURE.md:104
+docs/context/architecture.md:104
 docs/records/decisions.md:72
 docs/records/dev-guide.md:19-21
 ```

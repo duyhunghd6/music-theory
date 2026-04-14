@@ -3,22 +3,68 @@
 Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
-Never save working files, text/mds and tests to the root folder.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the user.
+Never save working files, text/mds, or tests to the root folder.
+
+## CLAUDE.md is the only agent instruction file
+
+- Do not rely on `AGENTS.md`.
+- Treat this `CLAUDE.md` as the only in-repo instruction file for agent behavior.
+- If instructions previously lived in `AGENTS.md`, keep the authoritative version here instead of splitting rules across both files.
+
+## Runtime port policy
+
+- Default dev port is `5504`.
+- If port `5504` is already in use, do not switch to another port automatically.
+- Free port `5504`, then restart the dev server on `5504`.
 
 ## Docs are the project source of truth
 
-Treat `./docs/` as the primary source of truth for product scope, architecture, and project context before proposing changes, plans, or agent-team work.
+Treat `./docs/` as the primary source of truth for product scope, architecture, implementation context, and delivery state before proposing changes, plans, or implementation work.
 
-Read in this order when you need project context:
-1. `docs/context/ARCHITECTURE.md` — current runtime architecture, source-tree map, and drift notes.
-2. `docs/context/TECH_STACK.md` — verified dependencies, scripts, and test stack.
-3. `docs/specs/module-overview.md` — verified module/submodule and interactivity status.
-4. `docs/context/domain-terms.md` and `docs/context/initial-requirements.md` — domain and product framing.
-5. `docs/records/dev-guide.md`, `docs/records/decisions.md`, `docs/records/adrs.md`, and `docs/records/bug-fixing-guide.md` — implementation guidance and historical decisions.
-6. `docs/active/roadmap.md` and `docs/reviews/` — active planning and review context.
+### Read docs in this order when project context is needed
 
-If docs in `./docs/` conflict, prefer the file explicitly marked synced/verified and the more recently updated file.
+1. `docs/context/architecture.md` — current runtime architecture, source-tree map, integration points, and drift notes.
+2. `docs/context/tech-stack.md` — verified dependencies, scripts, tooling, and test stack.
+3. `docs/specs/module-overview.md` — verified module/submodule coverage and interactivity status.
+4. `docs/context/domain-terms.md` — canonical domain vocabulary and feature terminology.
+5. `docs/context/initial-requirements.md` — product framing, original goals, and requirement baseline.
+6. `docs/records/dev-guide.md` — implementation guidance and repo-specific development workflow, including testing workflow/location guidance.
+7. `docs/records/decisions.md` — important project decisions and working conventions.
+8. `docs/records/adrs.md` — architectural decision records and rationale for major choices.
+9. `docs/records/bug-fixing-guide.md` — debugging and bug-fix workflow guidance.
+10. `docs/specs/test-plan.md` — current testing expectations, execution order, and verification targets.
+11. `docs/reviews/qa-report.md` — latest executed QA evidence and unresolved testing gaps.
+12. `docs/active/roadmap.md` — current work-in-progress, priorities, and next-step planning.
+13. `docs/reviews/` — review artifacts, QA notes, and audit/history relevant to current work.
+
+If docs in `./docs/` conflict, prefer the file explicitly marked synced/verified, then the more recently updated source.
+
+## Meaning of each docs area
+
+- `docs/active/` — current work-in-progress, active roadmaps, and immediate tasks.
+- `docs/context/` — architecture, system context, terminology, requirements, and design-level framing.
+- `docs/specs/` — feature specs, scope details, and expected behavior.
+- `docs/records/` — dev guidance, decisions, ADRs, bug-fix guides, and historical implementation records.
+- `docs/reviews/` — code review notes, QA reports, audits, and review artifacts.
+- `docs/archive/` — obsolete, superseded, or completed documentation kept only for reference.
+
+## How to use docs during work
+
+- Before implementation, read the relevant files above to understand current architecture, scope, task status, and current testing expectations.
+- Treat testing guidance as living in `docs/`, not in root-level docs files. Use `docs/context/tech-stack.md` for test tooling/scripts, `docs/records/dev-guide.md` for testing workflow and local guidance, `docs/specs/test-plan.md` for execution order and required checks, and `docs/reviews/qa-report.md` for the latest verified QA evidence.
+- During implementation, keep any user-requested documentation updates aligned with the actual code state.
+- After implementation, when documentation changes are part of the task, update the relevant docs so the next session sees the new current state.
+- Move outdated material to `docs/archive/` only when the task explicitly requires documentation reorganization.
+
+## Post-implementation verification
+
+After completing code changes inside `./src/`, run these checks in order before commit/push unless the changes were only in `./docs/` or other non-runtime files:
+
+1. `npm run build` — must pass with zero errors.
+2. `npm run test:e2e` — all end-to-end tests must pass.
+
+Playwright must run headless, and agents must not spawn multiple browsers.
 
 ## Current project architecture snapshot
 
@@ -30,7 +76,7 @@ If docs in `./docs/` conflict, prefer the file explicitly marked synced/verified
 - Both `abcjs` and `vexflow` are active notation/rendering paths; audio uses Tone.js plus supporting services in `src/services/` and `src/features/audio/`.
 - Progress is local-first in `src/stores/useProgressStore.ts`, with optional Supabase sync when environment variables are configured.
 - Module 1 has the deepest lesson-game wiring; Modules 2-5 are currently more theory/notation-heavy with less lesson-level game wiring.
-- Test stack: Vitest + Testing Library for unit/component tests, Playwright for E2E (must run headless, do not spawn multiple browsers).
+- Test stack: Vitest + Testing Library for unit/component tests, Playwright for E2E.
 
 ## Repo structure to expect
 

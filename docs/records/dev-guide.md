@@ -90,6 +90,15 @@ For lesson-specific notation:
 
 ---
 
+## Testing workflow
+
+- Treat `docs/` as the source of truth for project testing guidance; do not rely on root-level `TESTING.md`.
+- Use `docs/context/tech-stack.md` for the verified test toolchain and available scripts.
+- Use `docs/specs/test-plan.md` for required execution order, narrow-first verification scope, and exact command expectations for current work.
+- Use `docs/reviews/qa-report.md` for the latest executed QA evidence, pass/fail status, and unresolved environment gaps.
+- Keep Playwright headless for agent-driven verification, and avoid spawning multiple browsers.
+- Prefer narrow-first verification: start with the smallest relevant Vitest or Playwright command, then expand only when the task or QA evidence requires it.
+
 ## Known Technical Debt
 
 1. **Formatting/Prettier Issues** - Many files have eslint formatting warnings (not blocking builds)

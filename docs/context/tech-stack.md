@@ -102,3 +102,4 @@ Status: synced to `package.json`
 - The current code uses React 19 and React Router 7, so older docs referencing React 18 or Router v6 are stale.
 - Both `abcjs` and `vexflow` are active dependencies and should be documented together.
 - `claude-flow` remains in `package.json` but is not part of the required docs workflow and should not be treated as the primary architecture driver without code verification.
+- Testing guidance is split by purpose across `docs/`: use this file for the authoritative toolchain and script list, `docs/records/dev-guide.md` for local workflow guidance, `docs/specs/test-plan.md` for required execution order and commands, and `docs/reviews/qa-report.md` for the latest recorded QA outcomes.

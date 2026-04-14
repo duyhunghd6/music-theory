@@ -81,8 +81,8 @@ This sprint focuses on three outcomes required before handover:
 - Goal: update project docs so they describe the final post-fix application and verification workflow accurately.
 - Story points: 5
 - Likely files:
-  - `docs/context/ARCHITECTURE.md`
-  - `docs/context/TECH_STACK.md`
+  - `docs/context/architecture.md`
+  - `docs/context/tech-stack.md`
   - `docs/specs/module-overview.md`
   - `docs/records/dev-guide.md`
   - `docs/records/decisions.md`
