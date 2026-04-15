@@ -4,6 +4,7 @@ import type { CursorControl as AbcCursorControl, NoteTimingEvent } from 'abcjs'
 import 'abcjs/abcjs-audio.css'
 import { useAudioStore } from '../../stores/useAudioStore'
 import { useSettingsStore } from '../../stores/useSettingsStore'
+import { transposeAbc } from '../../utils/abc-transpose'
 import { getNoteLabel } from '../../utils/note-labels'
 
 /**
@@ -304,6 +305,7 @@ interface AbcGrandStaffProps {
   className?: string
   /** Override ABC notation for lesson-specific content */
   overrideAbc?: string
+  transposeSemitones?: number
 }
 
 /**
@@ -315,6 +317,7 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
   showNoteNames = false,
   className = '',
   overrideAbc,
+  transposeSemitones = 0,
 }) => {
   // Generate stable ID for this instance
   const [instanceId] = useState(() => `abc-staff-${Math.random().toString(36).slice(2, 9)}`)
@@ -426,9 +429,13 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
   )
 
   const generateAbc = useCallback(() => {
-    // If overrideAbc is provided, process it for note annotations if needed
+    const applyTransforms = (abc: string) => {
+      const transposedAbc = transposeSemitones === 0 ? abc : transposeAbc(abc, transposeSemitones)
+      return injectNoteAnnotations(transposedAbc)
+    }
+
     if (overrideAbc) {
-      return injectNoteAnnotations(overrideAbc)
+      return applyTransforms(overrideAbc)
     }
 
     // Helper to create synchronized grand staff measures
@@ -443,7 +450,7 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
           const match = note.match(/^([A-G])([#b]?)(\d)$/)
           if (match) {
             const octave = parseInt(match[3], 10)
-            const abc = noteToAbc(note, showNoteNames, notationSystem)
+            const abc = noteToAbc(note, false, notationSystem)
             if (octave >= 4) {
               trebleParts.push(abc)
               bassParts.push('z') // Rest in bass when treble has note
@@ -488,12 +495,12 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
           const noteIdx = i % 8
           if (i % 2 === 0) {
             // Treble note
-            trebleRow.push(noteToAbc(sampleTreble[noteIdx], showNoteNames, notationSystem))
+            trebleRow.push(noteToAbc(sampleTreble[noteIdx], false, notationSystem))
             bassRow.push('z')
           } else {
             // Bass note
             trebleRow.push('z')
-            bassRow.push(noteToAbc(sampleBass[noteIdx], showNoteNames, notationSystem))
+            bassRow.push(noteToAbc(sampleBass[noteIdx], false, notationSystem))
           }
           // Add bar line after every 4 notes
           if ((i + 1) % 4 === 0 && i < 15) {
@@ -510,7 +517,7 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
 
       // Single staff - just show ascending notes
       const singleRow = [...sampleTreble, ...sampleBass.slice(0, 8)]
-        .map((n) => noteToAbc(n, showNoteNames, notationSystem))
+        .map((n) => noteToAbc(n, false, notationSystem))
         .join(' ')
       return { single: singleRow }
     }
@@ -520,7 +527,7 @@ export const AbcGrandStaff: React.FC<AbcGrandStaffProps> = ({
 
       if (showTwoStaves) {
         // Default display: 2 rows with sample notes
-        return `X:1
+        return applyTransforms(`X:1
 T:Grand Staff
 M:4/4
 L:1/4
@@ -532,16 +539,16 @@ V:2 clef=bass
 [V:1] ${sample.treble}
 [V:2] ${sample.bass}
 [V:1] ${sample.treble}
-[V:2] ${sample.bass}`
+[V:2] ${sample.bass}`)
       }
-      return `X:1
+      return applyTransforms(`X:1
 T:Grand Staff
 M:4/4
 L:1/4
 Q:${bpm}
 K:C
 ${'single' in sample ? sample.single : ''} |
-${'single' in sample ? sample.single : ''} |`
+${'single' in sample ? sample.single : ''} |`)
     }
 
     if (showTwoStaves) {
@@ -559,7 +566,7 @@ ${'single' in sample ? sample.single : ''} |`
               bass: 'z z z z | z z z z | z z z z | z z z z |',
             }
 
-      return `X:1
+      return applyTransforms(`X:1
 T:Grand Staff
 M:4/4
 L:1/4
@@ -571,29 +578,29 @@ V:2 clef=bass
 [V:1] ${row1.treble}
 [V:2] ${row1.bass}
 [V:1] ${row2.treble}
-[V:2] ${row2.bass}`
+[V:2] ${row2.bass}`)
     }
 
     const abcNotes = displayNotes
-      .map((n: string) => noteToAbc(n, showNoteNames, notationSystem))
+      .map((n: string) => noteToAbc(n, false, notationSystem))
       .filter((n: string) => n.length > 0)
       .join(' ')
 
-    return `X:1
+    return applyTransforms(`X:1
 T:Grand Staff
 M:4/4
 L:1/4
 Q:120
 K:C
-${abcNotes} |`
+${abcNotes} |`)
   }, [
     displayNotes,
     showTwoStaves,
-    showNoteNames,
     notationSystem,
     bpm,
     overrideAbc,
     injectNoteAnnotations,
+    transposeSemitones,
   ])
 
   // Track controller loaded state
