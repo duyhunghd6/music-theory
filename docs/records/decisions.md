@@ -1,9 +1,13 @@
 # Decisions
 
+<!-- beads-id: doc-decs -->
+
 Last updated: 2026-03-24
 Status: inferred from current implementation
 
 ## 2026-03-24 — Use a data-driven curriculum under `src/data/course-data/`
+
+<!-- beads-id: doc-decs-s1 -->
 The course is defined as TypeScript module/submodule data rather than a CMS or remote API.
 
 **Why:** `COURSE_MODULES` in `/Users/steve/duyhunghd6/music-theory/src/data/course-data/index.ts` is the canonical lesson source and is consumed directly by lesson pages.
@@ -13,6 +17,8 @@ The course is defined as TypeScript module/submodule data rather than a CMS or r
 ---
 
 ## 2026-03-24 — Reveal lesson theory progressively before opening demos/games
+
+<!-- beads-id: doc-decs-s2 -->
 Lesson content is intentionally gated section by section and only exposes interactive content after completion or explicit bypass.
 
 **Why:** `/Users/steve/duyhunghd6/music-theory/src/components/modules/ProgressiveTheoryContent.tsx` persists section progress and `/Users/steve/duyhunghd6/music-theory/src/pages/SubmodulePage.tsx` uses that state to unlock demos and games.
@@ -22,6 +28,8 @@ Lesson content is intentionally gated section by section and only exposes intera
 ---
 
 ## 2026-03-24 — Standardize games through a registry and universal router
+
+<!-- beads-id: doc-decs-s3 -->
 The app centralizes reusable game definitions in a game registry and dispatches them through one router instead of bespoke per-module wrappers.
 
 **Why:** `/Users/steve/duyhunghd6/music-theory/src/data/game-registry.ts` and `/Users/steve/duyhunghd6/music-theory/src/components/game-shell/UniversalGameRouter.tsx` encode this pattern directly.
@@ -31,6 +39,8 @@ The app centralizes reusable game definitions in a game registry and dispatches 
 ---
 
 ## 2026-03-24 — Keep progress local-first with optional Supabase sync
+
+<!-- beads-id: doc-decs-s4 -->
 Progress is persisted locally and only syncs to Supabase when the environment is configured.
 
 **Why:** `/Users/steve/duyhunghd6/music-theory/src/stores/useProgressStore.ts` uses an IndexedDB-backed storage adapter, while `/Users/steve/duyhunghd6/music-theory/src/services/supabase-client.ts` disables cloud sync when env vars are missing.
@@ -40,6 +50,8 @@ Progress is persisted locally and only syncs to Supabase when the environment is
 ---
 
 ## 2026-03-24 — Maintain both abcjs and VexFlow in the notation stack
+
+<!-- beads-id: doc-decs-s5 -->
 The current app uses two notation paths rather than a single rendering library.
 
 **Why:** abcjs powers reusable renderers and lesson/game playback flows, while VexFlow remains in the music staff components.
@@ -49,6 +61,8 @@ The current app uses two notation paths rather than a single rendering library.
 ---
 
 ## 2026-03-25 — Gate debug/test routes to development-only builds
+
+<!-- beads-id: doc-decs-s6 -->
 The shipped router keeps product pages available in all builds but mounts test/debug routes only when `import.meta.env.DEV` is true.
 
 **Why:** `src/App.tsx` conditionally registers `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2` as direct `<Route>` children only in development, and the router fix was validated by `npm run test -- src/App.test.tsx` plus `npm run build`.
@@ -58,6 +72,8 @@ The shipped router keeps product pages available in all builds but mounts test/d
 ---
 
 ## 2026-03-25 — Use `flute` as the canonical section key for the bamboo flute visualizer
+
+<!-- beads-id: doc-decs-s7 -->
 The current lesson runtime and shared course-data type both use `flute` as the section key that enables the Vietnamese bamboo flute visualizer.
 
 **Why:** `src/pages/SubmodulePage.tsx` checks `hasSection('flute')`, and `src/data/course-data/types.ts` includes `flute` in `SectionType`.
@@ -67,6 +83,8 @@ The current lesson runtime and shared course-data type both use `flute` as the s
 ---
 
 ## 2026-03-25 — Verify iOS practice audio on the shipped `/practice` route with narrow-first automation plus real-device confirmation
+
+<!-- beads-id: doc-decs-s8 -->
 The verified iOS audio workflow centers on the shipped `/practice?sheet=raga-bupali` route, not the DEV-only iPhone test page, and keeps automation narrow before any broader reruns.
 
 **Why:** `src/pages/PracticePage.tsx` resolves `raga-bupali` through the shipped lazy-sheet path, `src/services/audio-engine.ts` and `src/stores/useAudioStore.ts` own the Tone-based instrument playback path, `src/components/abc/AbcRenderer.tsx` owns abcjs playback via an `AudioContext`/`webkitAudioContext`, and QA finished with passing targeted Chromium/Mobile Chrome runs plus a final all-project `e2e/practice-mode.spec.ts` rerun.

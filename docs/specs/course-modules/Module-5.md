@@ -1,10 +1,14 @@
 # 📚 Module 5: Sáng tác & Cấu trúc (Composition & Form)
 
+<!-- beads-id: prd-cm5 -->
+
 > Tài liệu này mô tả chi tiết nội dung các bài học về sáng tác và cấu trúc bài hát, áp dụng mô hình **UX Journey Pattern** đã được chứng minh hiệu quả từ Module 1.
 
 ---
 
 ## 5.1 Tiến trình hợp âm phổ biến (Common Chord Progressions)
+
+<!-- beads-id: prd-cm5-s1 -->
 
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.1-chord-progressions.ts`
 
@@ -25,6 +29,8 @@
 
 #### Section 1: I-V-vi-IV (The Pop Progression)
 
+<!-- beads-id: prd-cm5-s2 -->
+
 | Nội dung giảng dạy            | Cách triển khai             |
 | :---------------------------- | :-------------------------- | ----------- |
 | Tiến trình phổ biến nhất!     | "4 Chords Song" medley      |
@@ -32,6 +38,8 @@
 | Cảm xúc: Tích cực, phấn khích | "Axis of Awesome" reference |
 
 #### Section 2: I-IV-V-I (Blues/Rock/Folk)
+
+<!-- beads-id: prd-cm5-s3 -->
 
 | Nội dung giảng dạy                     | Cách triển khai  |
 | :------------------------------------- | :--------------- |
@@ -41,6 +49,8 @@
 
 #### Section 3: ii-V-I (Jazz Essential)
 
+<!-- beads-id: prd-cm5-s4 -->
+
 | Nội dung giảng dạy        | Cách triển khai           |
 | :------------------------ | :------------------------ |
 | **Dm7 → G7 → Cmaj7**      | Jazz progression demo     |
@@ -48,6 +58,8 @@
 | Sức hút mạnh về chủ âm    | Voice leading animation   |
 
 #### Section 4: vi-IV-I-V (Sad/Epic Version)
+
+<!-- beads-id: prd-cm5-s5 -->
 
 | Nội dung giảng dạy                | Cách triển khai     |
 | :-------------------------------- | :------------------ |
@@ -76,6 +88,8 @@
 
 ## 5.2 Chỗ ngắt (Cadences)
 
+<!-- beads-id: prd-cm5-s6 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.2-cadences.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -95,6 +109,8 @@
 
 #### Section 1: Perfect Cadence (V → I) 🏠
 
+<!-- beads-id: prd-cm5-s7 -->
+
 | Nội dung giảng dạy                             | Cách triển khai    |
 | :--------------------------------------------- | :----------------- |
 | Authentic Cadence: **V → I** (hoặc V7 → I)     | G7 → C             |
@@ -102,6 +118,8 @@
 | Dùng ở cuối bài hoặc cuối đoạn lớn             | Audio demo         |
 
 #### Section 2: Plagal Cadence (IV → I) 🙏
+
+<!-- beads-id: prd-cm5-s8 -->
 
 | Nội dung giảng dạy               | Cách triển khai       |
 | :------------------------------- | :-------------------- |
@@ -111,6 +129,8 @@
 
 #### Section 3: Half Cadence (? → V) ❓
 
+<!-- beads-id: prd-cm5-s9 -->
+
 | Nội dung giảng dạy              | Cách triển khai         |
 | :------------------------------ | :---------------------- |
 | Kết thúc ở V (chưa giải quyết)  | ... → G (ngưng)         |
@@ -118,6 +138,8 @@
 | Muốn nghe tiếp câu sau          | Audio "question" phrase |
 
 #### Section 4: Deceptive Cadence (V → vi) 😮
+
+<!-- beads-id: prd-cm5-s10 -->
 
 | Nội dung giảng dạy               | Cách triển khai          |
 | :------------------------------- | :----------------------- |
@@ -146,6 +168,8 @@
 
 ## 5.3 Đường nét giai điệu (Melodic Contour)
 
+<!-- beads-id: prd-cm5-s11 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.3-melodic-contour.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -165,6 +189,8 @@
 
 #### Section 1: Passing Tone (Nốt lướt)
 
+<!-- beads-id: prd-cm5-s12 -->
+
 | Nội dung giảng dạy          | Cách triển khai                         |
 | :-------------------------- | :-------------------------------------- |
 | Nốt nằm giữa 2 chord tones  | C (chord) → **D** (passing) → E (chord) |
@@ -172,6 +198,8 @@
 | Giúp giai điệu liền mạch    | So sánh có/không có passing             |
 
 #### Section 2: Neighbor Tone (Nốt láng giếng)
+
+<!-- beads-id: prd-cm5-s13 -->
 
 | Nội dung giảng dạy                    | Cách triển khai           |
 | :------------------------------------ | :------------------------ |
@@ -181,6 +209,8 @@
 
 #### Section 3: Suspension (Nốt trễ)
 
+<!-- beads-id: prd-cm5-s14 -->
+
 | Nội dung giảng dạy           | Cách triển khai           |
 | :--------------------------- | :------------------------ |
 | Giữ lại nốt của hợp âm trước | Sus4: giữ nốt 4 thay vì 3 |
@@ -188,6 +218,8 @@
 | Rất cảm xúc!                 | Audio demo ballad         |
 
 #### Section 4: Quy tắc "Leap & Step"
+
+<!-- beads-id: prd-cm5-s15 -->
 
 | Nội dung giảng dạy                               | Cách triển khai               |
 | :----------------------------------------------- | :---------------------------- |
@@ -216,6 +248,8 @@
 
 ## 5.4 Cấu trúc bài hát (Song Structure)
 
+<!-- beads-id: prd-cm5-s16 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.4-song-structure.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -235,12 +269,16 @@
 
 #### Section 1: Intro & Verse
 
+<!-- beads-id: prd-cm5-s17 -->
+
 | Phần      | Vai trò                     | Đặc điểm                              |
 | :-------- | :-------------------------- | :------------------------------------ |
 | **Intro** | Thiết lập Tone, Tempo, Mood | Thường instrumental, gây ấn tượng đầu |
 | **Verse** | Kể câu chuyện               | Lời thay đổi, melody lặp, energy thấp |
 
 #### Section 2: Pre-Chorus & Chorus
+
+<!-- beads-id: prd-cm5-s18 -->
 
 | Phần           | Vai trò           | Đặc điểm                                 |
 | :------------- | :---------------- | :--------------------------------------- |
@@ -249,12 +287,16 @@
 
 #### Section 3: Bridge & Outro
 
+<!-- beads-id: prd-cm5-s19 -->
+
 | Phần       | Vai trò            | Đặc điểm                       |
 | :--------- | :----------------- | :----------------------------- |
 | **Bridge** | Thay đổi không khí | Giai điệu mới lạ, sau Chorus 2 |
 | **Outro**  | Kết thúc           | Fade out hoặc kết hẳn, dư âm   |
 
 #### Section 4: Typical Structure
+
+<!-- beads-id: prd-cm5-s20 -->
 
 | Nội dung giảng dạy                                                    | Cách triển khai              |
 | :-------------------------------------------------------------------- | :--------------------------- |
@@ -281,6 +323,8 @@
 
 ## 5.5 Cường độ & Kỹ thuật diễn tấu (Dynamics & Articulation)
 
+<!-- beads-id: prd-cm5-s21 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.5-dynamics-articulation.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -300,6 +344,8 @@
 
 #### Section 1: Dynamic Levels
 
+<!-- beads-id: prd-cm5-s22 -->
+
 | Ký hiệu | Tên         | Mức độ  |
 | :------ | :---------- | :------ |
 | **pp**  | pianissimo  | Rất nhỏ |
@@ -311,6 +357,8 @@
 
 #### Section 2: Crescendo & Decrescendo
 
+<!-- beads-id: prd-cm5-s23 -->
+
 | Nội dung giảng dạy              | Cách triển khai                |
 | :------------------------------ | :----------------------------- |
 | **Crescendo (<)**: To dần lên   | Animation mở rộng, volume tăng |
@@ -318,6 +366,8 @@
 | "Hairpin" dynamics              | Ký hiệu trên khuông nhạc       |
 
 #### Section 3: Articulation
+
+<!-- beads-id: prd-cm5-s24 -->
 
 | Ký hiệu             | Tên        | Kỹ thuật         |
 | :------------------ | :--------- | :--------------- |
@@ -345,6 +395,8 @@
 
 ## 5.6 Chuyển giọng (Modulation)
 
+<!-- beads-id: prd-cm5-s25 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-5/5.6-modulation.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -364,6 +416,8 @@
 
 #### Section 1: Direct Modulation 🚛
 
+<!-- beads-id: prd-cm5-s26 -->
+
 | Nội dung giảng dạy                             | Cách triển khai                  |
 | :--------------------------------------------- | :------------------------------- |
 | "Truck Driver's Gear Change"                   | Audio: bài pop lên tone đột ngột |
@@ -371,6 +425,8 @@
 | Hiệu quả: Tăng năng lượng tức thì              | Chorus cuối lên tone             |
 
 #### Section 2: Pivot Chord Modulation
+
+<!-- beads-id: prd-cm5-s27 -->
 
 | Nội dung giảng dạy                              | Cách triển khai                |
 | :---------------------------------------------- | :----------------------------- |
@@ -380,6 +436,8 @@
 
 #### Section 3: Common Modulation Types
 
+<!-- beads-id: prd-cm5-s28 -->
+
 | Loại          | Khoảng cách   | Ví dụ     | Effect        |
 | :------------ | :------------ | :-------- | :------------ |
 | Up Half Step  | +1 semitone   | C → C#/Db | Dramatic lift |
@@ -388,6 +446,8 @@
 | To Parallel   | Major → minor | C → Cm    | Color shift   |
 
 #### Section 4: Real Song Analysis
+
+<!-- beads-id: prd-cm5-s29 -->
 
 | Nội dung giảng dạy                    | Cách triển khai            |
 | :------------------------------------ | :------------------------- |

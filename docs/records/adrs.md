@@ -1,6 +1,10 @@
 # Architectural Decisions Record (ADR)
 
+<!-- beads-id: doc-adrs -->
+
 ## ADR-001: Frontend Framework Selection
+
+<!-- beads-id: doc-adrs-s1 -->
 - **Decision:** Use **React** with **TypeScript** and **Vite**.
 - **Context:** The application requires complex state management for interactive music theory lessons and real-time audio visualization.
 - **Rationale:**
@@ -12,6 +16,8 @@
 - **Status:** Accepted.
 
 ## ADR-002: State Management Strategy
+
+<!-- beads-id: doc-adrs-s2 -->
 - **Decision:** Use **Zustand**.
 - **Context:** We need to manage both global settings (volume, instrument) and high-frequency game state (current beat, cursor position).
 - **Rationale:**
@@ -21,6 +27,8 @@
 - **Status:** Accepted.
 
 ## ADR-003: Audio Engine
+
+<!-- beads-id: doc-adrs-s3 -->
 - **Decision:** Use **Tone.js**.
 - **Context:** Direct Web Audio API is powerful but verbose and error-prone for scheduling.
 - **Rationale:**
@@ -30,6 +38,8 @@
 - **Status:** Accepted.
 
 ## ADR-004: Music Notation Rendering
+
+<!-- beads-id: doc-adrs-s4 -->
 - **Decision:** Use **VexFlow** with **SVG** output.
 - **Context:** We need to render professional-grade sheet music that is interactive.
 - **Rationale:**
@@ -38,6 +48,8 @@
 - **Status:** Accepted.
 
 ## ADR-005: Mobile Latency Handling
+
+<!-- beads-id: doc-adrs-s5 -->
 - **Decision:** Implement **"Unlock Audio" strategy** and **Lookahead Scheduling**.
 - **Context:** Mobile browsers block auto-playing audio and have high input latency.
 - **Rationale:**
@@ -46,6 +58,8 @@
 - **Status:** Accepted.
 
 ## ADR-006: Sáo Trúc Fingering Visualization
+
+<!-- beads-id: doc-adrs-s6 -->
 - **Decision:** Build a custom **SVG Component Engine**.
 - **Context:** No existing libraries support Vietnamese bamboo flute fingering charts (especially half-holing).
 - **Rationale:**
@@ -57,6 +71,8 @@
 # Architecture Decisions — iOS Practice Audio Investigation Sprint
 
 ## 1. Sprint goal and scope summary
+
+<!-- beads-id: doc-adrs-s7 -->
 
 Sprint goal: identify and resolve the iOS real-device audio failure on `http://localhost:5504/practice?sheet=raga-bupali` without broad refactors, while keeping validation tightly focused on the shipped practice runtime and its audio entry points.
 
@@ -76,7 +92,11 @@ Out of scope:
 
 ## 2. Task split and dependency order
 
+<!-- beads-id: doc-adrs-s8 -->
+
 ### T1 — Targeted E2E coverage for iOS practice audio
+
+<!-- beads-id: doc-adrs-s9 -->
 
 Purpose: prove the shipped practice route remains stable and give T2 a reproducible guardrail around sheet loading and user-visible audio-entry behavior.
 
@@ -88,6 +108,8 @@ Primary concerns:
 - if browser/device audio behavior cannot be asserted directly in Playwright, the spec should still verify the user actions and DOM state that precede the real-device audio failure
 
 ### T2 — iOS audio runtime investigation and fix
+
+<!-- beads-id: doc-adrs-s10 -->
 
 Purpose: fix the real production issue on the shipped practice/audio path.
 
@@ -101,6 +123,8 @@ Primary concerns:
 
 ### T3 — Docs sync after verified fix
 
+<!-- beads-id: doc-adrs-s11 -->
+
 Purpose: update docs to match the final fix, final ownership boundaries, and final QA evidence.
 
 Primary concerns:
@@ -112,6 +136,8 @@ Primary concerns:
 
 ### Dependency order
 
+<!-- beads-id: doc-adrs-s12 -->
+
 1. ARCH defines ownership and integration points first.
 2. T1 and T2 may run in parallel once ownership is explicit.
 3. T1 owns tests/page objects only; if T1 exposes a product bug, that fix moves to T2.
@@ -121,7 +147,11 @@ Primary concerns:
 
 ## 3. File ownership map
 
+<!-- beads-id: doc-adrs-s13 -->
+
 ### Authoritative boundaries
+
+<!-- beads-id: doc-adrs-s14 -->
 
 | Task | File/Module | Owner | Read-only access / notes |
 |:---|:---|:---|:---|
@@ -155,6 +185,8 @@ Primary concerns:
 
 ### Collision-prevention rules
 
+<!-- beads-id: doc-adrs-s15 -->
+
 - Dev1 does not edit shipped audio services, stores, or abcjs/Tone runtime code.
 - Dev2 does not edit Playwright specs, Playwright page objects, or Playwright config.
 - Shared file exception: `src/pages/PracticePage.tsx` may receive Dev1 testability hooks or Dev2 runtime fixes, but not both at once. Dev1 must limit changes to selectors/hooks only; Dev2 owns all behavior logic.
@@ -164,7 +196,11 @@ Primary concerns:
 
 ## 4. Integration points
 
+<!-- beads-id: doc-adrs-s16 -->
+
 ### Shipped route and URL-driven practice runtime
+
+<!-- beads-id: doc-adrs-s17 -->
 
 - `src/App.tsx` mounts the shipped `/practice` route.
 - `src/pages/PracticePage.tsx` reads `sheet` from `useSearchParams`, loads curriculum or lazy ABC assets, and renders the selected sheet into the grand staff plus the flute/practice UI.
@@ -174,6 +210,8 @@ Primary concerns:
 Implication: the investigation target is not only “audio failed,” but the full chain from `/practice?sheet=raga-bupali` URL parsing -> sheet resolution -> rendered player surface -> user gesture -> audio playback.
 
 ### Audio entry points
+
+<!-- beads-id: doc-adrs-s18 -->
 
 There are multiple active audio paths in the repo; the sprint must keep them distinct:
 
@@ -198,6 +236,8 @@ Implication: the likely architectural risk is split ownership of audio unlock be
 
 ### Mobile and floating-instrument surfaces
 
+<!-- beads-id: doc-adrs-s19 -->
+
 - `src/components/ui/FloatingInstrumentsContainer.tsx` binds instrument interaction to `useAudioStore` and is always mounted globally from `src/App.tsx`.
 - Existing mobile E2E coverage exercises floating instrument visibility and layout from lesson pages, not the exact shipped practice audio failure.
 - Practice mode also renders a flute panel directly inside `src/pages/PracticePage.tsx`.
@@ -206,6 +246,8 @@ Implication: T1 can reuse mobile coverage patterns, but the sprint-critical path
 
 ### Debug/test surface versus shipped fix surface
 
+<!-- beads-id: doc-adrs-s20 -->
+
 - `src/pages/IPhonePlayerTestPage.tsx` documents iOS Safari constraints well: user gesture, `navigator.audioSession`, fallback `webkitAudioContext`, and abcjs synth setup.
 - This page is debug-only through the DEV-gated route in `src/App.tsx`.
 
@@ -213,7 +255,11 @@ Implication: Dev2 may borrow technical learnings from this page, but production 
 
 ## 5. QA expectations and targeted validation guidance
 
+<!-- beads-id: doc-adrs-s21 -->
+
 ### Required validation sequence
+
+<!-- beads-id: doc-adrs-s22 -->
 
 QA should run narrow-first:
 
@@ -225,6 +271,8 @@ QA should run narrow-first:
 
 ### Minimum targeted validation set
 
+<!-- beads-id: doc-adrs-s23 -->
+
 - relevant Vitest coverage for any changed T2-owned audio/runtime files
 - `npm run test:e2e -- e2e/practice-mode.spec.ts`
 - any new or narrowed Playwright command that specifically covers `/practice?sheet=raga-bupali` or equivalent shipped URL-loading/audio-entry behavior
@@ -232,9 +280,13 @@ QA should run narrow-first:
 
 ### Real-device expectation
 
+<!-- beads-id: doc-adrs-s24 -->
+
 Because the reported bug is iOS real-device audio failure, sprint exit is not complete on simulator/desktop evidence alone. QA must record whether a real iOS device can reproduce and then confirm the final fix on the exact shipped URL.
 
 ### Failure reporting standard
+
+<!-- beads-id: doc-adrs-s25 -->
 
 Every failure record must include:
 
@@ -246,7 +298,11 @@ Every failure record must include:
 
 ## 6. Design constraints
 
+<!-- beads-id: doc-adrs-s26 -->
+
 ### Shared constraints
+
+<!-- beads-id: doc-adrs-s27 -->
 
 - Keep changes minimal and scoped to the iOS practice audio failure.
 - Do not turn this sprint into a broad audio refactor.
@@ -257,12 +313,16 @@ Every failure record must include:
 
 ### Dev1 constraints
 
+<!-- beads-id: doc-adrs-s28 -->
+
 - Stay in Playwright specs, page objects, config, and testability hooks only.
 - Prioritize a deterministic practice-page path that can load a known sheet directly from the URL.
 - If direct audio assertion is not technically reliable in Playwright, assert the user actions and visible state leading into playback and hand off the runtime symptom to Dev2.
 - Do not fix Tone/abcjs/runtime logic.
 
 ### Dev2 constraints
+
+<!-- beads-id: doc-adrs-s29 -->
 
 - Own the shipped runtime fix.
 - Treat `src/pages/IPhonePlayerTestPage.tsx` as reference, not destination.
@@ -272,11 +332,15 @@ Every failure record must include:
 
 ### Dev3 constraints
 
+<!-- beads-id: doc-adrs-s30 -->
+
 - Document only final verified reality.
 - Be explicit about the difference between shipped `/practice` behavior and DEV-only iPhone test tooling.
 - Record exact commands and device-validation evidence, not assumptions.
 
 ## 7. Risks
+
+<!-- beads-id: doc-adrs-s31 -->
 
 1. **Split audio initialization paths**
    - `useAudioStore`/`audio-engine`, `AudioContextManager`, and `AbcRenderer` do not share one obvious canonical unlock path.
@@ -299,6 +363,8 @@ Every failure record must include:
    - Risk: tests or fixes that assume a different loader path will miss the real issue.
 
 ## 8. Expected sprint exit state
+
+<!-- beads-id: doc-adrs-s32 -->
 
 The sprint is architecture-complete when:
 

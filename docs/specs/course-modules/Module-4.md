@@ -1,10 +1,14 @@
 # 📚 Module 4: Hòa âm - Nền tảng (Harmony - The Core)
 
+<!-- beads-id: prd-cm4 -->
+
 > Tài liệu này mô tả chi tiết nội dung các bài học về hòa âm cơ bản, áp dụng mô hình **UX Journey Pattern** đã được chứng minh hiệu quả từ Module 1.
 
 ---
 
 ## 4.1 Hợp âm ba nốt (Triads)
+
+<!-- beads-id: prd-cm4-s1 -->
 
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.1-triads.ts`
 
@@ -25,6 +29,8 @@
 
 #### Section 1: Khái niệm Chord (Hợp âm)
 
+<!-- beads-id: prd-cm4-s2 -->
+
 | Nội dung giảng dạy                       | Cách triển khai                  |
 | :--------------------------------------- | :------------------------------- |
 | Hợp âm = 3 nốt trở lên vang lên cùng lúc | Audio: 1 nốt đơn vs 3 nốt hợp âm |
@@ -32,6 +38,8 @@
 | Cảm giác "đầy đặn" của hòa âm            | So sánh giai điệu đơn vs có đệm  |
 
 #### Section 2: Root, 3rd, 5th
+
+<!-- beads-id: prd-cm4-s3 -->
 
 | Thành phần         | Vai trò                   | Visual             |
 | :----------------- | :------------------------ | :----------------- |
@@ -41,6 +49,8 @@
 
 #### Section 3: Xây dựng C Major Triad
 
+<!-- beads-id: prd-cm4-s4 -->
+
 | Nội dung giảng dạy         | Cách triển khai (Multi-instrument) |
 | :------------------------- | :--------------------------------- | ------------------------- |
 | Root = C, 3rd = E, 5th = G | `{{piano:C Major Chord             | C4,E4,G4}}`               |
@@ -48,6 +58,8 @@
 | `{{guitar:C Major          | C3,E3,G3,C4,E4}}`                  | Guitar open chord diagram |
 
 #### Section 4: G Major, F Major, A minor
+
+<!-- beads-id: prd-cm4-s5 -->
 
 | Hợp âm      | Nốt                      | Demo         |
 | :---------- | :----------------------- | :----------- | ------------------------- | ------ |
@@ -98,6 +110,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.2 Tính chất hợp âm (Chord Qualities)
 
+<!-- beads-id: prd-cm4-s6 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.2-chord-qualities.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -117,6 +131,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Major vs Minor
 
+<!-- beads-id: prd-cm4-s7 -->
+
 | Tính chất | Công thức                    | Cảm xúc      | Ký hiệu     |
 | :-------- | :--------------------------- | :----------- | :---------- |
 | **Major** | M3 + m3 (dưới lớn, trên nhỏ) | Vui, sáng 😄 | C, CM, Cmaj |
@@ -124,12 +140,16 @@ Tổng: 9 games | 195 XP
 
 #### Section 2: Diminished & Augmented
 
+<!-- beads-id: prd-cm4-s8 -->
+
 | Tính chất      | Công thức               | Cảm xúc                | Ký hiệu  |
 | :------------- | :---------------------- | :--------------------- | :------- |
 | **Diminished** | m3 + m3 (2 quãng 3 nhỏ) | Căng thẳng, đáng sợ 😱 | Cdim, C° |
 | **Augmented**  | M3 + M3 (2 quãng 3 lớn) | Mơ hồ, lơ lửng ☁️      | Caug, C+ |
 
 #### Section 3: Audio Comparison
+
+<!-- beads-id: prd-cm4-s9 -->
 
 | Nội dung giảng dạy           | Cách triển khai        |
 | :--------------------------- | :--------------------- |
@@ -181,6 +201,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.3 Hợp âm trong giọng (Diatonic Chords)
 
+<!-- beads-id: prd-cm4-s10 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.3-diatonic-chords.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -200,6 +222,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Xây dựng Diatonic Chords
 
+<!-- beads-id: prd-cm4-s11 -->
+
 | Nội dung giảng dạy                       | Cách triển khai           |
 | :--------------------------------------- | :------------------------ |
 | Lấy C Major Scale làm nền: C-D-E-F-G-A-B | 7 nốt hiển thị            |
@@ -207,6 +231,8 @@ Tổng: 9 games | 195 XP
 | Chỉ dùng nốt TRONG âm giai               | ⚠️ "Stay within the key!" |
 
 #### Section 2: 7 hợp âm trong giọng C
+
+<!-- beads-id: prd-cm4-s12 -->
 
 | Bậc  | Nốt   | Hợp âm   | Tính chất  | Giải thích               |
 | :--- | :---- | :------- | :--------- | :----------------------- |
@@ -219,6 +245,8 @@ Tổng: 9 games | 195 XP
 | vii° | B-D-F | **Bdim** | diminished | Tritone inside!          |
 
 #### Section 3: Quy luật I-ii-iii-IV-V-vi-vii°
+
+<!-- beads-id: prd-cm4-s13 -->
 
 | Nội dung giảng dạy                    | Cách triển khai           |
 | :------------------------------------ | :------------------------ |
@@ -270,6 +298,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.4 Ký hiệu số La Mã (Roman Numeral Analysis)
 
+<!-- beads-id: prd-cm4-s14 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.4-roman-numerals.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -289,6 +319,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Tại sao dùng số?
 
+<!-- beads-id: prd-cm4-s15 -->
+
 | Nội dung giảng dạy            | Cách triển khai                              |
 | :---------------------------- | :------------------------------------------- |
 | Số La Mã áp dụng cho MỌI tone | Animation Key change: C→G, numbers không đổi |
@@ -297,6 +329,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 2: Quy tắc viết
 
+<!-- beads-id: prd-cm4-s16 -->
+
 | Ký hiệu                      | Ý nghĩa     | Ví dụ                   |
 | :--------------------------- | :---------- | :---------------------- |
 | **Chữ hoa** (I, IV, V)       | Major chord | I = C Major trong key C |
@@ -304,6 +338,8 @@ Tổng: 9 games | 195 XP
 | **° (vii°)**                 | diminished  | vii° = Bdim trong key C |
 
 #### Section 3: I-V-vi-IV - "The Axis"
+
+<!-- beads-id: prd-cm4-s17 -->
 
 | Nội dung giảng dạy           | Cách triển khai                 |
 | :--------------------------- | :------------------------------ | ----------- |
@@ -354,6 +390,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.5 Vòng quãng 5 (The Circle of Fifths)
 
+<!-- beads-id: prd-cm4-s18 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.5-circle-of-fifths.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -373,6 +411,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Cấu trúc vòng tròn
 
+<!-- beads-id: prd-cm4-s19 -->
+
 | Nội dung giảng dạy                    | Cách triển khai             |
 | :------------------------------------ | :-------------------------- |
 | Giống mặt đồng hồ: **C ở 12 giờ**     | Interactive Circle          |
@@ -380,6 +420,8 @@ Tổng: 9 games | 195 XP
 | Mỗi bước trái = Quãng 4 đúng (C→F→Bb) | Animation ngược chiều       |
 
 #### Section 2: Chiều kim đồng hồ = Thêm
+
+<!-- beads-id: prd-cm4-s20 -->
 
 | Giọng     | Số # | Dấu thăng mới |
 | :-------- | :--- | :------------ |
@@ -390,6 +432,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Ngược chiều = Thêm ♭
 
+<!-- beads-id: prd-cm4-s21 -->
+
 | Giọng       | Số ♭ | Dấu giáng mới |
 | :---------- | :--- | :------------ |
 | C → **F**   | 1♭   | B♭            |
@@ -398,6 +442,8 @@ Tổng: 9 games | 195 XP
 | E♭ → **A♭** | 4♭   | D♭            |
 
 #### Section 4: Vòng trong = Relative Minor
+
+<!-- beads-id: prd-cm4-s22 -->
 
 | Nội dung giảng dạy                | Cách triển khai    |
 | :-------------------------------- | :----------------- |
@@ -448,6 +494,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.6 Đảo hợp âm (Chord Inversions)
 
+<!-- beads-id: prd-cm4-s23 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.6-inversions.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -467,12 +515,16 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Root Position
 
+<!-- beads-id: prd-cm4-s24 -->
+
 | Nội dung giảng dạy              | Cách triển khai                          |
 | :------------------------------ | :--------------------------------------- |
 | Root nằm dưới cùng (Bass)       | `{{abc:C E G}}` "Người tuyết đứng thẳng" |
 | Cấu trúc: 3rd + 3rd (xếp chồng) | Visual building blocks                   |
 
 #### Section 2: First Inversion
+
+<!-- beads-id: prd-cm4-s25 -->
 
 | Nội dung giảng dạy                       | Cách triển khai        |
 | :--------------------------------------- | :--------------------- |
@@ -482,6 +534,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Second Inversion
 
+<!-- beads-id: prd-cm4-s26 -->
+
 | Nội dung giảng dạy                            | Cách triển khai        |
 | :-------------------------------------------- | :--------------------- |
 | 3rd chuyển tiếp, **5th nằm bass**             | `{{abc:G c e}}`        |
@@ -489,6 +543,8 @@ Tổng: 9 games | 195 XP
 | Âm hưởng: Chơi vơi, thường dùng cadential 6/4 | Audio demo             |
 
 #### Section 4: Voice Leading
+
+<!-- beads-id: prd-cm4-s27 -->
 
 | Nội dung giảng dạy                     | Cách triển khai            |
 | :------------------------------------- | :------------------------- |
@@ -539,6 +595,8 @@ Tổng: 9 games | 195 XP
 
 ## 4.7 Hợp âm 7 (Seventh Chords)
 
+<!-- beads-id: prd-cm4-s28 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-4/4.7-seventh-chords.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -558,6 +616,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Major 7 (Maj7)
 
+<!-- beads-id: prd-cm4-s29 -->
+
 | Nội dung giảng dạy             | Cách triển khai       |
 | :----------------------------- | :-------------------- |
 | Triad trưởng + Quãng 7 trưởng  | `{{abc:C E G B}}`     |
@@ -565,6 +625,8 @@ Tổng: 9 games | 195 XP
 | Ký hiệu: Cmaj7, CM7, C△7       | Text overlays         |
 
 #### Section 2: Minor 7 (min7)
+
+<!-- beads-id: prd-cm4-s30 -->
 
 | Nội dung giảng dạy            | Cách triển khai     |
 | :---------------------------- | :------------------ |
@@ -574,6 +636,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Dominant 7 (Dom7)
 
+<!-- beads-id: prd-cm4-s31 -->
+
 | Nội dung giảng dạy                            | Cách triển khai       |
 | :-------------------------------------------- | :-------------------- |
 | Triad trưởng + Quãng 7 thứ (!)                | `{{abc:C E G _B}}`    |
@@ -581,6 +645,8 @@ Tổng: 9 games | 195 XP
 | Âm hưởng: Blues, Funk                         | Audio demo blues lick |
 
 #### Section 4: ii-V-I trong Jazz
+
+<!-- beads-id: prd-cm4-s32 -->
 
 | Nội dung giảng dạy                             | Cách triển khai                 |
 | :--------------------------------------------- | :------------------------------ |

@@ -1,5 +1,7 @@
 # 🏗️ System Overview & Architecture
 
+<!-- beads-id: doc-arsov -->
+
 > **Status**: Verified & Synced (Jan 2026)
 > **Version**: 2.2 (Data-Complete)
 
@@ -9,9 +11,13 @@ This document describes the _verified_ architecture of the Music Theory Platform
 
 ## 1. Context & Scope
 
+<!-- beads-id: doc-arsov-s1 -->
+
 The platform is a "Mobile-First" progressive web app (PWA) designed to teach music theory through **interactive visualization** and **gamified discovery**.
 
 ### Core Pillars ("The 3 Uniques")
+
+<!-- beads-id: doc-arsov-s2 -->
 
 1.  **Unified Visualizers**: Every concept is instantly visible on Staff, Piano, Guitar, and Flute.
 2.  **Sound-First**: Theory is taught through _hearing_ first, then analyzing.
@@ -21,9 +27,13 @@ The platform is a "Mobile-First" progressive web app (PWA) designed to teach mus
 
 ## 2. The "5+1 Tower" Architecture
 
+<!-- beads-id: doc-arsov-s3 -->
+
 The system follows a strict 5-layer vertical architecture with a sidecar data tower.
 
 ### Layer 1: Foundation (React + Vite)
+
+<!-- beads-id: doc-arsov-s4 -->
 
 - **Framework**: React 18 (TypeScript)
 - **Router**: React Router v6 (Lazy loaded routes)
@@ -31,11 +41,15 @@ The system follows a strict 5-layer vertical architecture with a sidecar data to
 
 ### Layer 2: Audio/Visual Engine
 
+<!-- beads-id: doc-arsov-s5 -->
+
 - **Audio**: `Tone.js` (Scheduler, Sampler) + `AudioEngine.ts` singleton.
 - **Notation**: `ABCJS` (Rendering, Synth) wrapped in `AbcGrandStaff`.
 - **Sync**: `useAudioStore` uses `requestAnimationFrame` to sync Tone.js time with visual cursors.
 
 ### Layer 3: Visualizers (The "Popup" System)
+
+<!-- beads-id: doc-arsov-s6 -->
 
 - **State**: `activeNotes` (Zustand) drives all visualizers.
 - **Components**:
@@ -46,16 +60,22 @@ The system follows a strict 5-layer vertical architecture with a sidecar data to
 
 ### Layer 4: Game Orchestration
 
+<!-- beads-id: doc-arsov-s7 -->
+
 - **Journey**: `JourneyMap.tsx` renders the "Candy Crush" style progress map.
 - **Router**: `UniversalGameRouter` handles the logic: `Menu -> Game -> Feedback -> Result -> Next`.
 - **Registry**: `game-registry.ts` maps IDs (`note-id`, `rhythm-tap`) to lazy-loaded components.
 
 ### Layer 5: Data Persistence
 
+<!-- beads-id: doc-arsov-s8 -->
+
 - **Local**: IndexedDB (via `idb-keyval`) stores progress, XP, and settings.
 - **Cloud**: Supabase (in progress) for user sync.
 
 ### "+1" Sidecar: Content Tower
+
+<!-- beads-id: doc-arsov-s9 -->
 
 - **Structure**: `src/data/course-data/module-X/`
 - **Format**: Typed TypeScript files (`x.y-topic.ts`) exporting `Submodule` interfaces.
@@ -65,7 +85,11 @@ The system follows a strict 5-layer vertical architecture with a sidecar data to
 
 ## 3. Key Workflows
 
+<!-- beads-id: doc-arsov-s10 -->
+
 ### 3.1 The "Hear-See-Play" Loop
+
+<!-- beads-id: doc-arsov-s11 -->
 
 1.  User opens a **Submodule** (e.g., 5.6 Modulation).
 2.  `ProgressiveTheoryContent` parses the text.
@@ -76,6 +100,8 @@ The system follows a strict 5-layer vertical architecture with a sidecar data to
 
 ### 3.2 The Game Journey
 
+<!-- beads-id: doc-arsov-s12 -->
+
 1.  User enters `SubmodulePage`.
 2.  `JourneyMap` checks `completedGames` Set.
 3.  User clicks an unlocked node.
@@ -85,6 +111,8 @@ The system follows a strict 5-layer vertical architecture with a sidecar data to
 ---
 
 ## 4. Directory Structure (Verified)
+
+<!-- beads-id: doc-arsov-s13 -->
 
 ```
 .

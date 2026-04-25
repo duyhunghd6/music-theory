@@ -1,12 +1,18 @@
 # Bug Fixing Guide
 
+<!-- beads-id: doc-bfg -->
+
 ## Self-Improvement Checklist
+
+<!-- beads-id: doc-bfg-s1 -->
 
 Before fixing bugs in this codebase, review these lessons learned:
 
 ---
 
 ## Pre-Fix Verification
+
+<!-- beads-id: doc-bfg-s2 -->
 
 - [ ] Run `npm run build` to verify current state compiles
 - [ ] Run the narrowest owned verification command first before broader reruns
@@ -17,7 +23,11 @@ Before fixing bugs in this codebase, review these lessons learned:
 
 ## Common Pitfalls Encountered
 
+<!-- beads-id: doc-bfg-s3 -->
+
 ### 1. TypeScript Type Imports
+
+<!-- beads-id: doc-bfg-s4 -->
 
 **Problem:** `'StateStorage' is not exported`
 **Solution:** Use type-only import:
@@ -27,6 +37,8 @@ import type { StateStorage } from 'zustand/middleware'
 ```
 
 ### 2. Unused Variables
+
+<!-- beads-id: doc-bfg-s5 -->
 
 **Problem:** `'index' is declared but its value is never read`
 **Solution:** Remove from destructuring or use it:
@@ -39,6 +51,8 @@ items.map((item) => ...)
 ```
 
 ### 3. abcjs Callback Types
+
+<!-- beads-id: doc-bfg-s6 -->
 
 **Problem:** `Type '(ev: NoteTimingEvent | null) => void' is not assignable to type 'EventCallback'`
 **Solution:** Return proper type from callback:
@@ -55,6 +69,8 @@ eventCallback: (ev) => {
 
 ### 4. Missing Props
 
+<!-- beads-id: doc-bfg-s7 -->
+
 **Problem:** `Property 'overrideAbc' does not exist on type 'AbcGrandStaffProps'`
 **Solution:** Check interface definition matches usage:
 
@@ -65,6 +81,8 @@ interface AbcGrandStaffProps {
 ```
 
 ### 5. useCallback Dependencies
+
+<!-- beads-id: doc-bfg-s8 -->
 
 **Problem:** `React Hook useCallback has a missing dependency`
 **Solution:** Add missing deps to array:
@@ -79,6 +97,8 @@ const fn = useCallback(() => {
 
 ## Debug Workflow
 
+<!-- beads-id: doc-bfg-s9 -->
+
 1. **Read the error carefully** - TypeScript errors often suggest the fix
 2. **Check the line number** - Go directly to the source
 3. **View the interface/type** - Understand expected vs actual
@@ -90,6 +110,8 @@ const fn = useCallback(() => {
 ---
 
 ## Formatting vs Critical Errors
+
+<!-- beads-id: doc-bfg-s10 -->
 
 **Formatting (eslint/prettier):**
 
@@ -106,6 +128,8 @@ const fn = useCallback(() => {
 ---
 
 ## Quick Commands
+
+<!-- beads-id: doc-bfg-s11 -->
 
 ```bash
 # Build check
@@ -133,6 +157,8 @@ npx tsc --noEmit
 ---
 
 ## Files Most Likely to Have Issues
+
+<!-- beads-id: doc-bfg-s12 -->
 
 | File                  | Common Issues                       |
 | --------------------- | ----------------------------------- |

@@ -1,10 +1,14 @@
 # Test Plan — iOS Practice Audio Investigation Sprint
 
+<!-- beads-id: prd-tplan -->
+
 Status: derived from `docs/report/architecture-decisions.md` on 2026-03-25
 Owner: QA1
 Target URL: `http://localhost:5504/practice?sheet=raga-bupali`
 
 ## Execution order
+
+<!-- beads-id: prd-tplan-s1 -->
 
 This file is the current test execution source of truth for this workstream. Pair it with `docs/context/tech-stack.md` for available scripts, `docs/records/dev-guide.md` for workflow guidance, and `docs/reviews/qa-report.md` for the latest executed evidence.
 
@@ -18,12 +22,18 @@ Run cases in this narrow-first order:
 
 ## Binary result rule
 
+<!-- beads-id: prd-tplan-s2 -->
+
 - **PASS**: every command in the case exits 0, and every required UI/manual observation in the case matches the pass criteria.
 - **FAIL**: any command exits non-zero, any required assertion fails, or any required UI/manual observation does not match the pass criteria.
 
 ## T1 — Targeted E2E coverage for iOS practice audio
 
+<!-- beads-id: prd-tplan-s3 -->
+
 ### TC-T1-001: `/practice?sheet=raga-bupali` loads through the shipped URL-driven flow
+
+<!-- beads-id: prd-tplan-s4 -->
 - **Type**: integration
 - **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts`
 - **Pass criteria**:
@@ -36,6 +46,8 @@ Run cases in this narrow-first order:
   - the run does not cover a selected-sheet practice flow
 
 ### TC-T1-002: Selected-sheet state is visible in shipped UI on the practice page
+
+<!-- beads-id: prd-tplan-s5 -->
 - **Type**: integration
 - **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
 - **Pass criteria**:
@@ -47,6 +59,8 @@ Run cases in this narrow-first order:
   - the covered flow does not prove the chosen sheet is visible in shipped UI
 
 ### TC-T1-003: Mobile practice flow is reachable with stable selectors/page objects
+
+<!-- beads-id: prd-tplan-s6 -->
 - **Type**: integration
 - **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 - **Pass criteria**:
@@ -59,6 +73,8 @@ Run cases in this narrow-first order:
   - the spec cannot reach the intended flow on the mobile project
 
 ### TC-T1-004: Playwright covers the user actions and visible state immediately before audio playback
+
+<!-- beads-id: prd-tplan-s7 -->
 - **Type**: integration
 - **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 - **Pass criteria**:
@@ -71,6 +87,8 @@ Run cases in this narrow-first order:
   - visible pre-playback state is missing or failing
 
 ### TC-T1-005: Shared mobile instrument surface does not regress when the fix touches shared audio/instrument UI
+
+<!-- beads-id: prd-tplan-s8 -->
 - **Type**: smoke
 - **Command**: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
 - **Pass criteria**:
@@ -84,7 +102,11 @@ Run cases in this narrow-first order:
 
 ## T2 — iOS audio runtime investigation and fix
 
+<!-- beads-id: prd-tplan-s9 -->
+
 ### TC-T2-001: Changed `useAudioStore` / audio-engine path passes targeted Vitest coverage
+
+<!-- beads-id: prd-tplan-s10 -->
 - **Type**: unit
 - **Command**: `npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts`
 - **Pass criteria**:
@@ -97,6 +119,8 @@ Run cases in this narrow-first order:
   - either changed shipped store/engine file lacks targeted executed coverage
 
 ### TC-T2-002: Changed unlock UI/hook path passes targeted Vitest coverage when used by the fix
+
+<!-- beads-id: prd-tplan-s11 -->
 - **Type**: component
 - **Command**: `npm run test -- --run src/features/audio/components/AudioUnlocker.test.tsx`
 - **Pass criteria**:
@@ -109,6 +133,8 @@ Run cases in this narrow-first order:
   - required shipped unlock-surface coverage is skipped
 
 ### TC-T2-003: The shipped practice route satisfies the final audio initialization path, not only a debug page
+
+<!-- beads-id: prd-tplan-s12 -->
 - **Type**: smoke
 - **Command**: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 - **Pass criteria**:
@@ -121,6 +147,8 @@ Run cases in this narrow-first order:
   - the validation evidence depends only on a debug/test route
 
 ### TC-T2-004: `raga-bupali` loads through the real shipped lazy-sheet path before playback is attempted
+
+<!-- beads-id: prd-tplan-s13 -->
 - **Type**: smoke
 - **Command**: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
 - **Pass criteria**:
@@ -131,6 +159,8 @@ Run cases in this narrow-first order:
   - `raga-bupali`-targeted practice loading is not covered or fails
 
 ### TC-T2-005: Real iOS device can reproduce and then confirm the fix on the exact shipped URL
+
+<!-- beads-id: prd-tplan-s14 -->
 - **Type**: smoke
 - **Command**: manual on real iOS Safari: open `http://localhost:5504/practice?sheet=raga-bupali`
 - **Pass criteria**:
@@ -144,7 +174,11 @@ Run cases in this narrow-first order:
 
 ## T3 — Docs sync after verified fix
 
+<!-- beads-id: prd-tplan-s15 -->
+
 ### TC-T3-001: Docs describe current shipped `/practice` behavior, not an outdated or debug-only flow
+
+<!-- beads-id: prd-tplan-s16 -->
 - **Type**: smoke
 - **Command**: `grep -RIn "/practice\|IPhonePlayerTestPage\|test-iphone-player\|raga-bupali" docs/context docs/records`
 - **Pass criteria**:
@@ -157,6 +191,8 @@ Run cases in this narrow-first order:
   - any doc treats the debug page as the shipped solution
 
 ### TC-T3-002: Docs record the final audio unlock/playback policy that matches the shipped fix
+
+<!-- beads-id: prd-tplan-s17 -->
 - **Type**: smoke
 - **Command**: `grep -RIn "audio unlock\|Tone.start\|AudioContext\|abcjs\|useAudioStore\|audio-engine" docs/context docs/records`
 - **Pass criteria**:
@@ -169,6 +205,8 @@ Run cases in this narrow-first order:
   - docs describe only debug learnings without tying them back to the shipped fix
 
 ### TC-T3-003: Docs include the exact narrow-first verification commands and real-device expectation
+
+<!-- beads-id: prd-tplan-s18 -->
 - **Type**: smoke
 - **Command**: `grep -RIn "npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts\|npm run test:e2e -- e2e/practice-mode.spec.ts\|Mobile Chrome - iPhone SE\|real iOS device\|raga-bupali" docs/records docs/report docs/tests`
 - **Pass criteria**:
@@ -181,6 +219,8 @@ Run cases in this narrow-first order:
   - docs imply simulator/desktop-only evidence is sufficient
 
 ### TC-T3-004: Final docs reflect only verified QA evidence and final behavior
+
+<!-- beads-id: prd-tplan-s19 -->
 - **Type**: smoke
 - **Command**: `grep -RIn "PASS\|FAIL\|real-device\|practice-mode.spec.ts\|qa-report" docs/report docs/records docs/context`
 - **Pass criteria**:
@@ -194,6 +234,8 @@ Run cases in this narrow-first order:
 
 ## Failure recording requirement for QA2
 
+<!-- beads-id: prd-tplan-s20 -->
+
 For every failing case, record all of the following in `docs/report/qa-report.md`:
 
 - test case ID
@@ -205,5 +247,7 @@ For every failing case, record all of the following in `docs/report/qa-report.md
 - whether the issue blocks sprint exit
 
 ## Re-run rule
+
+<!-- beads-id: prd-tplan-s21 -->
 
 If QA2 finds a failure, re-run only the failed case after the responsible owner updates it, plus `TC-T1-005` only when the fix touches a shared instrument/audio surface that could regress mobile behavior.

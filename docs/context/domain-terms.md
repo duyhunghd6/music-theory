@@ -1,10 +1,14 @@
 # Bảng Thuật Ngữ Nhạc Lý Tiếng Anh - Tiếng Việt
 
+<!-- beads-id: doc-terms -->
+
 > **Nguồn tham khảo chuẩn**: Học viện Âm nhạc Quốc gia Việt Nam (VNAM), Giáo trình Lý thuyết Âm nhạc cơ bản (Vakhrameev), Phạm Tú Hương, Đỗ Xuân Tùng.
 
 ---
 
 ## Module 1: Nền tảng (Cao độ & Ký âm)
+
+<!-- beads-id: doc-terms-s1 -->
 
 | Thuật ngữ tiếng Việt    | Thuật ngữ tiếng Anh     | Ghi chú ngắn                                  |
 | :---------------------- | :---------------------- | :-------------------------------------------- |
@@ -35,6 +39,8 @@
 ---
 
 ## Module 2: Nhịp điệu & Nhịp (Rhythm & Meter)
+
+<!-- beads-id: doc-terms-s2 -->
 
 | Thuật ngữ tiếng Việt | Thuật ngữ tiếng Anh                    | Ghi chú ngắn                     |
 | :------------------- | :------------------------------------- | :------------------------------- |
@@ -93,6 +99,8 @@
 
 ## Module 3: Thang âm & Giai điệu (Scales & Melody)
 
+<!-- beads-id: doc-terms-s3 -->
+
 | Thuật ngữ tiếng Việt    | Thuật ngữ tiếng Anh        | Ghi chú ngắn                           |
 | :---------------------- | :------------------------- | :------------------------------------- |
 | Thang âm (Âm giai)      | Scale                      | Chuỗi nốt theo quy luật                |
@@ -134,6 +142,8 @@
 
 ## Module 4: Hòa âm (Harmony)
 
+<!-- beads-id: doc-terms-s4 -->
+
 | Thuật ngữ tiếng Việt  | Thuật ngữ tiếng Anh     | Ghi chú ngắn                      |
 | :-------------------- | :---------------------- | :-------------------------------- |
 | Hòa âm                | Harmony                 | Cách các nốt/chord chồng lên nhau |
@@ -170,6 +180,8 @@
 ---
 
 ## Module 5: Sáng tác & Hình thức (Composition & Form)
+
+<!-- beads-id: doc-terms-s5 -->
 
 | Thuật ngữ tiếng Việt          | Thuật ngữ tiếng Anh         | Ghi chú ngắn                 |
 | :---------------------------- | :-------------------------- | :--------------------------- |
@@ -230,6 +242,8 @@
 ---
 
 ## Ký hiệu viết tắt thường gặp
+
+<!-- beads-id: doc-terms-s6 -->
 
 | Viết tắt  | Đầy đủ (English) | Tiếng Việt |
 | :-------- | :--------------- | :--------- |

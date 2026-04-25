@@ -1,10 +1,14 @@
 # 📚 Module 3: Âm giai & Giai điệu (Scales & Melody)
 
+<!-- beads-id: prd-cm3 -->
+
 > Tài liệu này mô tả chi tiết nội dung các bài học về âm giai và giai điệu, áp dụng mô hình **UX Journey Pattern** đã được chứng minh hiệu quả từ Module 1.
 
 ---
 
 ## 3.1 Âm giai trưởng (The Major Scale)
+
+<!-- beads-id: prd-cm3-s1 -->
 
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.1-major-scale.ts`
 
@@ -25,6 +29,8 @@
 
 #### Section 1: Công thức "vàng" W-W-H-W-W-W-H
 
+<!-- beads-id: prd-cm3-s2 -->
+
 | Nội dung giảng dạy                                  | Cách triển khai                              |
 | :-------------------------------------------------- | :------------------------------------------- | ---------------------------------- |
 | Âm giai trưởng = "vui tươi, hoàn chỉnh"             | Audio demo C Major scale up & down           |
@@ -32,6 +38,8 @@
 | W = Whole step (1 cung), H = Half step (nửa cung)   | `{{piano:...                                 | ..}}` visual pattern trên bàn phím |
 
 #### Section 2: C Major - Thang âm "trắng tinh"
+
+<!-- beads-id: prd-cm3-s3 -->
 
 | Nội dung giảng dạy                 | Cách triển khai (Multi-instrument)          |
 | :--------------------------------- | :------------------------------------------ | -------------------------- |
@@ -41,6 +49,8 @@
 | `{{flute:C Major trên Sáo          | C4,D4,E4,F4,G4,A4,B4,C5}}`                  | Flute fingering            |
 
 #### Section 3: G Major & F Major
+
+<!-- beads-id: prd-cm3-s4 -->
 
 | Nội dung giảng dạy                         | Cách triển khai                  |
 | :----------------------------------------- | :------------------------------- |
@@ -93,6 +103,8 @@ Tổng: 9 games | 195 XP
 
 ## 3.2 Hóa biểu (Key Signatures)
 
+<!-- beads-id: prd-cm3-s5 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.2-key-signatures.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -112,6 +124,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Thứ tự dấu thăng (Order of Sharps)
 
+<!-- beads-id: prd-cm3-s6 -->
+
 | Nội dung giảng dạy                                                              | Cách triển khai                   |
 | :------------------------------------------------------------------------------ | :-------------------------------- |
 | Luôn xuất hiện theo thứ tự: **F-C-G-D-A-E-B**                                   | Animation dấu thăng lần lượt hiện |
@@ -119,6 +133,8 @@ Tổng: 9 games | 195 XP
 | `{{abc:K:C#}}` hiển thị 7 dấu thăng                                             | Full sharp key signature          |
 
 #### Section 2: Thứ tự dấu giáng (Order of Flats)
+
+<!-- beads-id: prd-cm3-s7 -->
 
 | Nội dung giảng dạy                                                               | Cách triển khai                   |
 | :------------------------------------------------------------------------------- | :-------------------------------- |
@@ -128,6 +144,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Quy tắc xác định giọng
 
+<!-- beads-id: prd-cm3-s8 -->
+
 | Loại           | Quy tắc                                  | Ví dụ                                  |
 | :------------- | :--------------------------------------- | :------------------------------------- |
 | **Sharp keys** | Dấu thăng cuối + nửa cung = Giọng trưởng | 3# (F,C,G) → G# + ½ = **A Major**      |
@@ -135,6 +153,8 @@ Tổng: 9 games | 195 XP
 | **Ngoại lệ**   | F Major (1♭) và C Major (0)              | Phải nhớ riêng!                        |
 
 #### Section 4: Circle of Fifths Preview
+
+<!-- beads-id: prd-cm3-s9 -->
 
 | Nội dung giảng dạy                                              | Cách triển khai          |
 | :-------------------------------------------------------------- | :----------------------- |
@@ -185,6 +205,8 @@ Tổng: 9 games | 195 XP
 
 ## 3.3 Quãng - Số lượng (Intervals - Quantity)
 
+<!-- beads-id: prd-cm3-s10 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.3-intervals-quantity.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -204,6 +226,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Cách đếm quãng
 
+<!-- beads-id: prd-cm3-s11 -->
+
 | Nội dung giảng dạy                                        | Cách triển khai                          |
 | :-------------------------------------------------------- | :--------------------------------------- |
 | Đếm TẤT CẢ các nốt từ nốt đầu đến nốt cuối                | Animation đếm 1-2-3... trên khuông       |
@@ -211,6 +235,8 @@ Tổng: 9 games | 195 XP
 | Sai lầm phổ biến: đếm khoảng cách (2 bước) thay vì số nốt | ⚠️ Alert visual                          |
 
 #### Section 2: Quãng 2, 3, 4, 5
+
+<!-- beads-id: prd-cm3-s12 -->
 
 | Quãng   | Pattern trên khuông            | Âm thanh     | Demo          |
 | :------ | :----------------------------- | :----------- | :------------ |
@@ -220,6 +246,8 @@ Tổng: 9 games | 195 XP
 | **5th** | Skip 2 dòng/khe                | Power chord! | `{{abc:C G}}` |
 
 #### Section 3: Quãng 6, 7, 8
+
+<!-- beads-id: prd-cm3-s13 -->
 
 | Quãng   | Pattern trên khuông             | Âm thanh       | Demo          |
 | :------ | :------------------------------ | :------------- | :------------ |
@@ -270,6 +298,8 @@ Tổng: 9 games | 195 XP
 
 ## 3.4 Quãng - Tính chất (Intervals - Quality)
 
+<!-- beads-id: prd-cm3-s14 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.4-intervals-quality.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -289,6 +319,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Quãng Đúng (Perfect): 1, 4, 5, 8
 
+<!-- beads-id: prd-cm3-s15 -->
+
 | Nội dung giảng dạy                           | Cách triển khai           |
 | :------------------------------------------- | :------------------------ |
 | Chỉ có quãng 1, 4, 5, 8 mới gọi là "Perfect" | Bảng phân loại            |
@@ -296,6 +328,8 @@ Tổng: 9 games | 195 XP
 | P4 = 5 semitones, P5 = 7 semitones           | Semitone counter visual   |
 
 #### Section 2: Quãng Trưởng/Thứ (Major/Minor): 2, 3, 6, 7
+
+<!-- beads-id: prd-cm3-s16 -->
 
 | Nội dung giảng dạy                  | Cách triển khai                    |
 | :---------------------------------- | :--------------------------------- |
@@ -305,12 +339,16 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Tăng (Augmented) & Giảm (Diminished)
 
+<!-- beads-id: prd-cm3-s17 -->
+
 | Nội dung giảng dạy                              | Cách triển khai              |
 | :---------------------------------------------- | :--------------------------- |
 | Perfect/Major + 1 semitone = **Augmented (+)**  | Aug 4 = "The Simpsons" theme |
 | Perfect/Minor - 1 semitone = **Diminished (°)** | Dim 5 = "Diabolus in Musica" |
 
 #### Section 4: Ear Training với bài hát quen
+
+<!-- beads-id: prd-cm3-s18 -->
 
 | Interval | Bài hát gợi nhớ        | Audio Demo |
 | :------- | :--------------------- | :--------- |
@@ -365,6 +403,8 @@ Tổng: 9 games | 195 XP
 
 ## 3.5 Âm giai thứ (The Minor Scales)
 
+<!-- beads-id: prd-cm3-s19 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.5-minor-scales.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -384,6 +424,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Natural Minor
 
+<!-- beads-id: prd-cm3-s20 -->
+
 | Nội dung giảng dạy                       | Cách triển khai           |
 | :--------------------------------------- | :------------------------ | -------------------------- |
 | Công thức: **W-H-W-W-H-W-W**             | Animation bậc thang minor |
@@ -391,6 +433,8 @@ Tổng: 9 games | 195 XP
 | Âm hưởng: buồn, tự nhiên                 | Audio demo                |
 
 #### Section 2: Harmonic Minor
+
+<!-- beads-id: prd-cm3-s21 -->
 
 | Nội dung giảng dạy                               | Cách triển khai             |
 | :----------------------------------------------- | :-------------------------- |
@@ -400,6 +444,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Melodic Minor
 
+<!-- beads-id: prd-cm3-s22 -->
+
 | Nội dung giảng dạy                       | Cách triển khai                |
 | :--------------------------------------- | :----------------------------- |
 | **Khi đi lên**: Nâng bậc 6 và 7 (F#, G#) | Animation ascending            |
@@ -407,6 +453,8 @@ Tổng: 9 games | 195 XP
 | Lý do: Tránh quãng Aug 2nd khó hát       | Comparison Harmonic vs Melodic |
 
 #### Section 4: Relative Major/Minor
+
+<!-- beads-id: prd-cm3-s23 -->
 
 | Nội dung giảng dạy                          | Cách triển khai               |
 | :------------------------------------------ | :---------------------------- |
@@ -458,6 +506,8 @@ Tổng: 9 games | 195 XP
 
 ## 3.6 Âm giai ngũ cung (The Pentatonic Scale)
 
+<!-- beads-id: prd-cm3-s24 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-3/3.6-pentatonic.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -477,6 +527,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Major Pentatonic
 
+<!-- beads-id: prd-cm3-s25 -->
+
 | Nội dung giảng dạy               | Cách triển khai               |
 | :------------------------------- | :---------------------------- | ---------------------- |
 | 5 nốt: 1-2-3-5-6 (bỏ nốt 4 và 7) | Từ C Major → Bỏ F và B        |
@@ -484,6 +536,8 @@ Tổng: 9 games | 195 XP
 | Âm hưởng: mơ mộng, dân gian      | Audio "Amazing Grace" opening |
 
 #### Section 2: Minor Pentatonic
+
+<!-- beads-id: prd-cm3-s26 -->
 
 | Nội dung giảng dạy                        | Cách triển khai              |
 | :---------------------------------------- | :--------------------------- | -------------------- |
@@ -493,6 +547,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 3: Pentatonic trong nhạc Việt Nam
 
+<!-- beads-id: prd-cm3-s27 -->
+
 | Nội dung giảng dạy                        | Cách triển khai                    |
 | :---------------------------------------- | :--------------------------------- | ------ |
 | Hệ thống **Hò-Xự-Xang-Xê-Cống**           | Bảng tương đương với Western notes |
@@ -500,6 +556,8 @@ Tổng: 9 games | 195 XP
 | Kỹ thuật **rung, nhấn, luyến** đặc trưng  | `{{flute:Demo nhị cung             | ...}}` |
 
 #### Section 4: "Không có nốt sai" - Improvisation
+
+<!-- beads-id: prd-cm3-s28 -->
 
 | Nội dung giảng dạy                       | Cách triển khai                   |
 | :--------------------------------------- | :-------------------------------- |

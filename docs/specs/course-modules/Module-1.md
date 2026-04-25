@@ -1,12 +1,18 @@
 # 📚 Nội dung Khóa học Nhạc lý Cơ bản
 
+<!-- beads-id: prd-cm1 -->
+
 > Tài liệu này mô tả chi tiết nội dung các module học, bao gồm mục tiêu, cấu trúc bài học, và các loại bài tập tương tác. Thiết kế theo mô hình **Khái niệm → Ví dụ → Thực hành** được chứng minh hiệu quả từ Module 1.1.
 
 ---
 
 ## Module 1: Nền tảng (Cao độ & Ký hiệu nhạc)
 
+<!-- beads-id: prd-cm1-s1 -->
+
 ### 1.1 Khuông nhạc & Khóa nhạc (The Staff & Clefs)
+
+<!-- beads-id: prd-cm1-s2 -->
 
 **Mục tiêu học tập:**
 
@@ -18,6 +24,8 @@
 
 #### Bước 1: Khuông nhạc trống (5 dòng, 4 khe)
 
+<!-- beads-id: prd-cm1-s3 -->
+
 | Nội dung giảng dạy                                 | Minh họa cần thực hiện                                 |
 | -------------------------------------------------- | ------------------------------------------------------ |
 | Giải thích khuông nhạc như "cái thang" cho âm nhạc | `{{abc}}` hiển thị 5 dòng kẻ trống, không có khóa nhạc |
@@ -27,6 +35,8 @@
 
 #### Bước 2: Giới thiệu Khóa Sol (Treble Clef)
 
+<!-- beads-id: prd-cm1-s4 -->
+
 | Nội dung giảng dạy                                                     | Minh họa cần thực hiện                             |
 | ---------------------------------------------------------------------- | -------------------------------------------------- |
 | Khóa Sol còn gọi là "G Clef"                                           | `{{abc}}` hiển thị khóa Sol trên khuông            |
@@ -34,6 +44,8 @@
 | Liệt kê nhạc cụ dùng khóa Sol: Piano (tay phải), Guitar, Violin, Flute | Icon nhạc cụ kèm khuông nhạc khóa Sol              |
 
 #### Bước 3: Giới thiệu Khóa Fa (Bass Clef)
+
+<!-- beads-id: prd-cm1-s5 -->
 
 | Nội dung giảng dạy                                          | Minh họa cần thực hiện                            |
 | ----------------------------------------------------------- | ------------------------------------------------- |
@@ -43,6 +55,8 @@
 
 #### Bước 4: Các nốt đầu tiên - Đô, Rê, Mi (C, D, E)
 
+<!-- beads-id: prd-cm1-s6 -->
+
 | Nội dung giảng dạy                                            | Minh họa cần thực hiện                                        |
 | ------------------------------------------------------------- | ------------------------------------------------------------- |
 | Middle C (Đô giữa) - nốt nằm trên dòng kẻ phụ dưới khuông Sol | `{{abc:C}}` với animation pulse, click để phát âm thanh       |
@@ -51,6 +65,8 @@
 | Phát 3 nốt liên tiếp C-D-E                                    | `{{abc:C D E}}` playable, Piano ảo highlight theo tuần tự     |
 
 #### Bước 5: Hoàn thiện bảng chữ cái - Fa, Sol, La, Si (F, G, A, B)
+
+<!-- beads-id: prd-cm1-s7 -->
 
 | Nội dung giảng dạy                    | Minh họa cần thực hiện                                          |
 | ------------------------------------- | --------------------------------------------------------------- |
@@ -62,6 +78,8 @@
 
 #### Bước 6: Câu nhớ cho dòng kẻ/khe (Mnemonics)
 
+<!-- beads-id: prd-cm1-s8 -->
+
 | Nội dung giảng dạy                                       | Minh họa cần thực hiện                            |
 | -------------------------------------------------------- | ------------------------------------------------- |
 | Khóa Sol - Dòng: "Every Good Boy Does Fine" (E-G-B-D-F)  | `{{abc:E G B d f}}` với text overlay từng chữ cái |
@@ -71,6 +89,8 @@
 | Khóa Fa - Khe: "All Cows Eat Grass"                      | `{{abc:A,, C, E, G,}}` bass clef demo             |
 
 #### Bước 7: Khuông nhạc lớn (Grand Staff)
+
+<!-- beads-id: prd-cm1-s9 -->
 
 | Nội dung giảng dạy                              | Minh họa cần thực hiện                                         |
 | ----------------------------------------------- | -------------------------------------------------------------- |
@@ -134,6 +154,8 @@ Tổng: 12 games | 300 XP
 
 ### 1.2 Tên nốt & Cao độ (Note Names & Pitch)
 
+<!-- beads-id: prd-cm1-s10 -->
+
 > ✅ **Đã triển khai**: Xem [`1.2-note-names.ts`](file:///Users/steve/INFCAP/gsc-animation/music-theory/src/data/course-data/module-1/1.2-note-names.ts)
 
 **UX Journey Pattern (4 bước):**
@@ -154,12 +176,16 @@ Tổng: 12 games | 300 XP
 
 #### Section 1: Bảng chữ cái Âm nhạc
 
+<!-- beads-id: prd-cm1-s11 -->
+
 | Nội dung giảng dạy                                           | Cách triển khai                         |
 | :----------------------------------------------------------- | :-------------------------------------- |
 | 7 chữ cái: A-B-C-D-E-F-G, sau G quay lại A                   | `{{abc:...}}` animation vòng tròn 7 nốt |
 | "Vòng tròn bất tận": ...E → F → G → **A** → B → C → D → E... | Blockquote giải thích với emoji 🔄      |
 
 #### Section 2: Tìm nốt trên Bàn phím Piano
+
+<!-- beads-id: prd-cm1-s12 -->
 
 | Nội dung giảng dạy                                           | Cách triển khai (Multi-instrument) |
 | :----------------------------------------------------------- | :--------------------------------- | -------------------------- | --------------------------- | -------- |
@@ -170,6 +196,8 @@ Tổng: 12 games | 300 XP
 
 #### Section 3: Nốt trên dây đàn Guitar
 
+<!-- beads-id: prd-cm1-s13 -->
+
 | Nội dung giảng dạy                                | Cách triển khai                        |
 | :------------------------------------------------ | :------------------------------------- | -------------------- |
 | 6 dây Guitar: Đếm từ dây mỏng (1) đến dây dày (6) | `{{guitar:6 Dây buông - Click để nghe! | E4,B3,G3,D3,A2,E2}}` |
@@ -178,6 +206,8 @@ Tổng: 12 games | 300 XP
 | **Câu nhớ EN**: "Every Boy Gets Dinner At Eight"  | Blockquote với emoji 📝                |
 
 #### Section 4: Quãng tám (Octave) & Middle C
+
+<!-- beads-id: prd-cm1-s14 -->
 
 | Nội dung giảng dạy                                                 | Cách triển khai                      |
 | :----------------------------------------------------------------- | :----------------------------------- | ------------------------- | ----------- |
@@ -233,6 +263,8 @@ Tổng: 9 games | 255 XP
 
 ### 1.3 Dấu hóa (Accidentals)
 
+<!-- beads-id: prd-cm1-s15 -->
+
 > ✅ **Đã triển khai**: Xem [`1.3-accidentals.ts`](file:///Users/steve/INFCAP/gsc-animation/music-theory/src/data/course-data/module-1/1.3-accidentals.ts)
 
 **UX Journey Pattern (4 bước):**
@@ -253,12 +285,16 @@ Tổng: 9 games | 255 XP
 
 #### Section 1: Dấu hóa là gì?
 
+<!-- beads-id: prd-cm1-s16 -->
+
 | Nội dung giảng dạy                                               | Cách triển khai                         |
 | :--------------------------------------------------------------- | :-------------------------------------- |
 | 3 loại dấu hóa: Thăng (♯), Giáng (♭), Bình (♮)                   | Bảng 3 cột: Ký hiệu, Tên gọi, Chức năng |
 | **Nửa cung (Semitone)**: Khoảng cách nhỏ nhất giữa 2 nốt liền kề | Blockquote giải thích với emoji 💡      |
 
 #### Section 2: Dấu Thăng (Sharp - ♯)
+
+<!-- beads-id: prd-cm1-s17 -->
 
 | Nội dung giảng dạy                                              | Cách triển khai (Multi-instrument) |
 | :-------------------------------------------------------------- | :--------------------------------- | ----------------------- | ----------------------------- | --------- |
@@ -268,6 +304,8 @@ Tổng: 9 games | 255 XP
 
 #### Section 3: Dấu Giáng (Flat - ♭)
 
+<!-- beads-id: prd-cm1-s18 -->
+
 | Nội dung giảng dạy                        | Cách triển khai (Multi-instrument) |
 | :---------------------------------------- | :--------------------------------- | ------------------------------ | ----------------------------- | --------- |
 | Hạ nốt xuống **nửa cung** → phím bên trái | `{{abc:D _D}}` + `{{piano:...      | D4,Db4}}`+`{{guitar:...        | D3,Db3,D4,Db4}}`+`{{flute:... | D5,Db5}}` |
@@ -275,11 +313,15 @@ Tổng: 9 games | 255 XP
 
 #### Section 4: Dấu Bình (Natural - ♮)
 
+<!-- beads-id: prd-cm1-s19 -->
+
 | Nội dung giảng dạy                                 | Cách triển khai (Multi-instrument) |
 | :------------------------------------------------- | :--------------------------------- | ----------------------- | ----------------------------- | --------- |
 | Hủy bỏ dấu thăng/giáng, về trạng thái **tự nhiên** | `{{abc:^C =C}}` + `{{piano:...     | C#4,C4}}`+`{{guitar:... | C#3,C3,C#4,C4}}`+`{{flute:... | C#5,C5}}` |
 
 #### Section 5: Phím Đen = 2 Tên Gọi!
+
+<!-- beads-id: prd-cm1-s20 -->
 
 | Nội dung giảng dạy                                        | Cách triển khai                                      |
 | :-------------------------------------------------------- | :--------------------------------------------------- | ------------------------------------ | ------ |
@@ -289,6 +331,8 @@ Tổng: 9 games | 255 XP
 
 #### Section 6: Trường hợp đặc biệt E-F và B-C
 
+<!-- beads-id: prd-cm1-s21 -->
+
 | Nội dung giảng dạy                        | Cách triển khai                     |
 | :---------------------------------------- | :---------------------------------- | -------------- |
 | 2 cặp nốt tự nhiên không có phím đen giữa | `{{piano:E-F và B-C                 | E4,F4,B4,C5}}` |
@@ -296,12 +340,16 @@ Tổng: 9 games | 255 XP
 
 #### Section 7: Quy tắc về Ô nhịp (Bar Rule)
 
+<!-- beads-id: prd-cm1-s22 -->
+
 | Nội dung giảng dạy                                        | Cách triển khai            |
 | :-------------------------------------------------------- | :------------------------- | ---------- |
 | Dấu hóa chỉ có hiệu lực trong **ô nhịp hiện tại**         | Blockquote ⚠️ "Quan trọng" |
 | Ví dụ: C thứ 2 trong ô 1 là C♯, C đầu ô 2 trở về tự nhiên | `{{abc:C ^C G C            | C G A B}}` |
 
 #### Section 8: Hóa Biểu - Key Signature 🎼
+
+<!-- beads-id: prd-cm1-s23 -->
 
 | Nội dung giảng dạy                                              | Cách triển khai                                    |
 | :-------------------------------------------------------------- | :------------------------------------------------- |
@@ -382,6 +430,8 @@ Tổng: 9 games | 195 XP
 
 ### 1.4 Cung và Nửa cung (Tones & Semitones)
 
+<!-- beads-id: prd-cm1-s24 -->
+
 **Mục tiêu học tập:**
 
 - Phân biệt Nửa cung (Semitone) và Cung (Tone/Whole step).
@@ -392,6 +442,8 @@ Tổng: 9 games | 195 XP
 
 #### Bước 1: Nửa cung (Semitone / Half step)
 
+<!-- beads-id: prd-cm1-s25 -->
+
 | Nội dung giảng dạy                                                          | Minh họa cần thực hiện                          |
 | :-------------------------------------------------------------------------- | :---------------------------------------------- |
 | **Định nghĩa**: Khoảng cách gần nhất giữa 2 phím (hoặc 2 ngăn phím Guitar). | Zoom vào 2 phím E-F (không có phím đen giữa).   |
@@ -399,6 +451,8 @@ Tổng: 9 games | 195 XP
 | **Cặp đặc biệt**: E-F và B-C là nửa cung tự nhiên (không cần dấu hóa).      | **Highlight đỏ** khu vực E-F và B-C trên Piano. |
 
 #### Bước 2: Cung (Tone / Whole step)
+
+<!-- beads-id: prd-cm1-s26 -->
 
 | Nội dung giảng dạy                                                      | Minh họa cần thực hiện                                |
 | :---------------------------------------------------------------------- | :---------------------------------------------------- |
@@ -439,6 +493,8 @@ Tổng: 9 games | 195 XP
 
 ### 1.5 Nốt đồng âm (Enharmonic Equivalents)
 
+<!-- beads-id: prd-cm1-s27 -->
+
 **Mục tiêu học tập:**
 
 - Hiểu khái niệm "Một nốt có nhiều tên gọi".
@@ -449,6 +505,8 @@ Tổng: 9 games | 195 XP
 
 #### Bước 1: Bí ẩn Phím Đen
 
+<!-- beads-id: prd-cm1-s28 -->
+
 | Nội dung giảng dạy                                                 | Minh họa cần thực hiện                                                |
 | :----------------------------------------------------------------- | :-------------------------------------------------------------------- |
 | **Vấn đề**: Phím đen giữa C và D gọi là gì?                        | Question mark (?) hiện trên phím đen đó.                              |
@@ -458,12 +516,16 @@ Tổng: 9 games | 195 XP
 
 #### Bước 2: Các cặp song sinh khác
 
+<!-- beads-id: prd-cm1-s29 -->
+
 | Nội dung giảng dạy                                         | Minh họa cần thực hiện                               |
 | :--------------------------------------------------------- | :--------------------------------------------------- |
 | **Liệt kê**: D#/Eb, F#/Gb, G#/Ab, A#/Bb.                   | Carousel trượt qua từng cặp phím đen.                |
 | **Trường hợp khó**: E# chính là F! B# chính là C! Fb là E! | Piano highlight E và F. Giải thích lý thuyết E# = F. |
 
 #### Bước 3: Tại sao làm khó vậy? (Context)
+
+<!-- beads-id: prd-cm1-s30 -->
 
 | Nội dung giảng dạy                                                                | Minh họa cần thực hiện                                                 |
 | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |

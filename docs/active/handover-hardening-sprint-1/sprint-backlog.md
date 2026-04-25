@@ -1,9 +1,13 @@
 # Sprint Backlog — Handover Hardening Sprint 1
 
+<!-- beads-id: pln-spblg -->
+
 Status: synthesized from verified docs and current repository state on 2026-03-25
 Sprint goal: ensure handover-ready E2E coverage, fix blocking user-facing bugs, and sync docs to the shipped application state.
 
 ## Scope summary
+
+<!-- beads-id: pln-spblg-s1 -->
 
 This sprint focuses on three outcomes required before handover:
 
@@ -12,6 +16,8 @@ This sprint focuses on three outcomes required before handover:
 3. Bring docs into sync with the final code and test state so handover material matches reality.
 
 ## Verified repository context
+
+<!-- beads-id: pln-spblg-s2 -->
 
 - Playwright is configured in `playwright.config.ts` with desktop and mobile projects.
 - Existing E2E specs already cover lesson completion, practice mode, mobile responsiveness, and floating instruments under `e2e/`.
@@ -24,13 +30,19 @@ This sprint focuses on three outcomes required before handover:
 
 ## Dependency order
 
+<!-- beads-id: pln-spblg-s3 -->
+
 - T1 and T2 may start in parallel.
 - T3 starts after T1 and T2 are complete so docs reflect the final shipped state.
 - QA2 validates the combined result after implementation and re-runs only failing cases during bug-fix loops.
 
 ## Task list
 
+<!-- beads-id: pln-spblg-s4 -->
+
 ### T1 — Harden handover-critical E2E coverage
+
+<!-- beads-id: pln-spblg-s5 -->
 - Owner: Dev1
 - Goal: make the existing Playwright suite reliable and handover-focused for the most important flows.
 - Story points: 5
@@ -56,6 +68,8 @@ This sprint focuses on three outcomes required before handover:
   - Favor stable `data-testid` hooks and page-object usage over brittle icon/text-only selectors where possible.
 
 ### T2 — Fix blocking app bugs for handover
+
+<!-- beads-id: pln-spblg-s6 -->
 - Owner: Dev2
 - Goal: remove verified implementation bugs and fix additional blocking failures found by build/tests/QA within owned files.
 - Story points: 8
@@ -77,6 +91,8 @@ This sprint focuses on three outcomes required before handover:
   - Do not edit Dev1-owned E2E files or Dev3-owned docs files.
 
 ### T3 — Sync handover documentation to the final codebase state
+
+<!-- beads-id: pln-spblg-s7 -->
 - Owner: Dev3
 - Goal: update project docs so they describe the final post-fix application and verification workflow accurately.
 - Story points: 5
@@ -100,11 +116,15 @@ This sprint focuses on three outcomes required before handover:
 
 ## File ownership map for implementation
 
+<!-- beads-id: pln-spblg-s8 -->
+
 - Dev1 owns: Playwright config, E2E specs, E2E page objects, and selector-only changes in the listed layout/floating-instrument files.
 - Dev2 owns: application code, route/page logic, lesson/runtime logic, stores/services, and unit/component tests for touched app code.
 - Dev3 owns: docs under `docs/context/`, `docs/specs/`, `docs/records/`, and `docs/active/`, excluding QA/ARCH generated outputs.
 
 ## Expected sprint result
+
+<!-- beads-id: pln-spblg-s9 -->
 
 At sprint completion, the repository should have:
 

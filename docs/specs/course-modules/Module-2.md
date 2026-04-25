@@ -1,10 +1,14 @@
 # 📚 Module 2: Nhịp điệu & Phách (Rhythm & Meter)
 
+<!-- beads-id: prd-cm2 -->
+
 > Tài liệu này mô tả chi tiết nội dung các bài học về nhịp điệu và phách, áp dụng mô hình **UX Journey Pattern** đã được chứng minh hiệu quả từ Module 1.
 
 ---
 
 ## 2.1 Giá trị nốt nhạc (Note Values)
+
+<!-- beads-id: prd-cm2-s1 -->
 
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.1-note-values.ts`
 
@@ -25,6 +29,8 @@
 
 #### Section 1: Nốt tròn & Nốt trắng
 
+<!-- beads-id: prd-cm2-s2 -->
+
 | Nội dung giảng dạy                                           | Cách triển khai                         |
 | :----------------------------------------------------------- | :-------------------------------------- |
 | **Nốt tròn** (Whole Note) = 4 phách, chiếm trọn 1 ô nhịp 4/4 | `{{abc:C4}}` với countdown timer 4 giây |
@@ -32,6 +38,8 @@
 | Hình dạng: đầu nốt trống, có/không có thân                   | Diagram so sánh 2 loại nốt              |
 
 #### Section 2: Nốt đen - "Nhịp tim" của âm nhạc
+
+<!-- beads-id: prd-cm2-s3 -->
 
 | Nội dung giảng dạy                                       | Cách triển khai                            |
 | :------------------------------------------------------- | :----------------------------------------- |
@@ -41,6 +49,8 @@
 
 #### Section 3: Nốt móc đơn & Móc kép
 
+<!-- beads-id: prd-cm2-s4 -->
+
 | Nội dung giảng dạy                                     | Cách triển khai                              |
 | :----------------------------------------------------- | :------------------------------------------- |
 | **Móc đơn** (Eighth Note) = 1/2 phách, đếm "1-và-2-và" | `{{abc:C/D/E/F/ G/A/B/c/}}` 8 nốt = 1 ô nhịp |
@@ -48,6 +58,8 @@
 | Beam (vạch nối): nhóm các nốt móc thành cụm dễ đọc     | So sánh nốt rời vs nốt có beam               |
 
 #### Section 4: Sơ đồ "Cây giá trị nốt"
+
+<!-- beads-id: prd-cm2-s5 -->
 
 | Nội dung giảng dạy                                | Cách triển khai                        |
 | :------------------------------------------------ | :------------------------------------- |
@@ -98,6 +110,8 @@ Tổng: 9 games | 195 XP
 
 ## 2.2 Dấu lặng (Rests)
 
+<!-- beads-id: prd-cm2-s6 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.2-rests.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -117,6 +131,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Dấu lặng tròn & trắng
 
+<!-- beads-id: prd-cm2-s7 -->
+
 | Nội dung giảng dạy                                          | Cách triển khai                      |
 | :---------------------------------------------------------- | :----------------------------------- |
 | **Lặng tròn**: "Hình hộp treo dưới dòng 4" = nghỉ cả ô nhịp | `{{abc:z4}}` với visual highlight    |
@@ -125,12 +141,16 @@ Tổng: 9 games | 195 XP
 
 #### Section 2: Dấu lặng đen & móc
 
+<!-- beads-id: prd-cm2-s8 -->
+
 | Nội dung giảng dạy                                          | Cách triển khai                                 |
 | :---------------------------------------------------------- | :---------------------------------------------- |
 | **Lặng đen**: Hình "chữ Z nghiêng" hoặc "sấm sét" = 1 phách | `{{abc:C z D z}}` pattern "chơi-nghỉ-chơi-nghỉ" |
 | **Lặng móc đơn/kép**: Hình "7" với 1-2 flags                | `{{abc:C/ z/ D/ z/}}` 8th rests pattern         |
 
 #### Section 3: Kết hợp nốt và dấu lặng
+
+<!-- beads-id: prd-cm2-s9 -->
 
 | Nội dung giảng dạy                                              | Cách triển khai                          |
 | :-------------------------------------------------------------- | :--------------------------------------- |
@@ -180,6 +200,8 @@ Tổng: 9 games | 195 XP
 
 ## 2.3 Nốt chấm & Dây liên (Dotted Notes & Ties)
 
+<!-- beads-id: prd-cm2-s10 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.3-dotted-ties.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -199,6 +221,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Nốt chấm đơn
 
+<!-- beads-id: prd-cm2-s11 -->
+
 | Nội dung giảng dạy                     | Cách triển khai                        |
 | :------------------------------------- | :------------------------------------- |
 | Dấu chấm = +50% giá trị gốc            | Formula animation: `Nốt + 50% = Tổng`  |
@@ -207,6 +231,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 2: Dây liên (Tie)
 
+<!-- beads-id: prd-cm2-s12 -->
+
 | Nội dung giảng dạy                             | Cách triển khai                                |
 | :--------------------------------------------- | :--------------------------------------------- | --------------------------- |
 | Tie = nối 2 nốt **CÙNG cao độ** thành 1 âm dài | `{{abc:C2-C2}}` tied = 4 beats, chỉ đánh 1 lần |
@@ -214,6 +240,8 @@ Tổng: 9 games | 195 XP
 | Piano demo: nhấn 1 lần, giữ tiếng              | `{{piano:...                                   | C4}}` với sustain animation |
 
 #### Section 3: Tie vs Slur
+
+<!-- beads-id: prd-cm2-s13 -->
 
 | Nội dung giảng dạy                                 | Cách triển khai                          |
 | :------------------------------------------------- | :--------------------------------------- |
@@ -263,6 +291,8 @@ Tổng: 9 games | 195 XP
 
 ## 2.4 Nhịp đơn (Simple Time Signatures)
 
+<!-- beads-id: prd-cm2-s14 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.4-simple-time.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -282,12 +312,16 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Giải mã Time Signature
 
+<!-- beads-id: prd-cm2-s15 -->
+
 | Nội dung giảng dạy                                             | Cách triển khai               |
 | :------------------------------------------------------------- | :---------------------------- |
 | Số trên = số phách trong mỗi ô nhịp                            | Animation highlight với label |
 | Số dưới = loại nốt tính là 1 phách (4=đen, 8=móc đơn, 2=trắng) | Bảng chuyển đổi số → loại nốt |
 
 #### Section 2: Ba nhịp phổ biến
+
+<!-- beads-id: prd-cm2-s16 -->
 
 | Nội dung giảng dạy                             | Cách triển khai                                 |
 | :--------------------------------------------- | :---------------------------------------------- |
@@ -296,6 +330,8 @@ Tổng: 9 games | 195 XP
 | **2/4** (March): "trái-phải, trái-phải"        | `{{abc:M:2/4\n C D}}` + animation soldiers      |
 
 #### Section 3: Strong & Weak Beats
+
+<!-- beads-id: prd-cm2-s17 -->
 
 | Nội dung giảng dạy              | Cách triển khai                     |
 | :------------------------------ | :---------------------------------- |
@@ -347,6 +383,8 @@ Tổng: 9 games | 195 XP
 
 ## 2.5 Nhịp ghép (Compound Meter)
 
+<!-- beads-id: prd-cm2-s18 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.5-compound-meter.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -366,6 +404,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Nhịp 6/8 cơ bản
 
+<!-- beads-id: prd-cm2-s19 -->
+
 | Nội dung giảng dạy                                     | Cách triển khai                     |
 | :----------------------------------------------------- | :---------------------------------- |
 | 6 móc đơn mỗi ô, NHƯNG nhóm thành **2 nhịp chính x 3** | `{{abc:M:6/8\n C/ D/ E/ F/ G/ A/}}` |
@@ -374,6 +414,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 2: 3/4 vs 6/8 - Khác biệt then chốt
 
+<!-- beads-id: prd-cm2-s20 -->
+
 | Nội dung giảng dạy                             | Cách triển khai             |
 | :--------------------------------------------- | :-------------------------- |
 | **3/4**: 3 phách đen, chia đôi thành 6 móc đơn | "1-2-3" grouping            |
@@ -381,6 +423,8 @@ Tổng: 9 games | 195 XP
 | Cùng số nốt, KHÁC cách nhóm → khác feel        | Side-by-side comparison     |
 
 #### Section 3: 9/8, 12/8 và Triplet Feel
+
+<!-- beads-id: prd-cm2-s21 -->
 
 | Nội dung giảng dạy                                | Cách triển khai               |
 | :------------------------------------------------ | :---------------------------- |
@@ -432,6 +476,8 @@ Tổng: 9 games | 195 XP
 
 ## 2.6 Nhịp độ & BPM (Tempo & BPM)
 
+<!-- beads-id: prd-cm2-s22 -->
+
 > 📋 **Chưa triển khai**: Sẽ được implement tại `src/data/course-data/module-2/2.6-tempo-bpm.ts`
 
 **UX Journey Pattern (4 bước):**
@@ -451,6 +497,8 @@ Tổng: 9 games | 195 XP
 
 #### Section 1: Khái niệm BPM
 
+<!-- beads-id: prd-cm2-s23 -->
+
 | Nội dung giảng dạy               | Cách triển khai                  |
 | :------------------------------- | :------------------------------- |
 | BPM = số phách trong 1 phút      | `{{metronome:60}}` = 1 beat/giây |
@@ -458,6 +506,8 @@ Tổng: 9 games | 195 XP
 | Nhịp tim người ≈ 60-100 BPM      | So sánh với heartbeat animation  |
 
 #### Section 2: Thuật ngữ Tempo tiếng Ý
+
+<!-- beads-id: prd-cm2-s24 -->
 
 | Thuật ngữ    | BPM Range | Tính cách                    | Minh họa                |
 | :----------- | :-------- | :--------------------------- | :---------------------- |

@@ -1,4 +1,8 @@
+<!-- beads-id: prd-gmech -->
+
 ## 📋 Tổng kết cấu trúc Module
+
+<!-- beads-id: prd-gmech-s1 -->
 
 | Module       | Số bài học | Trọng tâm            | Nhạc cụ chính           |
 | ------------ | ---------- | -------------------- | ----------------------- |
@@ -13,6 +17,8 @@
 ---
 
 ## 🎯 Loại bài tập (Exercise Types)
+
+<!-- beads-id: prd-gmech-s2 -->
 
 | Mã                 | Tên                | Mô tả                           |
 | ------------------ | ------------------ | ------------------------------- |

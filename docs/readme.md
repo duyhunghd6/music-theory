@@ -1,5 +1,7 @@
 # Docs SSOT
 
+<!-- beads-id: doc-readme -->
+
 Last updated: 2026-04-14
 Status: active
 
@@ -8,6 +10,8 @@ This `docs/` directory is the documentation source of truth for this repository.
 Use it to understand current architecture, expected behavior, implementation rules, testing expectations, delivery state, and historical decisions before changing code or proposing plans.
 
 ## Read order for agents and contributors
+
+<!-- beads-id: doc-readme-s1 -->
 
 Read these in order when project context is needed:
 
@@ -29,9 +33,13 @@ If docs conflict, prefer the file explicitly marked synced or verified, then pre
 
 ## Authority map
 
+<!-- beads-id: doc-readme-s2 -->
+
 Use each area for exactly one kind of truth.
 
 ### [context/](context/)
+
+<!-- beads-id: doc-readme-s3 -->
 Current system truth.
 
 Source of truth for:
@@ -47,6 +55,8 @@ Not source of truth for:
 - temporary plans
 
 ### [specs/](specs/)
+
+<!-- beads-id: doc-readme-s4 -->
 Expected product and feature behavior.
 
 Source of truth for:
@@ -61,6 +71,8 @@ Not source of truth for:
 - executed QA evidence
 
 ### [records/](records/)
+
+<!-- beads-id: doc-readme-s5 -->
 Durable engineering rationale and working rules.
 
 Source of truth for:
@@ -76,6 +88,8 @@ Not source of truth for:
 - temporary work tracking
 
 ### [active/](active/)
+
+<!-- beads-id: doc-readme-s6 -->
 Current planning and in-flight coordination.
 
 Source of truth for:
@@ -89,6 +103,8 @@ Not source of truth for:
 - final QA evidence
 
 ### [reviews/](reviews/)
+
+<!-- beads-id: doc-readme-s7 -->
 Validation evidence and review artifacts.
 
 Source of truth for:
@@ -103,6 +119,8 @@ Not source of truth for:
 - implementation conventions
 
 ### [archive/](archive/)
+
+<!-- beads-id: doc-readme-s8 -->
 Historical reference only.
 
 Source of truth for:
@@ -114,6 +132,8 @@ Use only for:
 - historical reference material
 
 ## Folder contract
+
+<!-- beads-id: doc-readme-s9 -->
 
 - Keep one fact in one home.
 - Put stable system truth in [context/](context/).
@@ -127,6 +147,8 @@ Do not duplicate the same fact across multiple files unless one file is explicit
 
 ## How to update docs when code changes
 
+<!-- beads-id: doc-readme-s10 -->
+
 Update the owning doc whenever behavior or structure changes.
 
 - Architecture or runtime flow changed → update [context/architecture.md](context/architecture.md)
@@ -138,6 +160,8 @@ Update the owning doc whenever behavior or structure changes.
 - Priorities or in-flight execution changed → update [active/roadmap.md](active/roadmap.md)
 
 ## Rules for agentic coding
+
+<!-- beads-id: doc-readme-s11 -->
 
 - Read docs before implementation when project context is needed.
 - Do not create root-level documentation outside `docs/` unless explicitly requested.
@@ -152,6 +176,8 @@ Update the owning doc whenever behavior or structure changes.
 
 ## Testing documentation contract
 
+<!-- beads-id: doc-readme-s12 -->
+
 Treat testing guidance as split by responsibility:
 
 - [context/tech-stack.md](context/tech-stack.md) — authoritative test tools and scripts
@@ -163,6 +189,8 @@ For agent-driven verification, prefer narrow-first testing before broader reruns
 
 ## Current repo-specific notes
 
+<!-- beads-id: doc-readme-s13 -->
+
 - The app currently uses React 19, React Router 7, TypeScript, Vite, Zustand, Tailwind CSS 4, `abcjs`, and `vexflow`.
 - Current curriculum truth lives in `src/data/course-data/` and is summarized in [specs/module-overview.md](specs/module-overview.md).
 - Current architecture truth must treat both `abcjs` and `vexflow` as active notation paths.
@@ -170,6 +198,8 @@ For agent-driven verification, prefer narrow-first testing before broader reruns
 - QA evidence should be kept separate from roadmap intent and separate from product specs.
 
 ## Suggested doc hygiene
+
+<!-- beads-id: doc-readme-s14 -->
 
 - Add `Last updated` and `Status` near the top of major docs.
 - Prefer stable filenames for major docs so agents and contributors can rely on them.

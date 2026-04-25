@@ -1,5 +1,7 @@
 # Staff-Instrument Mapping Rules
 
+<!-- beads-id: prd-vlogic -->
+
 > **Last Updated:** 2026-01-24  
 > **Purpose:** Reference documentation for mapping between Grand Staff notation and Virtual Instruments
 
@@ -9,13 +11,19 @@ This document describes how our music theory application maps notes between the 
 
 ## Overview
 
+<!-- beads-id: prd-vlogic-s1 -->
+
 The application uses a **unified pitch representation** based on Scientific Pitch Notation (e.g., `C4`, `E5`). All instruments synchronize through the `activeNotes` array in `useAudioStore`, ensuring that when a note is played or clicked on the staff, it highlights correctly across all visible instruments.
 
 ---
 
 ## Instrument Ranges
 
+<!-- beads-id: prd-vlogic-s2 -->
+
 ### 1. Virtual Piano (Non-Transposing)
+
+<!-- beads-id: prd-vlogic-s3 -->
 
 | Property          | Value                    |
 | ----------------- | ------------------------ |
@@ -39,6 +47,8 @@ The piano is a non-transposing instrument. Notes on the staff correspond directl
 ---
 
 ### 2. Virtual Guitar (Transposing Instrument)
+
+<!-- beads-id: prd-vlogic-s4 -->
 
 | Property           | Value                                                          |
 | ------------------ | -------------------------------------------------------------- |
@@ -85,6 +95,8 @@ export const transposeWrittenToGuitar = (writtenNote: string): string | null => 
 
 ### 3. Sao Truc / Flute (Non-Transposing)
 
+<!-- beads-id: prd-vlogic-s5 -->
+
 | Property          | Value                  |
 | ----------------- | ---------------------- |
 | **Range**         | **C4 to C6** (6-hole)  |
@@ -110,7 +122,11 @@ The Sao Truc uses a **fingering engine** (`fingering-engine.ts`) that maps scien
 
 ## Staff Clef Mapping
 
+<!-- beads-id: prd-vlogic-s6 -->
+
 ### Treble Clef (G Clef)
+
+<!-- beads-id: prd-vlogic-s7 -->
 
 | Staff Position       | Note | ABC Notation |
 | -------------------- | ---- | ------------ |
@@ -131,6 +147,8 @@ The Sao Truc uses a **fingering engine** (`fingering-engine.ts`) that maps scien
 
 ### Bass Clef (F Clef)
 
+<!-- beads-id: prd-vlogic-s8 -->
+
 | Staff Position       | Note | ABC Notation |
 | -------------------- | ---- | ------------ |
 | Bottom line (G line) | G2   | `G,,`        |
@@ -150,6 +168,8 @@ The Sao Truc uses a **fingering engine** (`fingering-engine.ts`) that maps scien
 
 ### Grand Staff (Combined View)
 
+<!-- beads-id: prd-vlogic-s9 -->
+
 ```
                          ┌─── F5 (top line treble)
      Treble Clef ────────┼─── E4 (bottom line treble)
@@ -165,6 +185,8 @@ The Sao Truc uses a **fingering engine** (`fingering-engine.ts`) that maps scien
 ---
 
 ## ABC Notation Octave Convention
+
+<!-- beads-id: prd-vlogic-s10 -->
 
 ABC notation uses letter case and modifiers to indicate octaves:
 
@@ -188,6 +210,8 @@ ABC notation uses letter case and modifiers to indicate octaves:
 
 ## Instrument-Staff Cross-Reference
 
+<!-- beads-id: prd-vlogic-s11 -->
+
 This table shows which staff (treble or bass) is most appropriate for each instrument's range:
 
 | Instrument   | Range           | Primary Clef       | Secondary Clef          |
@@ -199,6 +223,8 @@ This table shows which staff (treble or bass) is most appropriate for each instr
 ---
 
 ## Quiz/Assessment Clef Selection Logic
+
+<!-- beads-id: prd-vlogic-s12 -->
 
 For note identification quizzes, the clef is selected based on the note's octave:
 
@@ -216,6 +242,8 @@ const clef = octave < 4 ? 'bass' : 'treble'
 ---
 
 ## Data Flow Summary
+
+<!-- beads-id: prd-vlogic-s13 -->
 
 ```mermaid
 flowchart LR
@@ -245,9 +273,13 @@ flowchart LR
 
 ## Out-of-Range Behavior
 
+<!-- beads-id: prd-vlogic-s14 -->
+
 When a note from the staff or another instrument falls **outside** an instrument's playable range, each instrument handles it differently:
 
 ### Behavior Summary
+
+<!-- beads-id: prd-vlogic-s15 -->
 
 | Instrument   | Range          | Out-of-Range Behavior | User Feedback                              |
 | ------------ | -------------- | --------------------- | ------------------------------------------ |
@@ -258,6 +290,8 @@ When a note from the staff or another instrument falls **outside** an instrument
 ---
 
 ### 1. Piano (Silent Fail)
+
+<!-- beads-id: prd-vlogic-s16 -->
 
 The piano uses a simple `includes()` check for highlighting:
 
@@ -276,6 +310,8 @@ isHighlighted={activeNotes.includes(note)}
 ---
 
 ### 2. Guitar (Silent Fail with Transposition Check)
+
+<!-- beads-id: prd-vlogic-s17 -->
 
 The guitar performs a transposition before looking for fret positions:
 
@@ -317,6 +353,8 @@ export const transposeWrittenToGuitar = (writtenNote: string): string | null => 
 
 ### 3. Sao Truc / Flute (Graceful Degradation with Feedback)
 
+<!-- beads-id: prd-vlogic-s18 -->
+
 The flute is the **only instrument** that provides explicit user feedback:
 
 ```tsx
@@ -352,6 +390,8 @@ const getStatusText = () => {
 
 ### Audio Behavior (All Instruments)
 
+<!-- beads-id: prd-vlogic-s19 -->
+
 > [!NOTE]
 > **Audio playback is independent of visual range.** The `audioEngine` (Tone.js) can synthesize any valid MIDI pitch, so the user will still _hear_ the note even if no instrument visually highlights it.
 
@@ -365,6 +405,8 @@ This separation means:
 
 ### UX Implications
 
+<!-- beads-id: prd-vlogic-s20 -->
+
 | Scenario                    | Current Behavior                    | Potential Improvement                          |
 | --------------------------- | ----------------------------------- | ---------------------------------------------- |
 | Bass note played (G2)       | Piano/Guitar: nothing happens       | Could show a subtle "out of range" indicator   |
@@ -374,6 +416,8 @@ This separation means:
 ---
 
 ## Key Files Reference
+
+<!-- beads-id: prd-vlogic-s21 -->
 
 | File                                               | Purpose                                          |
 | -------------------------------------------------- | ------------------------------------------------ |

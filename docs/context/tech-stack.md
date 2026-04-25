@@ -1,9 +1,13 @@
 # Tech Stack
 
+<!-- beads-id: doc-stack -->
+
 Last updated: 2026-03-24
 Status: synced to `package.json`
 
 ## Core runtime
+
+<!-- beads-id: doc-stack-s1 -->
 
 | Package | Version | Why it is here |
 | --- | --- | --- |
@@ -15,6 +19,8 @@ Status: synced to `package.json`
 
 ## State and app structure
 
+<!-- beads-id: doc-stack-s2 -->
+
 | Package | Version | Why it is here |
 | --- | --- | --- |
 | zustand | ^5.0.9 | Lightweight stores for progress, audio, settings, and UI state |
@@ -24,6 +30,8 @@ Status: synced to `package.json`
 | react-use | ^17.6.0 | Utility hooks |
 
 ## Music notation, audio, and instrument tooling
+
+<!-- beads-id: doc-stack-s3 -->
 
 | Package | Version | Why it is here |
 | --- | --- | --- |
@@ -36,6 +44,8 @@ Status: synced to `package.json`
 
 ## UI and animation
 
+<!-- beads-id: doc-stack-s4 -->
+
 | Package | Version | Why it is here |
 | --- | --- | --- |
 | framer-motion | ^12.25.0 | Motion and animated transitions |
@@ -45,6 +55,8 @@ Status: synced to `package.json`
 | @base-ui/react | ^1.0.0 | Headless UI primitives |
 
 ## Styling and PWA/build extras
+
+<!-- beads-id: doc-stack-s5 -->
 
 | Package | Version | Why it is here |
 | --- | --- | --- |
@@ -57,11 +69,15 @@ Status: synced to `package.json`
 
 ## Backend / persistence integration
 
+<!-- beads-id: doc-stack-s6 -->
+
 | Package | Version | Why it is here |
 | --- | --- | --- |
 | @supabase/supabase-js | ^2.93.3 | Optional cloud sync for learner progress |
 
 ## Testing and quality
+
+<!-- beads-id: doc-stack-s7 -->
 
 | Package | Version | Why it is here |
 | --- | --- | --- |
@@ -84,6 +100,8 @@ Status: synced to `package.json`
 
 ## Project scripts
 
+<!-- beads-id: doc-stack-s8 -->
+
 | Script | Command | Purpose |
 | --- | --- | --- |
 | `dev` | `vite` | Local development server |
@@ -98,6 +116,8 @@ Status: synced to `package.json`
 | `preview` | `vite preview` | Preview built bundle |
 
 ## Notes
+
+<!-- beads-id: doc-stack-s9 -->
 
 - The current code uses React 19 and React Router 7, so older docs referencing React 18 or Router v6 are stale.
 - Both `abcjs` and `vexflow` are active dependencies and should be documented together.

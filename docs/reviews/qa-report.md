@@ -1,13 +1,21 @@
 # QA Report — Sprint 1 — Round 1
 
+<!-- beads-id: rev-qarpt -->
+
 ## Summary
+
+<!-- beads-id: rev-qarpt-s1 -->
 - Total cases run: 9
 - PASSED: 1
 - FAILED: 8
 
 ## Results
 
+<!-- beads-id: rev-qarpt-s2 -->
+
 ### TC-001: Final application build succeeds — PASSED
+
+<!-- beads-id: rev-qarpt-s3 -->
 Command: `npm run build`
 Output snippet:
 ```text
@@ -17,6 +25,8 @@ vite v7.3.1 building client environment for production...
 ```
 
 ### TC-002: T2-owned unit/component coverage passes for touched production files — FAILED
+
+<!-- beads-id: rev-qarpt-s4 -->
 Owner bucket: T2
 Command: inspection of relevant Vitest files adjacent to changed T2-owned production surfaces in `src/App.tsx`, `src/pages/SubmodulePage.tsx`, and `src/data/course-data/types.ts`
 Observed error:
@@ -30,6 +40,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-003: Lesson completion flow passes — FAILED
+
+<!-- beads-id: rev-qarpt-s5 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/lesson-completion.spec.ts`
 Exit code: 1
@@ -57,6 +69,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-004: Practice mode flow passes — FAILED
+
+<!-- beads-id: rev-qarpt-s6 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
 Exit code: 1
@@ -85,6 +99,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-005: Mobile responsive/navigation flow passes — FAILED
+
+<!-- beads-id: rev-qarpt-s7 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/mobile-responsive.spec.ts`
 Exit code: 1
@@ -114,6 +130,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-006: Mobile floating instruments flow passes — FAILED
+
+<!-- beads-id: rev-qarpt-s8 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
 Exit code: 1
@@ -138,6 +156,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-007: Final router policy matches final shipped code and docs — FAILED
+
+<!-- beads-id: rev-qarpt-s9 -->
 Owner bucket: T3
 Verification method: inspect final `src/App.tsx` and updated docs
 Observed error:
@@ -154,6 +174,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-008: Final section naming contract is consistent — FAILED
+
+<!-- beads-id: rev-qarpt-s10 -->
 Owner bucket: T2
 Verification method: inspect final `src/pages/SubmodulePage.tsx`, `src/data/course-data/types.ts`, touched course data, and docs
 Observed error:
@@ -170,6 +192,8 @@ Repro steps:
 Blocks handover: Yes
 
 ### TC-009: Final docs match final code/test truth — FAILED
+
+<!-- beads-id: rev-qarpt-s11 -->
 Owner bucket: T3
 Verification method: inspect final docs and compare against final code and QA outcomes
 Observed error:
@@ -189,13 +213,19 @@ Blocks handover: Yes
 # QA Report — Sprint 1 — Round 2
 
 ## Summary
+
+<!-- beads-id: rev-qarpt-s12 -->
 - Total cases run: 4
 - PASSED: 4
 - FAILED: 0
 
 ## Results
 
+<!-- beads-id: rev-qarpt-s13 -->
+
 ### TC-003: Lesson completion flow passes — PASSED
+
+<!-- beads-id: rev-qarpt-s14 -->
 Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
 Output snippet:
 ```text
@@ -207,6 +237,8 @@ Output snippet:
 ```
 
 ### TC-004: Practice mode flow passes — PASSED
+
+<!-- beads-id: rev-qarpt-s15 -->
 Commands:
 - `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
 - `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
@@ -220,6 +252,8 @@ Output snippet:
 ```
 
 ### TC-005: Mobile responsive/navigation flow passes — PASSED
+
+<!-- beads-id: rev-qarpt-s16 -->
 Commands:
 - `npm run test:e2e -- e2e/mobile-responsive.spec.ts --project=chromium`
 - `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
@@ -235,6 +269,8 @@ Undersized touch targets found: [ 'INPUT (1x1)' ]
 ```
 
 ### TC-006: Mobile floating instruments flow passes — PASSED
+
+<!-- beads-id: rev-qarpt-s17 -->
 Commands:
 - `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts --project=chromium`
 - `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/lesson-completion.spec.ts e2e/practice-mode.spec.ts e2e/mobile-responsive.spec.ts e2e/mobile-floating-instruments.spec.ts`
@@ -250,13 +286,19 @@ Output snippet:
 # QA Report — Sprint 1 — Round 3
 
 ## Summary
+
+<!-- beads-id: rev-qarpt-s18 -->
 - Total cases run: 4
 - PASSED: 4
 - FAILED: 0
 
 ## Results
 
+<!-- beads-id: rev-qarpt-s19 -->
+
 ### TC-002: T2-owned unit/component coverage passes for touched production files — PASSED
+
+<!-- beads-id: rev-qarpt-s20 -->
 Command: `npm run test -- src/App.test.tsx src/pages/SubmodulePage.test.tsx src/data/course-data/types.test.ts`
 Output snippet:
 ```text
@@ -269,6 +311,8 @@ Tests       6 passed (6)
 ```
 
 ### TC-007: Final router policy matches final shipped code and docs — PASSED
+
+<!-- beads-id: rev-qarpt-s21 -->
 Verification method: direct inspection of code and docs
 Verified evidence:
 - `src/App.tsx:23,105-112` gates debug/test routes behind `import.meta.env.DEV`
@@ -280,6 +324,8 @@ Code and docs are aligned on debug/test routes being available only in developme
 ```
 
 ### TC-008: Final section naming contract is consistent — PASSED
+
+<!-- beads-id: rev-qarpt-s22 -->
 Verification method: direct inspection of code and docs
 Verified evidence:
 - `src/pages/SubmodulePage.tsx:367` checks `hasSection('flute')`
@@ -291,6 +337,8 @@ Runtime, shared types, and synced docs all use `flute` as the canonical section 
 ```
 
 ### TC-009: Final docs match final code/test truth — PASSED
+
+<!-- beads-id: rev-qarpt-s23 -->
 Verification method: direct inspection of current docs against current code and QA evidence
 Verified evidence:
 - Round 1 router contradictions are no longer true; docs now describe debug/test routes as development-only
@@ -305,13 +353,19 @@ Current docs match final code state and current QA truth for the rerun scope.
 # QA Report — Sprint 1 — Round 4
 
 ## Summary
+
+<!-- beads-id: rev-qarpt-s24 -->
 - Total cases run: 2
 - PASSED: 2
 - FAILED: 0
 
 ## Results
 
+<!-- beads-id: rev-qarpt-s25 -->
+
 ### TC-001: Final application build succeeds — PASSED
+
+<!-- beads-id: rev-qarpt-s26 -->
 Command: `npm run build`
 Output snippet:
 ```text
@@ -321,6 +375,8 @@ vite v7.3.1 building client environment for production...
 ```
 
 ### TC-004: Practice mode flow passes — PASSED
+
+<!-- beads-id: rev-qarpt-s27 -->
 Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
 Output snippet:
 ```text
@@ -332,13 +388,19 @@ Projects covered: chromium, Mobile Chrome - iPhone SE, Mobile Safari - iPhone 12
 # QA Report — iOS Practice Audio Investigation Sprint — Round 1
 
 ## Summary
+
+<!-- beads-id: rev-qarpt-s28 -->
 - Total cases run: 10
 - PASSED: 9
 - FAILED: 1
 
 ## Results
 
+<!-- beads-id: rev-qarpt-s29 -->
+
 ### TC-T2-002: Changed unlock UI/hook path passes targeted Vitest coverage when used by the fix — PASSED
+
+<!-- beads-id: rev-qarpt-s30 -->
 Owner bucket: T2
 Command: `npm run test -- --run src/features/audio/components/AudioUnlocker.test.tsx`
 Output snippet:
@@ -350,6 +412,8 @@ Tests       4 passed (4)
 ```
 
 ### TC-T1-001: `/practice?sheet=raga-bupali` loads through the shipped URL-driven flow — PASSED
+
+<!-- beads-id: rev-qarpt-s31 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/practice-mode.spec.ts`
 Output snippet:
@@ -360,6 +424,8 @@ Included passing assertions for `practice route loads raga-bupali from the shipp
 ```
 
 ### TC-T1-002: Selected-sheet state is visible in shipped UI on the practice page — PASSED
+
+<!-- beads-id: rev-qarpt-s32 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
 Output snippet:
@@ -370,6 +436,8 @@ Included passing selected-sheet visibility assertions in shipped practice UI.
 ```
 
 ### TC-T1-003: Mobile practice flow is reachable with stable selectors/page objects — PASSED
+
+<!-- beads-id: rev-qarpt-s33 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 Output snippet:
@@ -380,6 +448,8 @@ Mobile practice flow reached successfully on the mobile project.
 ```
 
 ### TC-T1-004: Playwright covers the user actions and visible state immediately before audio playback — PASSED
+
+<!-- beads-id: rev-qarpt-s34 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 Output snippet:
@@ -389,6 +459,8 @@ Output snippet:
 ```
 
 ### TC-T1-005: Shared mobile instrument surface does not regress when the fix touches shared audio/instrument UI — PASSED
+
+<!-- beads-id: rev-qarpt-s35 -->
 Owner bucket: T1
 Command: `npm run test:e2e -- e2e/mobile-floating-instruments.spec.ts`
 Output snippet:
@@ -398,6 +470,8 @@ Running 40 tests using 4 workers
 ```
 
 ### TC-T2-003: The shipped practice route satisfies the final audio initialization path, not only a debug page — PASSED
+
+<!-- beads-id: rev-qarpt-s36 -->
 Owner bucket: T2
 Command: `npm run test:e2e -- --project="Mobile Chrome - iPhone SE" e2e/practice-mode.spec.ts`
 Output snippet:
@@ -408,6 +482,8 @@ Validation evidence comes from the shipped `/practice?sheet=raga-bupali` route, 
 ```
 
 ### TC-T2-004: `raga-bupali` loads through the real shipped lazy-sheet path before playback is attempted — PASSED
+
+<!-- beads-id: rev-qarpt-s37 -->
 Owner bucket: T2
 Command: `npm run test:e2e -- e2e/practice-mode.spec.ts --project=chromium`
 Output snippet:
@@ -417,6 +493,8 @@ Output snippet:
 ```
 
 ### TC-T3-001: Docs describe current shipped `/practice` behavior, not an outdated or debug-only flow — PASSED
+
+<!-- beads-id: rev-qarpt-s38 -->
 Owner bucket: T3
 Command: `grep -RIn "/practice\|IPhonePlayerTestPage\|test-iphone-player\|raga-bupali" docs/context docs/records`
 Output snippet:
@@ -430,6 +508,8 @@ docs/records/dev-guide.md:22,98
 This file is the latest recorded QA evidence source for the current testing work. Pair it with `docs/specs/test-plan.md` for expected cases and `docs/context/tech-stack.md` / `docs/records/dev-guide.md` for tooling and workflow context.
 
 ### TC-T3-002: Docs record the final audio unlock/playback policy that matches the shipped fix — PASSED
+
+<!-- beads-id: rev-qarpt-s39 -->
 Owner bucket: T3
 Command: `grep -RIn "audio unlock\|Tone.start\|AudioContext\|abcjs\|useAudioStore\|audio-engine" docs/context docs/records`
 Output snippet:
@@ -440,6 +520,8 @@ docs/records/dev-guide.md:19-21
 ```
 
 ### TC-T3-003: Docs include the exact narrow-first verification commands and real-device expectation — PASSED
+
+<!-- beads-id: rev-qarpt-s40 -->
 Owner bucket: T3
 Command: `grep -RIn "npm run test -- --run src/stores/useAudioStore.test.ts src/services/audio-engine.test.ts\|npm run test:e2e -- e2e/practice-mode.spec.ts\|Mobile Chrome - iPhone SE\|real iOS device\|raga-bupali" docs/records docs/report docs/tests`
 Output snippet:
@@ -450,6 +532,8 @@ docs/records/dev-guide.md:98
 ```
 
 ### TC-T3-004: Final docs reflect only verified QA evidence and final behavior — PASSED
+
+<!-- beads-id: rev-qarpt-s41 -->
 Owner bucket: T3
 Command: `grep -RIn "PASS\|FAIL\|real-device\|practice-mode.spec.ts\|qa-report" docs/report docs/records docs/context`
 Output snippet:
@@ -459,6 +543,8 @@ docs/report/architecture-decisions.md:179,252
 ```
 
 ### TC-T2-005: Real iOS device can reproduce and then confirm the fix on the exact shipped URL — FAILED
+
+<!-- beads-id: rev-qarpt-s42 -->
 Owner bucket: QA environment/setup
 Command: manual on real iOS Safari: open `http://localhost:5504/practice?sheet=raga-bupali`
 Observed error:

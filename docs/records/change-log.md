@@ -1,6 +1,10 @@
 # Course Implementation History
 
+<!-- beads-id: doc-chlog -->
+
 ## Overview
+
+<!-- beads-id: doc-chlog-s1 -->
 
 This document tracks the implementation progress of the Music Theory Course feature across sessions.
 
@@ -8,7 +12,11 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ## Session 2 - January 23, 2026
 
+<!-- beads-id: doc-chlog-s2 -->
+
 ### Objectives Completed
+
+<!-- beads-id: doc-chlog-s3 -->
 
 1. **Lesson-Specific ABC Notation**
    - Added `overrideAbc` prop to `AbcGrandStaff.tsx`
@@ -25,9 +33,13 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ### Files Created
 
+<!-- beads-id: doc-chlog-s4 -->
+
 - `src/components/modules/NoteIdentificationQuiz.tsx`
 
 ### Files Modified
+
+<!-- beads-id: doc-chlog-s5 -->
 
 - `src/components/MusicStaff/AbcGrandStaff.tsx` (added `overrideAbc` prop)
 - `src/data/course-data.ts` (added `Exercise` interface, exercise configs)
@@ -35,13 +47,19 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ### Build Status
 
+<!-- beads-id: doc-chlog-s6 -->
+
 ✅ Passed (1602 modules)
 
 ---
 
 ## Session 1 - January 23, 2026
 
+<!-- beads-id: doc-chlog-s7 -->
+
 ### Objectives Completed
+
+<!-- beads-id: doc-chlog-s8 -->
 
 1. **Phase 1: Data Layer**
    - Created course curriculum with 5 modules, 26 submodules
@@ -57,6 +75,8 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ### Files Created
 
+<!-- beads-id: doc-chlog-s9 -->
+
 - `src/data/course-data.ts`
 - `src/stores/useProgressStore.ts`
 - `src/pages/SubmodulePage.tsx`
@@ -66,10 +86,14 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ### Files Modified
 
+<!-- beads-id: doc-chlog-s10 -->
+
 - `src/App.tsx`
 - `src/components/layout/Sidebar.tsx`
 
 ### Build Status
+
+<!-- beads-id: doc-chlog-s11 -->
 
 ✅ Passed
 
@@ -77,7 +101,11 @@ This document tracks the implementation progress of the Music Theory Course feat
 
 ## Future Sessions
 
+<!-- beads-id: doc-chlog-s12 -->
+
 ### Session 3 (Planned)
+
+<!-- beads-id: doc-chlog-s13 -->
 
 - IntervalQuiz component
 - ChordQuiz component

@@ -1,10 +1,16 @@
 # Refactoring plan — 2026-03
 
+<!-- beads-id: rev-rfp26 -->
+
 Phase 1 doc-auditor handoff file was not present at `/private/tmp/refactor-phase1.txt`, so this plan is based on repository inspection only.
 
 ## 1. Barrel exports
 
+<!-- beads-id: rev-rfp26-s1 -->
+
 ### Missing barrels in `src/components`
+
+<!-- beads-id: rev-rfp26-s2 -->
 
 Add `index.ts` files to these folders and re-export only the public entry points already imported across pages/routes:
 
@@ -27,6 +33,8 @@ Add `index.ts` files to these folders and re-export only the public entry points
 
 ### Missing barrels in feature/data/page folders
 
+<!-- beads-id: rev-rfp26-s3 -->
+
 - `src/features/game` and subfolders
 - `src/features/audio` and subfolders
 - `src/features/sao-truc` and subfolders
@@ -35,15 +43,21 @@ Add `index.ts` files to these folders and re-export only the public entry points
 
 ### Recommended rollout
 
+<!-- beads-id: rev-rfp26-s4 -->
+
 1. Add barrels at folder boundaries used by routes and pages first.
 2. Update imports in `src/App.tsx`, `src/pages/HomePage.tsx`, `src/pages/PracticePage.tsx`, `src/pages/ProfilePage.tsx`, `src/pages/ComposePage.tsx`.
 3. Keep deep relative imports inside tightly-coupled internals until move/rename work is done.
 
 ## 2. Feature co-location
 
+<!-- beads-id: rev-rfp26-s5 -->
+
 Several feature-specific components still live under generic `components/` even though matching domain logic already exists in `features/`.
 
 ### Highest-value moves
+
+<!-- beads-id: rev-rfp26-s6 -->
 
 - Move `src/components/GameLoop/FeedbackOverlay.tsx` into `src/features/game/components/` because it is imported directly by `src/pages/HomePage.tsx:4` and `src/pages/PracticePage.tsx:8` next to `GameOverlay` from the same feature.
 - Move `src/components/modules/Module12GameQuiz.tsx` and `src/components/modules/Module13GameQuiz.tsx` into `src/features/game/components/legacy/` or remove them after validating `src/components/game-shell/UniversalGameRouter.tsx:1` has fully replaced them.
@@ -54,12 +68,16 @@ Several feature-specific components still live under generic `components/` even 
 
 ### Structural target
 
+<!-- beads-id: rev-rfp26-s7 -->
+
 - `features/game`: orchestration, overlays, journey maps, game components
 - `features/notation`: ABC editor, staff rendering entry points, notation helpers
 - `features/instruments/guitar|piano|sao-truc`: instrument-specific rendering and interaction
 - `components/`: only layout, shared shells, generic UI primitives
 
 ## 3. Type safety gaps
+
+<!-- beads-id: rev-rfp26-s8 -->
 
 Top explicit-`any` offenders by count and cleanup priority:
 
@@ -76,6 +94,8 @@ Top explicit-`any` offenders by count and cleanup priority:
 
 ### Priority fixes
 
+<!-- beads-id: rev-rfp26-s9 -->
+
 - Replace platform casts in iPhone/audio test pages with small local interfaces.
 - Introduce a common game component prop type for `GAME_REGISTRY` instead of `ComponentType<any>`.
 - Tighten abcjs event typing in renderer/staff components.
@@ -83,9 +103,13 @@ Top explicit-`any` offenders by count and cleanup priority:
 
 ## 4. Dead code candidates
 
+<!-- beads-id: rev-rfp26-s10 -->
+
 These were checked with repo-wide symbol search before listing.
 
 ### Strong candidates
+
+<!-- beads-id: rev-rfp26-s11 -->
 
 - `src/components/modules/Module12GameQuiz.tsx` — exported, but no import sites found; `UniversalGameRouter` explicitly documents replacement.
 - `src/components/modules/Module13GameQuiz.tsx` — exported, but no import sites found; appears superseded by game-shell flow.
@@ -98,10 +122,14 @@ These were checked with repo-wide symbol search before listing.
 
 ### Needs validation before removal
 
+<!-- beads-id: rev-rfp26-s12 -->
+
 - `src/components/MusicStaff/StaffRangeVisualTest.tsx` is only lazy-loaded by `src/pages/HomePage.tsx:16-18`; keep if still needed for internal diagnostics, otherwise move behind a test route.
 - `src/App.css` is technically referenced by `src/App.tsx:5`, but all selectors appear to be Vite starter leftovers and unreferenced in JSX/CSS usage.
 
 ## 5. Bundle splitting
+
+<!-- beads-id: rev-rfp26-s13 -->
 
 Heavy dependencies already identified in source:
 
@@ -111,6 +139,8 @@ Heavy dependencies already identified in source:
 
 ### Recommended lazy boundaries
 
+<!-- beads-id: rev-rfp26-s14 -->
+
 - Wrap the ABC editor route so Monaco loads only on `/abc-editor`.
 - Lazy-load VexFlow-backed staff views for routes/panels that are initially collapsed or optional.
 - Lazy-load fretboard rendering and the dedicated fretboard test page.
@@ -118,13 +148,19 @@ Heavy dependencies already identified in source:
 
 ### Best first wins
 
+<!-- beads-id: rev-rfp26-s15 -->
+
 1. Monaco route split
 2. Fretboard test route split
 3. VexFlow components behind `React.lazy()` or dynamic import wrappers
 
 ## 6. CSS consolidation
 
+<!-- beads-id: rev-rfp26-s16 -->
+
 ### Immediate issues
+
+<!-- beads-id: rev-rfp26-s17 -->
 
 - `src/App.css` contains only starter-template selectors: `#root`, `.logo`, `logo-spin`, `.card`, `.read-the-docs`. They are imported in `src/App.tsx:5` but not matched elsewhere.
 - `src/index.css` duplicates touch target utilities:
@@ -135,26 +171,36 @@ Heavy dependencies already identified in source:
 
 ### Consolidation plan
 
+<!-- beads-id: rev-rfp26-s18 -->
+
 - Remove unused starter rules from `App.css`, then inline the surviving `#root` layout rule into `index.css` or `App.tsx` layout shell.
 - Collapse duplicate touch-target utilities into one source of truth.
 - Keep theme tokens near the top of `index.css`, utility classes after them, and feature-specific component CSS moved beside the owning component when not globally reusable.
 
 ## 7. Naming conventions
 
+<!-- beads-id: rev-rfp26-s19 -->
+
 Current naming mixes kebab-case directories/files with PascalCase component folders.
 
 ### Mixed folder examples
+
+<!-- beads-id: rev-rfp26-s20 -->
 
 - PascalCase folders: `src/components/MusicStaff`, `src/components/VirtualPiano`, `src/components/VirtualGuitar`, `src/components/GameLoop`
 - kebab-case folders: `src/components/game-shell`, `src/features/sao-truc`, `src/data/course-data`, `src/data/music-sheets`
 
 ### Recommendation
 
+<!-- beads-id: rev-rfp26-s21 -->
+
 - Use kebab-case for directories and non-component modules.
 - Use PascalCase only for React component filenames, not folders.
 - Normalize feature directories first (`MusicStaff` -> `music-staff`, `VirtualPiano` -> `virtual-piano`, `VirtualGuitar` -> `virtual-guitar`, `GameLoop` -> `game-loop`) and leave component filenames PascalCase.
 
 ## Execution order
+
+<!-- beads-id: rev-rfp26-s22 -->
 
 1. Remove confirmed dead exports and obsolete module quiz components.
 2. Add barrels for stable public folders.
@@ -165,6 +211,8 @@ Current naming mixes kebab-case directories/files with PascalCase component fold
 7. Rename folders to kebab-case after import churn settles.
 
 ## Risks
+
+<!-- beads-id: rev-rfp26-s23 -->
 
 - Barrel additions before dead-code cleanup can accidentally preserve obsolete APIs.
 - Folder renames will touch many imports; do them after boundaries stabilize.

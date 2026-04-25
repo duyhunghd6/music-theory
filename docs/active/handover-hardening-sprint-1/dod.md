@@ -1,8 +1,12 @@
 # Definition of Done — Handover Hardening Sprint 1
 
+<!-- beads-id: pln-spdod -->
+
 Status: synthesized from verified docs and repository state on 2026-03-25
 
 ## Global Definition of Done
+
+<!-- beads-id: pln-spdod-s1 -->
 
 The sprint is done only when all of the following are true:
 
@@ -17,7 +21,11 @@ The sprint is done only when all of the following are true:
 
 ## Task-specific DoD
 
+<!-- beads-id: pln-spdod-s2 -->
+
 ### T1 — Harden handover-critical E2E coverage
+
+<!-- beads-id: pln-spdod-s3 -->
 T1 is done when all of the following are true:
 
 1. Playwright coverage exists and runs for these handover-critical flows:
@@ -35,6 +43,8 @@ T1 is done when all of the following are true:
 5. Dev1 reports what was covered, what was stabilized, and which owned files changed.
 
 ### T2 — Fix blocking app bugs for handover
+
+<!-- beads-id: pln-spdod-s4 -->
 T2 is done when all of the following are true:
 
 1. The `saoTruc` vs `flute` runtime mismatch is resolved consistently in shipped code.
@@ -45,6 +55,8 @@ T2 is done when all of the following are true:
 6. Dev2 reports the exact bugs fixed, owned files changed, and tests run.
 
 ### T3 — Sync handover documentation to the final codebase state
+
+<!-- beads-id: pln-spdod-s5 -->
 T3 is done when all of the following are true:
 
 1. Docs are updated only after final code behavior from T1/T2 is known.
@@ -57,6 +69,8 @@ T3 is done when all of the following are true:
 4. Dev3 reports the docs updated and the code/test facts they were synchronized against.
 
 ## QA execution expectations
+
+<!-- beads-id: pln-spdod-s6 -->
 
 QA2 should verify the sprint with a narrow-first strategy before any broader reruns:
 
@@ -73,6 +87,8 @@ For every failure, QA2 must record:
 - whether the failure belongs to T1, T2, or T3 scope.
 
 ## Handover bar
+
+<!-- beads-id: pln-spdod-s7 -->
 
 This sprint is not handover-ready if any of the following remain true:
 

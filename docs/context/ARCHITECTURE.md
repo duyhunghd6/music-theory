@@ -1,15 +1,21 @@
 # Architecture
 
+<!-- beads-id: doc-arch -->
+
 Last updated: 2026-03-24
 Status: synced to current code
 
 ## Overview
+
+<!-- beads-id: doc-arch-s1 -->
 
 This app is a client-side React + TypeScript + Vite music theory course. It ships five curriculum modules from pitch fundamentals through harmony/composition, renders notation with both abcjs and VexFlow, uses Zustand for app state, persists learner progress locally with IndexedDB-backed storage, and optionally syncs progress to Supabase when environment variables are configured.
 
 The runtime entry point is `/Users/steve/duyhunghd6/music-theory/src/main.tsx`, which mounts `/Users/steve/duyhunghd6/music-theory/src/App.tsx`. Routing uses `BrowserRouter` and lazy-loaded pages for the heavier lesson and test surfaces.
 
 ## Runtime flow
+
+<!-- beads-id: doc-arch-s2 -->
 
 1. `src/main.tsx` mounts `App`.
 2. `src/App.tsx` initializes theme handling, bug-report interceptors, streak updates, and cloud progress bootstrap.
@@ -18,6 +24,8 @@ The runtime entry point is `/Users/steve/duyhunghd6/music-theory/src/main.tsx`, 
 5. Floating instrument UI and bug-report UI stay mounted globally.
 
 ## Current src tree
+
+<!-- beads-id: doc-arch-s3 -->
 
 ```text
 src/
@@ -59,19 +67,29 @@ src/
 
 ## Key architectural patterns
 
+<!-- beads-id: doc-arch-s4 -->
+
 ### 1. Data-driven curriculum
+
+<!-- beads-id: doc-arch-s5 -->
 
 The course is defined in `src/data/course-data/`. Each module exports typed submodules, and `src/data/course-data/index.ts` composes them into `COURSE_MODULES`. The current course has 5 modules and 30 submodules.
 
 ### 2. Progressive lesson reveal
 
+<!-- beads-id: doc-arch-s6 -->
+
 `/Users/steve/duyhunghd6/music-theory/src/components/modules/ProgressiveTheoryContent.tsx` parses lesson markdown-like content into sections and shortcode blocks (`abc`, `grandStaff`, `piano`, `guitar`, `flute`, `quiz`). Theory sections unlock progressively, section progress is persisted, and games/demos are revealed only after completion or temporary bypass.
 
 ### 3. Registry-driven games
 
+<!-- beads-id: doc-arch-s7 -->
+
 `/Users/steve/duyhunghd6/music-theory/src/data/game-registry.ts` defines reusable game types. `UniversalGameRouter` loads games lazily and writes results to progress storage. This registry is currently used by Module 1 lesson data; Modules 2-5 currently ship theory/ABC content but no registered `games` arrays.
 
 ### 4. Mixed notation stack
+
+<!-- beads-id: doc-arch-s8 -->
 
 The codebase uses both notation libraries:
 - `abcjs` for interactive ABC rendering and playback-oriented lesson widgets.
@@ -81,9 +99,13 @@ This is important because older docs describe VexFlow as the sole notation layer
 
 ### 5. Local-first progress with optional cloud sync
 
+<!-- beads-id: doc-arch-s9 -->
+
 `/Users/steve/duyhunghd6/music-theory/src/stores/useProgressStore.ts` persists progress through a custom IndexedDB storage adapter with localStorage fallback. The store subscribes to changes and schedules Supabase sync via `src/services/progress-sync.ts` only when `VITE_SUPABASE_URL` and `VITE_SUPABASE_TOKEN` are present.
 
 ## Module status snapshot
+
+<!-- beads-id: doc-arch-s10 -->
 
 | Module | Name | Submodules | Current status |
 | --- | --- | ---: | --- |
@@ -95,6 +117,8 @@ This is important because older docs describe VexFlow as the sole notation layer
 
 ## Verified implementation notes
 
+<!-- beads-id: doc-arch-s11 -->
+
 - Router is `react-router-dom` with `BrowserRouter`, not a separate route manifest.
 - The home route currently renders `ProfilePage`, while `/compose` renders `HomePage`.
 - The app gates test/debug routes behind `import.meta.env.DEV`; `/test-ui`, `/test-fretboard`, `/test-guitar-popup`, `/test-abc-notation`, `/test-iphone-player`, and `/test-games-m2` are development-only and are not mounted in shipped production builds.
@@ -105,6 +129,8 @@ This is important because older docs describe VexFlow as the sole notation layer
 - `src/pages/IPhonePlayerTestPage.tsx` remains a DEV-only diagnostics surface; current docs should treat it as reference material for iOS constraints, not as the shipped fix surface.
 
 ## Main drift from older docs
+
+<!-- beads-id: doc-arch-s12 -->
 
 1. The codebase is no longer organized around the old “5+1 tower” described in `docs/context/system-overview.md`.
 2. abcjs is a first-class notation/rendering path, not just VexFlow.
